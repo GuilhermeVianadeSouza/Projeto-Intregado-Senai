@@ -1,0 +1,31 @@
+/*******************************************************************************
+ * Objetivo: Arquivo responsável pelas rotas de cidadao
+ * Data: 26/11/2025
+ * Autor: Nathan
+ * Versão: 1.0
+ ******************************************************************************/
+
+// Import das bibliotecas da API
+const express = require('express')
+const cors = require('cors')
+const bodyParser = require('body-parser')
+
+const controllerCidadao = require('../controllers/cidadao/cidadao-controller.js')
+
+// Cria um objeto especialista no formato JSON para receber dados via POST e PUT
+const bodyParserJSON = bodyParser.json()
+
+// Cria o router que irá guardar as rotas
+const router = express.Router()
+
+/********************************** ENDPOINTS *********************************/
+
+// Obtém um cidadão por id
+router.get('/:id', cors(), async (request, response) => {
+    let idCidadao = request.params.id
+    let cidadao = await controllerCidadao.obterCidadaoPorId(idCidadao)
+
+    response.status(cidadao.status_code).json(cidadao)
+})
+
+module.exports = router
