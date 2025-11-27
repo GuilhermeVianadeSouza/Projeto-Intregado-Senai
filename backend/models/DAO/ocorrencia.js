@@ -11,7 +11,7 @@ const { PrismaClient } = require('../../generated/prisma')
 // Criação de um objeto do Client
 const prisma = new PrismaClient()
 
-export async function selecionarTodasOcorrencias() {
+async function selecionarTodasOcorrencias() {
     try {
         let sql = `SELECT * FROM tb_ocorrencia ORDER BY id DESC`
 
@@ -25,4 +25,8 @@ export async function selecionarTodasOcorrencias() {
     } catch (error) {
         return false
     }
+}
+
+module.exports = {
+    selecionarTodasOcorrencias
 }
