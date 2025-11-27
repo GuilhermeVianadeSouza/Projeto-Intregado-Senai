@@ -1,0 +1,43 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+nav {
+    background-color: #04A579;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav img {
+    height: 60px; 
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center; 
+}
+
+.navbar-profile {
+    display: flex;
+
+}
+
+.profile-img {
+    padding-right: 10px;
+}
+
+h1 {
+    
+}
