@@ -1,0 +1,5 @@
+{
+    "editor.formatOnSave": true, // Formatação automática ao salvar.
+    "files.trimTrailingWhitespace": true, // Remove espaços finais automaticamente ao salvar.
+    "files.insertFinalNewline": true // Adiciona uma linha final no arquivo.
+}
