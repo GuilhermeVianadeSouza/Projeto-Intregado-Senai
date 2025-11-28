@@ -84,7 +84,7 @@ body {
     background: #ffffff;
     margin: 18px;
     border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.22);
+    box-shadow: 0 6px 18px rgba(0.10,1,0,0.32);
     padding: 14px;
     max-width: 900px;
     margin-left: auto;
@@ -149,7 +149,7 @@ body {
     display: block;
 }
 
-/* Larger screens */
+
 @media (min-width: 720px) {
     .post {
         margin: 24px;
