@@ -13,16 +13,6 @@ nav {
     gap: 20px; 
 }
 
-.nav-left {
-    display: flex;
-    align-items: center;
-    gap: 15px; 
-}
-
-.nav-left img {
-    height: 50px;
-}
-
 .nav-filters {
     display: flex;
     align-items: center;
@@ -35,7 +25,6 @@ nav {
     padding: 8px 12px;
     border-radius: 5px;
     border: none;
-    font-family: "Inter", sans-serif;
     font-size: 0.9rem;
     background-color: #f0f0f0;
     width: 62%;
