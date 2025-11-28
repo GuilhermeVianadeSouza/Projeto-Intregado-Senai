@@ -69,3 +69,90 @@ footer {
     height: 50px;
 
 }
+
+.footer-icon img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+body {
+    padding-bottom: 90px; 
+}
+
+.post {
+    background: #ffffff;
+    margin: 18px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.22);
+    padding: 14px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.post-perfil {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.post-autor {
+    display: flex;
+    flex-direction: column;
+}
+
+.autor-nome {
+    font-weight: 700;
+    color: #222222;
+}
+
+.post-data {
+    font-size: 0.85rem;
+    color: #777777;
+}
+
+.post-titulo {
+    font-size: 1rem;
+    margin: 6px 0;
+    color: #111111;
+}
+
+.post-desc {
+    font-size: 0.95rem;
+    color: #333333;
+    margin-bottom: 8px;
+}
+
+.post-loc {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.post-media {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.post-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Larger screens */
+@media (min-width: 720px) {
+    .post {
+        margin: 24px;
+        padding: 18px;
+    }
+}
