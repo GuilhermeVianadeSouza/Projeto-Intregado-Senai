@@ -15,8 +15,9 @@
 </head>
 
 <body>
-    <nav>
-        <img src="./img/logo green.png" alt="">
+    <!-- NAV  -->
+    <nav id="nav-principal">
+        <img src="./img/logo green.png" alt="" class="logo-nav">
         <h1> Comunidade</h1>
         <div class="nav-filters">
             <select name="categoria" id="categoria-select">
@@ -43,86 +44,119 @@
     </nav>
 
     <main>
-        <section class="post">
-            <header class="post-header">
-                <img class="post-perfil" src="./img/profile img.png" alt="Perfil">
-                <div class="post-autor">
-                    <span class="autor-nome">Victor Hugo</span>
-                    <span class="post-data">22:07    27/11/2025</span>
-                </div>
-            </header>
-
-            <h2 class="post-titulo">Entulho na rua</h2>
-
-            <p class="post-desc">Rua com buracos, acúmulo de lixo e necessidade de manutenção urgente.</p>
-
-            <p class="post-loc"> Avenida Brasil 123, Carapicuiba-SP</p>
-
-            <div class="post-media">
-                <img class="post-img" src="./img/image 3.png" alt="Imagem do post">
-            </div>
-        </section>
         
-<section class="post">
-            <header class="post-header">
-                <img class="post-perfil" src="./img/profile img.png" alt="Perfil">
-                <div class="post-autor">
-                    <span class="autor-nome">Victor Hugo</span>
-                    <span class="post-data">22:07    27/11/2025</span>
+        <!-- ABA HOME (Comunidade) -->
+        <div id="aba-home" class="aba active">
+            <section class="post">
+                <header class="post-header">
+                    <img class="post-perfil" src="./img/profile img.png" alt="Perfil">
+                    <div class="post-autor">
+                        <span class="autor-nome">Victor Hugo</span>
+                        <span class="post-data">22:07    27/11/2025</span>
+                    </div>
+                </header>
+
+                <h2 class="post-titulo">Entulho na rua</h2>
+
+                <p class="post-desc">Rua com buracos, acúmulo de lixo e necessidade de manutenção urgente.</p>
+
+                <p class="post-loc"> Avenida Brasil 123, Carapicuiba-SP</p>
+
+                <div class="post-media">
+                    <img class="post-img" src="./img/image 3.png" alt="Imagem do post">
                 </div>
-            </header>
+            </section>
+            
+            <section class="post">
+                <header class="post-header">
+                    <img class="post-perfil" src="./img/profile img.png" alt="Perfil">
+                    <div class="post-autor">
+                        <span class="autor-nome">Maria Santos</span>
+                        <span class="post-data">15:30    26/11/2025</span>
+                    </div>
+                </header>
 
-            <h2 class="post-titulo">Entulho na rua</h2>
+                <h2 class="post-titulo">Iluminação Queimada</h2>
 
-            <p class="post-desc">Rua com buracos, acúmulo de lixo e necessidade de manutenção urgente.</p>
+                <p class="post-desc">Poste de iluminação pública quebrado há semanas, deixando a rua escura à noite.</p>
 
-            <p class="post-loc"> Avenida Brasil 123, Carapicuiba-SP</p>
+                <p class="post-loc"> Rua das Flores 456, Carapicuiba-SP</p>
 
-            <div class="post-media">
-                <img class="post-img" src="./img/image 3.png" alt="Imagem do post">
-            </div>
-        </section>
-        
-
-<section class="post">
-            <header class="post-header">
-                <img class="post-perfil" src="./img/profile img.png" alt="Perfil">
-                <div class="post-autor">
-                    <span class="autor-nome">Victor Hugo</span>
-                    <span class="post-data">22:07    27/11/2025</span>
+                <div class="post-media">
+                    <img class="post-img" src="./img/image 3.png" alt="Imagem do post">
                 </div>
-            </header>
+            </section>
+            
+            <section class="post">
+                <header class="post-header">
+                    <img class="post-perfil" src="./img/profile img.png" alt="Perfil">
+                    <div class="post-autor">
+                        <span class="autor-nome">João Costa</span>
+                        <span class="post-data">10:15    25/11/2025</span>
+                    </div>
+                </header>
 
-            <h2 class="post-titulo">Entulho na rua</h2>
+                <h2 class="post-titulo">Manutenção de Calçada</h2>
 
-            <p class="post-desc">Rua com buracos, acúmulo de lixo e necessidade de manutenção urgente.</p>
+                <p class="post-desc">Calçada com rachaduras e desnível que oferece risco de queda.</p>
 
-            <p class="post-loc"> Avenida Brasil 123, Carapicuiba-SP</p>
+                <p class="post-loc">Avenida Principal 789, Carapicuiba-SP</p>
 
-            <div class="post-media">
-                <img class="post-img" src="./img/image 3.png" alt="Imagem do post">
+                <div class="post-media">
+                    <img class="post-img" src="./img/image 3.png" alt="Imagem do post">
+                </div>
+            </section>
+        </div>
+
+        <!-- ABA CRIAR OCORRÊNCIA -->
+
+
+        <div id="aba-criar" class="aba">
+            <div class="form-container">
+                <h2>Criar Nova Ocorrência</h2>
+                <form id="form-ocorrencia">
+                    <label for="titulo">Título do Problema</label>
+                    <input type="text" id="titulo" placeholder="Ex: Buraco na rua" required>
+
+                    <label for="categoria">Categoria</label>
+                    <select id="categoria" required>
+                        <option value="">Selecione uma categoria</option>
+                        <option value="entulho">Entulho</option>
+                        <option value="manutencao">Manutenção</option>
+                        <option value="iluminacao">Iluminação</option>
+                    </select>
+
+                    <label for="descricao">Descrição</label>
+                    <textarea id="descricao" placeholder="Descreva o problema em detalhes..." required></textarea>
+
+                    <label for="localizacao">Localização</label>
+                    <input type="text" id="localizacao" placeholder="Rua, número, bairro..." required>
+
+                    <label for="imagem">Foto do Problema</label>
+                    <input type="file" id="imagem" accept="image/*">
+
+                    <button type="submit" class="btn-submit">Publicar Ocorrência</button>
+                </form>
             </div>
-        </section>
-        
-
-
-
-         
+        </div>
     </main>
 
+    <!-- Footer padrão  -->
     <footer>
          <div class="footer-nav">
-            <a href="#" class="footer-icon ">
+            <a href="#" class="footer-icon" id="btn-criar">
                 <img src="./img/btnAdd.png" alt="Adicionar">
             </a>
-            <a href="#" class="footer-icon">
+            <a href="#" class="footer-icon" id="btn-home">
                 <img src="./img/home.png" alt="Home">
             </a>
-            <a href="#" class="footer-icon ">
+            <a href="#" class="footer-icon" id="btn-perfil">
                 <img src="./img/profile icon.png" alt="Perfil">
             </a>
         </div>
     </footer>
+
+    <script src="./script.js"></script>
 </body>
 
 </html>
