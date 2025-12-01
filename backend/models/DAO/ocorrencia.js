@@ -11,21 +11,14 @@ const { PrismaClient } = require('../../generated/prisma')
 // Criação de um objeto do Client
 const prisma = new PrismaClient()
 
-async function selecionarStatusAtualPorIdOcorrencia(idOcorrencia) {
+async function selecionarDezOcorrenciasRecentes() {
     try {
-        const sql = `
-            SELECT s.nome, s.id, h.data_hora FROM tb_historico_status h JOIN
-                tb_status s ON h.id_status = s.id
-                WHERE h.id_ocorrencia = ${idOcorrencia}
-            ORDER BY
-                h.data_hora DESC
-            LIMIT 1
-        `
+        const sql = `SELECT * FROM tb_ocorrencia ORDER BY data_registro DESC LIMIT 10`
 
-        const status = await prisma.$queryRawUnsafe(sql)
+        const ocorrencias = await prisma.$queryRawUnsafe(sql)
 
-        if (Array.isArray(status))
-            return status
+        if (Array.isArray(ocorrencias))
+            return ocorrencias
         else
             return false
 
@@ -35,5 +28,5 @@ async function selecionarStatusAtualPorIdOcorrencia(idOcorrencia) {
 }
 
 module.exports = {
-    selecionarStatusAtualPorIdOcorrencia
+    selecionarDezOcorrenciasRecentes
 }
