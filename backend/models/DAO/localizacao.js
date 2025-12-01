@@ -15,13 +15,13 @@ async function selecionarLocalizacaoPorId(id) {
     try {
         const sql = `
             SELECT
-                l.id, l.cep, l.estado, l.cidade, l.bairro, l.rua, l.numero, l.complemento
+                l.*
             FROM
                 tb_localizacao l, tb_ocorrencia o
             WHERE
                 o.id_localizacao = l.id
             AND
-                l.id = ${id};
+                l.id = ${id}
         `
 
         const localizacao = await prisma.$queryRawUnsafe(sql)

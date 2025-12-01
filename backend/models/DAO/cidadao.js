@@ -27,6 +27,32 @@ async function selecionarCidadaoPorId(id) {
     }
 }
 
+async function selecionarCidadaoPorIdOcorrencia(idOcorrencia) {
+    try {
+        const sql = `
+            SELECT
+                c.*
+            FROM
+                tb_cidadao c, tb_ocorrencia o
+            WHERE
+                o.id_cidadao = c.id
+            AND
+                o.id_cidadao = ${idOcorrencia};
+        `
+
+        const cidadao = await prisma.$queryRawUnsafe(sql)
+
+        if (Array.isArray(cidadao))
+            return cidadao
+        else
+            return false
+
+    } catch (error) {
+        return false
+    }
+}
+
 module.exports = {
-    selecionarCidadaoPorId
+    selecionarCidadaoPorId,
+    selecionarCidadaoPorIdOcorrencia
 }

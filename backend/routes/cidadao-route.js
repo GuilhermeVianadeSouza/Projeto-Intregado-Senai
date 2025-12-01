@@ -24,4 +24,12 @@ router.get('/:id', cors(), async (request, response) => {
     response.status(cidadao.status_code).json(cidadao)
 })
 
+// Obtém um cidadão por id da ocorrência
+router.get('/ocorrencia/:id', cors(), async (request, response) => {
+    let idOcorrencia = request.params.id
+    let cidadao = await controllerCidadao.obterCidadaoPorIdOcorrencia(idOcorrencia)
+
+    response.status(cidadao.status_code).json(cidadao)
+})
+
 module.exports = router
