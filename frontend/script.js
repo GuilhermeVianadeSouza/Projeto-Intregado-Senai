@@ -14,9 +14,16 @@ buttonHome.addEventListener('click', () => {
 
 // Botão de perfil
 const buttonPerfil = document.getElementById('btn-perfil')
+
 buttonPerfil.addEventListener('click', () => {
+  
   showTab('aba-perfil')
 });
+
+const buttonNovaOcorrencia = document.getElementById('buttonNovaOcorrencia')
+buttonNovaOcorrencia.addEventListener('click', () => {
+  showTab('aba-criar')
+})
 
 
 
@@ -99,3 +106,5 @@ const btnVoltar = document.querySelector('.btn-voltar')
 btnEscolherLocalizacao.addEventListener('click', () => {
     popUpLocalizacao.classList.add('active')
 });
+
+

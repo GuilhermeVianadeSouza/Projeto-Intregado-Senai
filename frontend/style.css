@@ -276,6 +276,13 @@ nav h1 {
 }
 
 
+.popUp-localizacao-content {
+    background-color: #f0f0f0;
+    height: 40%;
+    width: 80%;
+}
+
+
 
 /* FOOTER */
 footer {
