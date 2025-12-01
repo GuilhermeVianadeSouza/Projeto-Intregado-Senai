@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Objetivo: Arquivo responsável pela centralização das confiugrações do express
+ * Objetivo: Arquivo responsável pela centralização das configurações do express
  *           e rotas da API
  * Data: 26/11/2025
  * Autor: Nathan
@@ -25,11 +25,13 @@ app.use((request, response, next) => {
 
 // Import de routes
 const cidadaoRoutes = require('./routes/cidadao-route.js')
-const multimidiaRoutes = require('./routes/ocorrencia-route.js')
+const multimidiaRoutes = require('./routes/multimidia-route.js')
+const localizacaoRoutes = require('./routes/localizacao-routes.js')
 
 // Utilização das rotas
 app.use('/v1/cidadao', cidadaoRoutes)
 app.use('/v1/ocorrencia', multimidiaRoutes)
+app.use('/v1/ocorrencia', localizacaoRoutes)
 
 app.listen(porta, () => {
     console.log(`API aguardando requisições na porta ${porta}!`)
