@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Objetivo: Arquivo responsável pelas rotas de localização
+ * Objetivo: Arquivo responsável pelas rotas de status
  * Data: 01/12/2025
  * Autor: Nathan
  * Versão: 1.0
@@ -9,19 +9,19 @@
 const express = require('express')
 const cors = require('cors')
 
-const controllerLocalizacao = require('../controllers/localizacao/localizacao-controller.js')
+const controllerStatus = require('../controllers/status/status-controller.js')
 
 // Cria o router que irá guardar as rotas
 const router = express.Router()
 
 /********************************** ENDPOINTS *********************************/
 
-// Obtém uma localização por id
-router.get('/localizacao/:id', cors(), async (request, response) => {
-    let id = request.params.id
-    let localizacao = await controllerLocalizacao.obterLocalizacaoPorId(id)
+// Obtém o status atual de uma ocorrência
+router.get('/ocorrencia/:id', cors(), async (request, response) => {
+    let idOcorrencia = request.params.id
+    let status = await controllerStatus.obterStatusAtualDeUmaOcorrencia(idOcorrencia)
 
-    response.status(localizacao.status_code).json(localizacao)
+    response.status(status.status_code).json(status)
 })
 
 module.exports = router
