@@ -20,17 +20,17 @@ async function obterMultimidiaPorIdOcorrencia(id) {
             return MESSAGES.ERROR_REQUIRED_FIELDS // 400 - Campos obrigatórios
         }
 
-        const cidadao = await cidadaoDAO.selecionarCidadaoPorId(Number(id))
+        const multimidia = await multimidiaDAO.selecionarUmaMultimidiaPorIdOcorrencia(Number(id))
 
-        if (!cidadao)
+        if (!multimidia)
             return MESSAGES.ERROR_INTERNAL_SERVER_MODEL // 500 - Model
 
-        if (cidadao.length <= 0)
+        if (multimidia.length <= 0)
             return MESSAGES.ERROR_NOT_FOUND // 404 - Não encontrado
 
         MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
         MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
-        MESSAGES.DEFAULT_HEADER.cidadao = cidadao
+        MESSAGES.DEFAULT_HEADER.multimidia = multimidia
 
         return MESSAGES.DEFAULT_HEADER
 

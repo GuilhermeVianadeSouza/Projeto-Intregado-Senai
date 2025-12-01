@@ -13,7 +13,7 @@ const prisma = new PrismaClient()
 
 async function selecionarUmaMultimidiaPorIdOcorrencia(idOcorrencia) {
     try {
-        let sql = `
+        const sql = `
             SELECT
                 id, link FROM tb_multimidia
             WHERE
@@ -21,7 +21,7 @@ async function selecionarUmaMultimidiaPorIdOcorrencia(idOcorrencia) {
             LIMIT 1
         `
 
-        let multimidia = await prisma.$queryRawUnsafe(sql)
+        const multimidia = await prisma.$queryRawUnsafe(sql)
 
         if (Array.isArray(multimidia))
             return multimidia

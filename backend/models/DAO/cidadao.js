@@ -13,9 +13,9 @@ const prisma = new PrismaClient()
 
 async function selecionarCidadaoPorId(id) {
     try {
-        let sql = `SELECT * FROM tb_cidadao WHERE id = ${id}`
+        const sql = `SELECT * FROM tb_cidadao WHERE id = ${id}`
 
-        let cidadao = await prisma.$queryRawUnsafe(sql)
+        const cidadao = await prisma.$queryRawUnsafe(sql)
 
         if (Array.isArray(cidadao))
             return cidadao
