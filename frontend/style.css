@@ -226,8 +226,8 @@ nav h1 {
 /* POPUPS */
 
 .popUp {
-    display: none;
-    position: fixed;
+    display: none; 
+    position: fixed; /* Outras propriedades para estilizar o pop-up */
     top: 0;
     left: 0;
     width: 100%;
@@ -235,6 +235,10 @@ nav h1 {
     background-color: rgba(0, 0, 0, 0.5);
     justify-content: center;
     align-items: center;
+}
+
+.popUp.active {
+    display: flex; /
 }
 
 .popUp-cancel {

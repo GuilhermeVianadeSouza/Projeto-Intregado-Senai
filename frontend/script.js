@@ -77,7 +77,7 @@ if (btnCancelar) {
 // Botão "Sim" no pop-up
 btnSim.addEventListener('click', () => {
     // Fecha o pop-up e limpa o formulário
-    popUpCancelar.style.display = 'none'
+    popUpCancelar.style.display = 'none' //oculta um elemento HTML
     const formOcorrencia = document.getElementById('form-ocorrencia')
     if (formOcorrencia) {
         formOcorrencia.reset()
@@ -88,16 +88,14 @@ btnSim.addEventListener('click', () => {
 // Botão "Não" no pop-up
 btnNao.addEventListener('click', () => {
     // Fecha o pop-up
-    popUp.style.display = 'none'
+    popUpCancelar.style.display = 'none'
 })
 
-// POP-UP LOCALIZAÇÃO
-const btnLocal = document.getElementById('btn-local')
-const popUpLocal= document.getElementById('popUp-localizacao')
 
-if (btnLocal) {
-    btnLocal.addEventListener('click', () => {
-        // Exibe o pop-up
-        popUpLocal.style.display = 'flex'
-    })
-}
+const btnEscolherLocalizacao = document.querySelector('.btn-local')
+const popUpLocalizacao = document.getElementById('popUp-localizacao')
+const btnVoltar = document.querySelector('.btn-voltar')
+
+btnEscolherLocalizacao.addEventListener('click', () => {
+    popUpLocalizacao.classList.add('active')
+});
