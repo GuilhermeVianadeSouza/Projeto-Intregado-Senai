@@ -134,17 +134,40 @@
                     </select>
 
                     <label for="descricao">Descrição</label>
-                    <textarea id="descricao" placeholder="Descreva o problema em detalhes..." required></textarea>
+                    <textarea id="descricao" placeholder="Descreva o problema em detalhes..."   ></textarea>
 
                     <label for="localizacao">Localização</label>
-                    <input type="text" id="localizacao" placeholder="Rua, número, bairro..." required>
+                    <button type="button" class="btn-local">Escolher localização</button>
+                  
 
                     <label for="imagem">Foto do Problema</label>
                     <input type="file" id="imagem" accept="image/*">
 
                     <button type="submit" class="btn-submit">Publicar Ocorrência</button>
+                    <button type="button" class="btn-cancelar">Cancelar</button>
                 </form>
             </div>
+        </div>
+
+
+        <!-- Aba dos popUps -->
+        <div id="popUp-cancelar" class="popUp">
+            <div class="popUp-cancel">
+                <p>Deseja realmente cancelar a publicação da ocorrência?</p>
+                <div class="popUp-buttons">
+                    <button id="btn-sim" class="btn-sim">Sim</button>
+                    <button id="btn-nao" class="btn-nao">Não</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="popUp-localizacao" class="popUp">
+            <div class="popUp-localizacao-content">
+                <h2>Selecionar Localização</h2>
+                <button>Meu Local</button>
+                <button>Escolher Manualmente</button>
+            </div>
+
         </div>
 
         <!-- ABA PERFIL  -->

@@ -60,3 +60,44 @@ if (formOcorrencia) {
   })
 }
 
+
+// POP-UP CANCELAR  
+const btnCancelar = document.querySelector('.btn-cancelar')
+const popUpCancelar = document.getElementById('popUp-cancelar')
+const btnSim = document.getElementById('btn-sim')
+const btnNao = document.getElementById('btn-nao')
+
+if (btnCancelar) {
+    btnCancelar.addEventListener('click', () => {
+        // Exibe o pop-up
+        popUpCancelar.style.display = 'flex'
+    })
+}
+
+// Botão "Sim" no pop-up
+btnSim.addEventListener('click', () => {
+    // Fecha o pop-up e limpa o formulário
+    popUpCancelar.style.display = 'none'
+    const formOcorrencia = document.getElementById('form-ocorrencia')
+    if (formOcorrencia) {
+        formOcorrencia.reset()
+    }
+    showTab('aba-home')
+})
+
+// Botão "Não" no pop-up
+btnNao.addEventListener('click', () => {
+    // Fecha o pop-up
+    popUp.style.display = 'none'
+})
+
+// POP-UP LOCALIZAÇÃO
+const btnLocal = document.getElementById('btn-local')
+const popUpLocal= document.getElementById('popUp-localizacao')
+
+if (btnLocal) {
+    btnLocal.addEventListener('click', () => {
+        // Exibe o pop-up
+        popUpLocal.style.display = 'flex'
+    })
+}
