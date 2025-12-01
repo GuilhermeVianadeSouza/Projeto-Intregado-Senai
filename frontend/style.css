@@ -43,35 +43,7 @@ nav h1 {
     width: 100%;
 }
 
-/* FOOTER */
-footer {
-    background-color: #353434;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 15px 20px;
-}
 
-.footer-nav {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-}
-
-.footer-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.footer-icon img {
-    width: 28px;
-    height: 28px;
-}
 
 /* ABAS */
 .aba {
@@ -82,9 +54,6 @@ footer {
     display: block;
 }
 
-#aba-criar #nav-principal {
-    display: none;
-}
 
 /* POSTS */
 .post {
@@ -194,7 +163,7 @@ footer {
 }
 
 .btn-submit {
-    background-color: #4CAF50;
+    background-color: #04A579;
     color: white;
     padding: 12px;
     border: none;
@@ -202,6 +171,74 @@ footer {
     font-weight: 600;
     font-size: 1rem;
 }
+
+
+
+/* Perfil */
+.perfil-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding-top: 3%;
+}
+
+.perfil-img {
+    width: 25%;
+}
+
+.perfil-container button {
+        background-color: #04A579;
+        color: white;
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        font-weight: 600;
+        font-size: 1rem;
+        width: 60%;
+}
+
+
+.btn-verOcorrencia {
+    padding-top: 100px;
+}
+
+
+/* FOOTER */
+footer {
+    background-color: #353434;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 15px 20px;
+}
+
+.footer-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.footer-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-icon img {
+    width: 28px;
+    height: 28px;
+}
+
+.perfil-loc {
+    max-width: 200px;
+}
+
+
 
 @media (min-width: 720px) {
     .post,

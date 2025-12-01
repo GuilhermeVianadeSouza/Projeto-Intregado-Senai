@@ -31,7 +31,7 @@ function showTab(tabId) {
     aba.classList.remove('active')
   });
   
-  // Pega a aba selecionada pelo ID
+  // pega a aba selecionada pelo ID tabID
   const abaAtiva = document.getElementById(tabId)
   
   // Adiciona a classe 'active' apenas na aba selecionada (mostra ela)
