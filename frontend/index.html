@@ -15,44 +15,44 @@
 </head>
 
 <body>
-    <!-- NAV  -->
-    <nav id="nav-principal">
-        <img src="./img/logo green.png" alt="" class="logo-nav">
-        <h1> Comunidade</h1>
-        <div class="nav-filters">
-            <select name="categoria" id="categoria-select">
-                <option value="" disabled selected>Categoria</option>
-                <option value="entulho">Entulho</option>
-                <option value="manutencao">Manutenção</option>
-                <option value=""></option>
-            </select>
-
-            <select name="data" id="data-select">
-                <option value="" disabled selected>Datas</option>
-                <option value="3dias">Últimos 3 dias</option>
-                <option value="semana">Última semana</option>
-                <option value="mes">Último mês</option>
-            </select>
-
-            <select name="status" id="status-select">
-                <option value="" disabled selected>Status</option>
-                <option value="pendente">Pendente</option>
-                <option value="andamento">Em andamento</option>
-                <option value="resolvido">Resolvido</option>
-            </select>
-        </div>
-    </nav>
 
     <main>
-        
+
         <!-- ABA HOME (Comunidade) -->
         <div id="aba-home" class="aba active">
+            <nav id="nav-principal">
+                <img src="./img/logo green.png" alt="" class="logo-nav">
+                <h1> Comunidade</h1>
+                <div class="nav-filters">
+                    <select name="categoria" id="categoria-select">
+                        <option value="" disabled selected>Categoria</option>
+                        <option value="entulho">Entulho</option>
+                        <option value="manutencao">Manutenção</option>
+                        <option value="teste">Teste</option>
+                    </select>
+        
+                    <select name="data" id="data-select">
+                        <option value="" disabled selected>Datas</option>
+                        <option value="3dias">Últimos 3 dias</option>
+                        <option value="semana">Última semana</option>
+                        <option value="mes">Último mês</option>
+                    </select>
+        
+                    <select name="status" id="status-select">
+                        <option value="" disabled selected>Status</option>
+                        <option value="pendente">Pendente</option>
+                        <option value="andamento">Em andamento</option>
+                        <option value="resolvido">Resolvido</option>
+                    </select>
+                </div>
+            </nav>
+
             <section class="post">
                 <header class="post-header">
                     <img class="post-perfil" src="./img/profile img.png" alt="Perfil">
                     <div class="post-autor">
                         <span class="autor-nome">Victor Hugo</span>
-                        <span class="post-data">22:07    27/11/2025</span>
+                        <span class="post-data">22:07 27/11/2025</span>
                     </div>
                 </header>
 
@@ -66,13 +66,13 @@
                     <img class="post-img" src="./img/image 3.png" alt="Imagem do post">
                 </div>
             </section>
-            
+
             <section class="post">
                 <header class="post-header">
                     <img class="post-perfil" src="./img/profile img.png" alt="Perfil">
                     <div class="post-autor">
                         <span class="autor-nome">Maria Santos</span>
-                        <span class="post-data">15:30    26/11/2025</span>
+                        <span class="post-data">15:30 26/11/2025</span>
                     </div>
                 </header>
 
@@ -86,13 +86,13 @@
                     <img class="post-img" src="./img/image 3.png" alt="Imagem do post">
                 </div>
             </section>
-            
+
             <section class="post">
                 <header class="post-header">
                     <img class="post-perfil" src="./img/profile img.png" alt="Perfil">
                     <div class="post-autor">
                         <span class="autor-nome">João Costa</span>
-                        <span class="post-data">10:15    25/11/2025</span>
+                        <span class="post-data">10:15 25/11/2025</span>
                     </div>
                 </header>
 
@@ -108,12 +108,19 @@
             </section>
         </div>
 
+
+
+
         <!-- ABA CRIAR OCORRÊNCIA -->
 
 
         <div id="aba-criar" class="aba">
+            <nav id="nav-principal">
+                <img src="./img/logo green.png" alt="" class="logo-nav">
+                <h1> Criar Nova Ocorrência </h1>
+            </nav>
+
             <div class="form-container">
-                <h2>Criar Nova Ocorrência</h2>
                 <form id="form-ocorrencia">
                     <label for="titulo">Título do Problema</label>
                     <input type="text" id="titulo" placeholder="Ex: Buraco na rua" required>
@@ -139,11 +146,28 @@
                 </form>
             </div>
         </div>
+
+        <!-- ABA PERFIL  -->
+        <div id="aba-perfil" class="aba">
+            <div>
+                <nav id="nav-principal">
+                    <img src="./img/logo green.png" alt="" class="logo-nav">
+                    <h1> Perfil </h1>
+                </nav>
+
+                <div class="perfil-container">
+                    <img src="./img/profile img.png" alt="Foto de Perfil" class="perfil-img">
+                    <h2 class="perfil-nome">Victor</h2>
+                    <p class="perfil-email">teste@exemplo.com</p>
+                    <p class="perfil-telefone">(11) 99999-9999</p>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Footer padrão  -->
     <footer>
-         <div class="footer-nav">
+        <div class="footer-nav">
             <a href="#" class="footer-icon" id="btn-criar">
                 <img src="./img/btnAdd.png" alt="Adicionar">
             </a>
