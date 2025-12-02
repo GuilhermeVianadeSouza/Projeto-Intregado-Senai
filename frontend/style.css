@@ -281,9 +281,38 @@ nav h1 {
 
 
 .popUp-localizacao-content {
-    background-color: #f0f0f0;
-    height: 40%;
-    width: 80%;
+    background-color: #fff;
+    width: 90%;
+    max-width: 400px; /* Max-width for larger screens */
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between items */
+    text-align: center;
+}
+
+.popUp-localizacao-content h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.popUp-localizacao-content button {
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    width: 100%;
+    background-color: #04A579;
+    color: white;
+}
+
+.popUp-localizacao-content button#Voltar {
+    background-color: #f44336; /* Red for cancel/back */
 }
 
 

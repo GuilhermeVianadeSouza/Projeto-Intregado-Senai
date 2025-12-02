@@ -99,12 +99,29 @@ btnNao.addEventListener('click', () => {
 })
 
 
-const btnEscolherLocalizacao = document.querySelector('.btn-local')
-const popUpLocalizacao = document.getElementById('popUp-localizacao')
-const btnVoltar = document.querySelector('.btn-voltar')
+// POP-UP LOCALIZAÇÃO
+const btnEscolherLocalizacao = document.querySelector('.btn-local');
+const popUpLocalizacao = document.getElementById('popUp-localizacao');
+const btnVoltarLocalizacao = document.getElementById('Voltar');
+const btnManual = document.getElementById('btn-manual');
+const btnAuto = document.getElementById('btn-auto');
 
-btnEscolherLocalizacao.addEventListener('click', () => {
-    popUpLocalizacao.classList.add('active')
-});
+// Função para fechar o pop-up de localização
+const fecharPopUpLocalizacao = () => {
+    popUpLocalizacao.classList.remove('active');
+};
+
+// Abre o pop-up ao clicar em "Escolher localização"
+if (btnEscolherLocalizacao) {
+    btnEscolherLocalizacao.addEventListener('click', () => {
+        popUpLocalizacao.classList.add('active');
+    });
+}
+
+// Fecha o pop-up ao clicar em "Voltar"
+if (btnVoltarLocalizacao) {
+    btnVoltarLocalizacao.addEventListener('click', fecharPopUpLocalizacao);
+}
+
 
 
