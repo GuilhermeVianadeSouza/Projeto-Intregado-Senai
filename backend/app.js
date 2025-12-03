@@ -25,10 +25,14 @@ app.use((request, response, next) => {
 
 // Import de routes
 const cidadaoRoutes = require('./routes/cidadao-route.js')
+
 const categoriaRoutes = require('./routes/categoria-route.js')
+
+const multimidiaRoutes = require('./routes/ocorrencia-route.js')
 
 // Utilização das rotas
 app.use('/v1/cidadao', cidadaoRoutes)
+app.use('/v1/ocorrencia', multimidiaRoutes)
 app.use('/v1/categoria', categoriaRoutes)
 
 app.listen(porta, () => {

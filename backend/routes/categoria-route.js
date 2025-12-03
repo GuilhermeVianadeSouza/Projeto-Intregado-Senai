@@ -21,8 +21,15 @@ const router = express.Router()
 
 router.get('/', cors(), async (request, response) => {
     let categorias = await categoriaController.obterTodasCategorias()
-    console.log(categorias)
+
     response.status(categorias.status_code).json(categorias)
+})
+
+router.get('/:id', cors(), async (request, response) => {
+    idCategoria = request.params.id
+
+    let categoria = await categoriaController.obterCategoriaPorId(idCategoria)
+    response.status(categoria.status_code).json(categoria)
 })
 
 module.exports = router

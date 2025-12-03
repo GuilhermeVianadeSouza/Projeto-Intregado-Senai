@@ -8,12 +8,8 @@
 // Import das bibliotecas da API
 const express = require('express')
 const cors = require('cors')
-const bodyParser = require('body-parser')
 
 const controllerCidadao = require('../controllers/cidadao/cidadao-controller.js')
-
-// Cria um objeto especialista no formato JSON para receber dados via POST e PUT
-const bodyParserJSON = bodyParser.json()
 
 // Cria o router que irá guardar as rotas
 const router = express.Router()
