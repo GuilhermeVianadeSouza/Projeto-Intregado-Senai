@@ -301,13 +301,13 @@ nav h1 {
 .popUp-localizacao-content {
     background-color: #fff;
     width: 90%;
-    max-width: 400px; /* Max-width for larger screens */
+    max-width: 400px; 
     padding: 25px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Space between items */
+    gap: 15px; 
     text-align: center;
 }
 
@@ -330,7 +330,7 @@ nav h1 {
 }
 
 .popUp-localizacao-content button#Voltar {
-    background-color: #f44336; /* Red for cancel/back */
+    background-color: #f44336; 
 }
 
 
@@ -370,12 +370,66 @@ footer {
 }
 
 
-
-@media (min-width: 720px) {
-
+@media (min-width: 768px) and (max-width: 1050px) {
     .post,
     .form-container {
         margin: 20px auto;
         max-width: 600px;
+    }
+
+    .footer-nav {
+        justify-content: center;
+        gap: 90px;
+    }
+    .footer-icon img{
+        width: 34px;
+        height: 34px;
+    }
+    .nav h1 {
+        font-size: 1.5rem;
+    }
+    .form-container label {
+        font-size: 1rem;
+    }
+    .form-container input, .form-container textarea, .form-container select {
+        font-size: 1rem;
+    }
+    .nav-filters {
+        width: 80%;
+    }
+    .post-perfil {
+        width: 55px;
+        height: 55px;
+    }
+    .post-titulo {
+        font-size: 1.1rem;
+    }
+    .autor-nome {
+        font-size: 1rem;
+    }
+    .post-data {
+        font-size: 0.9rem;
+    }
+
+    .post-desc {
+        font-size: 1rem;
+    }
+    .post-loc {
+        font-size: 0.9rem;
+    }
+
+@media (min-width: 1051px) {
+    nav {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .nav-filters {
+        flex-direction: row;
+        width: auto;
+    }
+
+    .nav-filters select {
+        width: auto;
     }
 }
