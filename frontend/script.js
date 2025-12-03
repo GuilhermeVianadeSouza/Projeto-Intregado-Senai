@@ -15,14 +15,20 @@ buttonHome.addEventListener('click', () => {
 // Botão de perfil
 const buttonPerfil = document.getElementById('btn-perfil')
 
+
 buttonPerfil.addEventListener('click', () => {
-  
+
   showTab('aba-perfil')
 });
 
 const buttonNovaOcorrencia = document.getElementById('buttonNovaOcorrencia')
 buttonNovaOcorrencia.addEventListener('click', () => {
   showTab('aba-criar')
+})
+
+const buttonVerOcorrencias = document.getElementById('btn-verOcorrencias')
+buttonVerOcorrencias.addEventListener('click', () => {
+  showTab('aba-minhasOcorrencias')
 })
 
 
@@ -32,22 +38,28 @@ buttonNovaOcorrencia.addEventListener('click', () => {
 function showTab(tabId) {
   // Pega todas as abas
   const todasAsAbas = document.querySelectorAll('.aba')
-  
+
   //  remove a classe 'active' (esconde)
   todasAsAbas.forEach(aba => {
     aba.classList.remove('active')
   });
-  
+
   // pega a aba selecionada pelo ID tabID
   const abaAtiva = document.getElementById(tabId)
-  
+
   // Adiciona a classe 'active' apenas na aba selecionada (mostra ela)
   abaAtiva.classList.add('active')
-  
+
   // Pega o elemento do nav (barra de filtros)
   const nav = document.getElementById('nav-principal')
-  
+
 }
+
+
+const escolherLocalizacao = document.getElementById('btn-manual')
+escolherLocalizacao.addEventListener('click', () => {
+  showTab('aba-escolherLocal')
+})
 
 
 
@@ -59,7 +71,7 @@ if (formOcorrencia) {
   // clicou no botão enviar
   formOcorrencia.addEventListener('submit', (evento) => {
     alert('Ocorrência publicada!')
-    
+
     // limpa todos os campos 
     formOcorrencia.reset()
     // quando enviar a ocorrencia volta para a aba de home
@@ -75,27 +87,27 @@ const btnSim = document.getElementById('btn-sim')
 const btnNao = document.getElementById('btn-nao')
 
 if (btnCancelar) {
-    btnCancelar.addEventListener('click', () => {
-        // Exibe o pop-up
-        popUpCancelar.style.display = 'flex'
-    })
+  btnCancelar.addEventListener('click', () => {
+    // Exibe o pop-up
+    popUpCancelar.style.display = 'flex'
+  })
 }
 
 // Botão "Sim" no pop-up
 btnSim.addEventListener('click', () => {
-    // Fecha o pop-up e limpa o formulário
-    popUpCancelar.style.display = 'none' //oculta um elemento HTML
-    const formOcorrencia = document.getElementById('form-ocorrencia')
-    if (formOcorrencia) {
-        formOcorrencia.reset()
-    }
-    showTab('aba-home')
+  // Fecha o pop-up e limpa o formulário
+  popUpCancelar.style.display = 'none' //oculta um elemento HTML
+  const formOcorrencia = document.getElementById('form-ocorrencia')
+  if (formOcorrencia) {
+    formOcorrencia.reset()
+  }
+  showTab('aba-home')
 })
 
 // Botão "Não" no pop-up
 btnNao.addEventListener('click', () => {
-    // Fecha o pop-up
-    popUpCancelar.style.display = 'none'
+  // Fecha o pop-up
+  popUpCancelar.style.display = 'none'
 })
 
 
@@ -108,19 +120,19 @@ const btnAuto = document.getElementById('btn-auto');
 
 // Função para fechar o pop-up de localização
 const fecharPopUpLocalizacao = () => {
-    popUpLocalizacao.classList.remove('active');
+  popUpLocalizacao.classList.remove('active');
 };
 
 // Abre o pop-up ao clicar em "Escolher localização"
 if (btnEscolherLocalizacao) {
-    btnEscolherLocalizacao.addEventListener('click', () => {
-        popUpLocalizacao.classList.add('active');
-    });
+  btnEscolherLocalizacao.addEventListener('click', () => {
+    popUpLocalizacao.classList.add('active');
+  });
 }
 
 // Fecha o pop-up ao clicar em "Voltar"
 if (btnVoltarLocalizacao) {
-    btnVoltarLocalizacao.addEventListener('click', fecharPopUpLocalizacao);
+  btnVoltarLocalizacao.addEventListener('click', fecharPopUpLocalizacao);
 }
 
 

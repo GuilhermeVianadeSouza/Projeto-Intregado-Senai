@@ -123,6 +123,24 @@ nav h1 {
     display: block;
 }
 
+.verPost-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+    background-color: white;
+}
+
+.aba-verPost  {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #00000090;
+    padding: 20px;
+}
+
 /* Formulario */
 .form-container {
     background: white;
