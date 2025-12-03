@@ -38,6 +38,21 @@ async function obterLocalizacaoPorId(id) {
     }
 }
 
+async function registrarLocalizacao(localizacao, contentType) {
+    let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
+    try {
+
+    } catch (error) {
+        return MESSAGES.ERROR_INTERNAL_SERVER_CONTROLLER
+    }
+}
+
+async function validarDadosLocalizacao(localizacao) {
+    let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
+
+    if (!isNaN(localizacao.cep))
+}
+
 module.exports = {
     obterLocalizacaoPorId
 }

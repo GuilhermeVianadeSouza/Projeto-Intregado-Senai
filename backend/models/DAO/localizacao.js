@@ -27,6 +27,38 @@ async function selecionarLocalizacaoPorID(id) {
     }
 }
 
+async function inserirLocalizacao(localizacao) {
+    try {
+        const sql = `INSERT INTO tb_localizacao(
+        cep,
+        estado,
+        cidade,
+        bairro,
+        rua,
+        numero,
+        complemento
+        )
+        VALUES(
+        '${localizacao.cep}',
+        '${localizacao.estado}',
+        '${localizacao.cidade}',
+        '${localizacao.bairro}',
+        '${localizacao.rua}',
+        '${localizacao.numero}',
+        '${localizacao.complemento}'
+        )`
+
+        const result = await prisma.$queryRawUnsafe(sql)
+        if (result)
+            return true
+        else
+            return false
+    } catch (error) {
+        return false
+    }
+}
+
 module.exports = {
-    selecionarLocalizacaoPorID
+    selecionarLocalizacaoPorID,
+    inserirLocalizacao
 }
