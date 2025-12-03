@@ -58,7 +58,8 @@ function showTab(tabId) {
 
 const escolherLocalizacao = document.getElementById('btn-manual')
 escolherLocalizacao.addEventListener('click', () => {
-  showTab('aba-escolherLocal')
+  showTab('aba-escolherLocal');
+  fecharPopUpLocalizacao();
 })
 
 
@@ -134,6 +135,3 @@ if (btnEscolherLocalizacao) {
 if (btnVoltarLocalizacao) {
   btnVoltarLocalizacao.addEventListener('click', fecharPopUpLocalizacao);
 }
-
-
-

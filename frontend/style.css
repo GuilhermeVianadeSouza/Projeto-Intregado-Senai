@@ -385,8 +385,8 @@ footer {
         width: 34px;
         height: 34px;
     }
-    .nav h1 {
-        font-size: 1.5rem;
+    nav h1 {
+        font-size: 1.8rem;
     }
     .form-container label {
         font-size: 1rem;
@@ -426,6 +426,15 @@ footer {
     }
     .popUp-cancel p {
         font-size: 1.1rem;
+    }
+    .perfil-img {
+        width: 18%;
+    }
+    .perfil-container button {
+        font-size: 1.1rem;
+    }
+    .perfil-nome {
+        font-size: 1.7rem;
     }
 }
 
