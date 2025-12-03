@@ -7,14 +7,13 @@
 
 body {
     padding-bottom: 90px;
+    background-color: #f5f5f5;
 }
 
 /* NAV */
 nav {
-    padding: 15px 20px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
     align-items: center;
 }
 
@@ -25,6 +24,9 @@ nav .logo-nav {
 
 nav h1 {
     font-size: 1.3rem;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 20px;
 }
 
 .nav-filters {
@@ -32,28 +34,39 @@ nav h1 {
     flex-direction: column;
     gap: 10px;
     width: 100%;
+    padding: 15px 20px;
 }
 
 .nav-filters select {
     padding: 10px;
     border-radius: 5px;
-    border: none;
+    border: 1px solid #ddd;
     font-size: 0.9rem;
     background-color: #f0f0f0;
     width: 100%;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
+.nav-filters select:hover {
+    background-color: #e8e8e8;
+}
 
+.nav-filters select:focus {
+    outline: none;
+    border-color: #04A579;
+    box-shadow: 0 0 5px rgba(4, 165, 121, 0.3);
+}
 
 /* ABAS */
 .aba {
     display: none;
+    animation: fadeIn 0.3s ease-in;
 }
 
 .aba.active {
     display: block;
 }
-
 
 /* POSTS */
 .post {
@@ -62,6 +75,12 @@ nav h1 {
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.post:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
 }
 
 .post-header {
@@ -75,17 +94,20 @@ nav h1 {
     height: 45px;
     border-radius: 50%;
     object-fit: cover;
+    flex-shrink: 0;
 }
 
 .post-autor {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    flex: 1;
 }
 
 .autor-nome {
     font-weight: 600;
     font-size: 0.95rem;
+    color: #333;
 }
 
 .post-data {
@@ -97,6 +119,7 @@ nav h1 {
     font-size: 1rem;
     font-weight: 600;
     margin: 10px 0;
+    color: #333;
 }
 
 .post-desc {
@@ -109,12 +132,14 @@ nav h1 {
 .post-loc {
     font-size: 0.85rem;
     margin-bottom: 12px;
+    font-weight: 500;
 }
 
 .post-media {
     width: 100%;
     border-radius: 6px;
     overflow: hidden;
+    margin-top: 10px;
 }
 
 .post-img {
@@ -131,7 +156,7 @@ nav h1 {
     background-color: white;
 }
 
-.aba-verPost  {
+.aba-verPost {
     position: fixed;
     top: 0;
     left: 0;
@@ -154,6 +179,7 @@ nav h1 {
     font-size: 1.2rem;
     margin-bottom: 15px;
     font-weight: 600;
+    color: #333;
 }
 
 .form-container form {
@@ -165,6 +191,7 @@ nav h1 {
 .form-container label {
     font-weight: 600;
     font-size: 0.9rem;
+    color: #333;
 }
 
 .form-container input,
@@ -173,11 +200,22 @@ nav h1 {
     padding: 10px;
     border: 1px solid #ddd;
     font-size: 0.9rem;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.form-container input:focus,
+.form-container textarea:focus,
+.form-container select:focus {
+    outline: none;
+    border-color: #04A579;
+    box-shadow: 0 0 5px rgba(4, 165, 121, 0.3);
 }
 
 .form-container textarea {
     resize: vertical;
     min-height: 100px;
+    font-family: "Inter", sans-serif;
 }
 
 .btn-submit {
@@ -188,19 +226,38 @@ nav h1 {
     border-radius: 5px;
     font-weight: 600;
     font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #038a63;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(4, 165, 121, 0.3);
+}
+
+.btn-submit:active {
+    transform: translateY(0);
 }
 
 .btn-cancelar {
-    width: 40%;
+    width: 80%;
     background-color: #ffffff;
     color: #333;
     font-weight: 600;
     font-size: 1rem;
     cursor: pointer;
-    border: none;
+    border: 1px solid #ddd;
     margin: 0 auto;
+    border-radius: 5px;
+    padding: 12px;
+    transition: all 0.3s ease;
 }
 
+.btn-cancelar:hover {
+    background-color: #f0f0f0;
+    border-color: #999;
+}
 
 /* Perfil */
 .perfil-container {
@@ -209,14 +266,35 @@ nav h1 {
     align-items: center;
     gap: 10px;
     padding-top: 3%;
+    background: white;
+    margin: 15px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.perfil-telefone{
-    margin-bottom: 40px;
+.perfil-telefone {
+    color: #555;
 }
 
 .perfil-img {
     width: 25%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.perfil-nome {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+    margin-top: 10px;
+}
+
+.perfil-loc,
+.perfil-email {
+    color: #555;
+    font-size: 0.95rem;
+    text-align: center;
 }
 
 .perfil-container button {
@@ -227,29 +305,44 @@ nav h1 {
     border-radius: 5px;
     font-weight: 600;
     font-size: 1rem;
-    width: 60%;
+    width: 75%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.perfil-container button:hover {
+    background-color: #038a63;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(4, 165, 121, 0.3);
 }
 
 .btn-verOcorrencia {
     padding-top: 100px;
 }
 
-.btn-local{
+.btn-local {
     background-color: #f0f0f0;
     color: #333;
     font-weight: 500;
     font-size: 1rem;
     cursor: pointer;
-    border: none;
+    border: 1px solid #ddd;
     padding: 12px;
     border-radius: 5px;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.btn-local:hover {
+    background-color: #e8e8e8;
+    border-color: #04A579;
 }
 
 /* POPUPS */
-
 .popUp {
-    display: none; 
-    position: fixed; /* Outras propriedades para estilizar o pop-up */
+    display: none;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -257,25 +350,36 @@ nav h1 {
     background-color: rgba(0, 0, 0, 0.5);
     justify-content: center;
     align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-in;
 }
 
 .popUp.active {
-    display: flex; /
+    display: flex;
 }
 
 .popUp-cancel {
     background-color: #fff;
     width: 90%;
+    max-width: 400px;
     padding: 20px;
     border-radius: 8px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.popUp-cancel p {
+    color: #333;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
 .popUp-buttons {
     margin-top: 20px;
     display: flex;
     justify-content: space-around;
+    gap: 10px;
 }
 
 .popUp-buttons .btn-sim,
@@ -285,6 +389,9 @@ nav h1 {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    flex: 1;
 }
 
 .popUp-buttons .btn-sim {
@@ -292,25 +399,41 @@ nav h1 {
     color: white;
 }
 
+.popUp-buttons .btn-sim:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
+
 .popUp-buttons .btn-nao {
     background-color: #f44336;
     color: white;
 }
 
+.popUp-buttons .btn-nao:hover {
+    background-color: #da190b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(244, 67, 54, 0.3);
+}
+
 .popUp-localizacao-content button#Voltar {
-    background-color: #f44336; 
+    background-color: #f44336;
+}
+
+.popUp-localizacao-content button#Voltar:hover {
+    background-color: #da190b;
 }
 
 .popUp-localizacao-content {
     background-color: #fff;
     width: 90%;
-    max-width: 400px; 
+    max-width: 400px;
     padding: 25px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
-    gap: 15px; 
+    gap: 15px;
     text-align: center;
 }
 
@@ -318,6 +441,7 @@ nav h1 {
     font-size: 1.2rem;
     font-weight: 600;
     margin-bottom: 10px;
+    color: #333;
 }
 
 .popUp-localizacao-content button {
@@ -330,19 +454,18 @@ nav h1 {
     width: 100%;
     background-color: #04A579;
     color: white;
+    transition: all 0.3s ease;
 }
 
-
-.form-container {
-    display: flex;
-    flex-direction: column; 
-    gap: 15px;
-    padding: 20px; 
-    box-sizing: border-box; 
+.popUp-localizacao-content button:hover {
+    background-color: #038a63;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(4, 165, 121, 0.3);
 }
 
 .inputbox {
     position: relative;
+    margin-bottom: 5px;
 }
 
 .inputbox input {
@@ -350,6 +473,14 @@ nav h1 {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.inputbox input:focus {
+    outline: none;
+    border-color: #04A579;
+    box-shadow: 0 0 5px rgba(4, 165, 121, 0.3);
 }
 
 .inputbox label {
@@ -360,21 +491,18 @@ nav h1 {
     color: #999;
     transition: 0.2s;
     pointer-events: none;
+    font-size: 0.9rem;
 }
-
 
 .inputbox input:focus ~ label,
 .inputbox input:valid ~ label {
     top: -10px;
     left: 10px;
     font-size: 12px;
-    background-color: white; 
+    background-color: white;
     padding: 0 5px;
-    color: #000;
+    color: #04A579;
 }
-
-
-
 
 /* FOOTER */
 footer {
@@ -384,6 +512,7 @@ footer {
     left: 0;
     right: 0;
     padding: 15px 20px;
+    z-index: 100;
 }
 
 .footer-nav {
@@ -399,15 +528,34 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.footer-icon:hover {
+    background-color: #038a63;
+    transform: scale(1.1);
 }
 
 .footer-icon img {
     width: 28px;
     height: 28px;
+    filter: brightness(0) invert(1);
 }
 
 .perfil-loc {
     max-width: 200px;
+}
+
+/* Checkbox styling */
+input[type="checkbox"] {
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+input[type="checkbox"] + label {
+    cursor: pointer;
+    user-select: none;
 }
 
 
@@ -479,18 +627,144 @@ footer {
     }
 }
 
+
+/* Desktop */
 @media (min-width: 1051px) {
     nav {
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-between;
+        align-items: center;
+        padding: 5px 30px;
+    }
+
+    nav .logo-nav {
+        width: 130px;
+    }
+
+    nav h1 {
+        font-size: 1.5rem;
+        flex: 1;
+        text-align: center;
     }
 
     .nav-filters {
         flex-direction: row;
         width: auto;
+        gap: 15px;
     }
 
     .nav-filters select {
         width: auto;
+        min-width: 150px;
+        padding: 10px 12px;
+    }
+
+    .post,
+    .form-container {
+        margin: 20px auto;
+        max-width: 700px;
+        padding: 20px;
+    }
+
+    .post:hover {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .post-perfil {
+        width: 55px;
+        height: 55px;
+    }
+
+    .post-titulo {
+        font-size: 1.1rem;
+    }
+
+    .post-desc {
+        font-size: 0.95rem;
+    }
+
+    .form-container label {
+        font-size: 1rem;
+    }
+
+    .form-container input,
+    .form-container textarea,
+    .form-container select {
+        padding: 11px;
+        font-size: 1rem;
+    }
+
+    .btn-submit,
+    .btn-local {
+        padding: 12px;
+        font-size: 1rem;
+    }
+
+    .perfil-container {
+        margin: 20px auto;
+        max-width: 600px;
+        padding: 30px;
+    }
+
+    .perfil-img {
+        width: 18%;
+    }
+
+    .perfil-nome {
+        font-size: 1.8rem;
+    }
+
+    .perfil-container button {
+        width: 60%;
+        font-size: 1.05rem;
+    }
+
+    .popUp-cancel {
+        width: 70%;
+        max-width: 450px;
+    }
+
+    .popUp-cancel p {
+        font-size: 1.1rem;
+    }
+
+    .popUp-buttons {
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .popUp-buttons .btn-sim,
+    .popUp-buttons .btn-nao {
+        padding: 12px 50px;
+        font-size: 1rem;
+    }
+
+    .popUp-localizacao-content {
+        width: 70%;
+        max-width: 450px;
+    }
+
+    .popUp-localizacao-content button {
+        padding: 13px;
+        font-size: 1.05rem;
+    }
+
+    .footer-nav {
+        justify-content: center;
+        gap: 100px;
+    }
+
+    .footer-icon {
+        width: 55px;
+        height: 55px;
+    }
+
+    .footer-icon img {
+        width: 32px;
+        height: 32px;
+    }
+
+    body {
+        padding-bottom: 100px;
     }
 }
