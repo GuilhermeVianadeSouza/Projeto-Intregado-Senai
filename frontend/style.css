@@ -334,31 +334,11 @@ nav h1 {
 
 
 .form-container {
-    padding: 20px; 
-    box-sizing: border-box; 
-}
-
-#form-ocorrencia,
-#aba-escolherLocal .form-container {
     display: flex;
     flex-direction: column; 
     gap: 15px;
-}
-
-.form-container input[type="text"],
-.form-container select,
-.form-container textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    box-sizing: border-box;
-}
-
-.form-container textarea {
-    min-height: 120px;
-    resize: vertical;
+    padding: 20px; 
+    box-sizing: border-box; 
 }
 
 .inputbox {
