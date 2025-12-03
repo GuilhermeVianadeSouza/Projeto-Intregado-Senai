@@ -11,9 +11,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
         rel="stylesheet">
-        <link rel="icon" type="image/png" sizes="16x16"  href="./img/favicon-16x16.png">
-        <meta name="msapplication-TileColor" content="#ffffff">
-        <meta name="theme-color" content="#ffffff">
+    <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
     <script src="script.js" defer></script>
 </head>
 
@@ -33,14 +33,14 @@
                         <option value="manutencao">Manutenção</option>
                         <option value="teste">Teste</option>
                     </select>
-        
+
                     <select name="data" id="data-select">
                         <option value="" disabled selected>Datas</option>
                         <option value="3dias">Últimos 3 dias</option>
                         <option value="semana">Última semana</option>
                         <option value="mes">Último mês</option>
                     </select>
-        
+
                     <select name="status" id="status-select">
                         <option value="" disabled selected>Status</option>
                         <option value="pendente">Pendente</option>
@@ -113,7 +113,7 @@
 
 
         <!-- Aba para visualizar do post  -->
-         <!-- <div id="aba-verPost" class="aba-verPost">
+        <!-- <div id="aba-verPost" class="aba-verPost">
             <div class="verPost-container">
                 <h1>teste</h1>
                 <div>
@@ -162,11 +162,11 @@
                     </select>
 
                     <label for="descricao">Descrição</label>
-                    <textarea id="descricao" placeholder="Descreva o problema em detalhes..."   ></textarea>
+                    <textarea id="descricao" placeholder="Descreva o problema em detalhes..."></textarea>
 
                     <label for="localizacao">Localização</label>
                     <button type="button" class="btn-local">Escolher localização</button>
-                  
+
 
                     <label for="imagem">Foto do Problema</label>
                     <input type="file" id="imagem" accept="image/*">
@@ -201,46 +201,46 @@
 
 
         <!-- aba escolher manualmente  -->
-         <div>
+        <div>
             <div id="aba-escolherLocal" class="aba ">
                 <nav id="nav-principal">
                     <img src="./img/logo green.png" alt="" class="logo-nav">
                     <h1> Escolher Localização </h1>
                 </nav>
 
-                <div class="row">
+                <div class="form-container">
                     <div class="inputbox">
-                        <input type="text" id="cep"  required>
-                        <label for="cep">CEP</label>
+                        <input type="text" id="CEP" required>
+                        <label for="CEP">CEP</label>
                     </div>
                     <div class="inputbox">
-                        <input type="text" id="endereco"  required>
+                        <input type="text" id="endereco" required>
                         <label for="endereco">Endereço</label>
                     </div>
                     <div class="inputbox">
-                        <input type="text" id="numero"  required>
+                        <input type="text" id="numero" required>
                         <label for="numero">Número</label>
                     </div>
                     <div class="inputbox">
-                        <input type="text" id="bairro"  required>
+                        <input type="text" id="bairro" required>
                         <label for="bairro">Bairro</label>
                     </div>
                     <div class="inputbox">
-                        <input type="text" id="cidade"  required>
+                        <input type="text" id="cidade" required>
                         <label for="cidade">Cidade</label>
                     </div>
                     <div class="inputbox">
-                        <input type="text" id="estado"  required>
+                        <input type="text" id="estado" required>
                         <label for="estado">Estado</label>
                     </div>
-                </div>
-                <div class="row">
-                    <button id="btn">Salvar</button>
-                    <button id="Voltar"> Voltar </button>
+                    <button type="submit" class="btn-submit">Continuar </button>
+                    <button type="button" class="btn-cancelar">Cancelar</button>
+
                 </div>
 
+
             </div>
-         </div>
+        </div>
 
 
         <!-- ABA PERFIL  -->
@@ -265,7 +265,7 @@
         </div>
 
         <!-- Aba Minhas ocorrencias  -->
-         <div id="aba-minhasOcorrencias" class="aba">
+        <div id="aba-minhasOcorrencias" class="aba">
             <div>
                 <nav id="nav-principal">
                     <img src="./img/logo green.png" alt="" class="logo-nav">
@@ -280,13 +280,13 @@
                             <span class="post-data">22:07 27/11/2025</span>
                         </div>
                     </header>
-    
+
                     <h2 class="post-titulo">Entulho na rua</h2>
-    
+
                     <p class="post-desc">Rua com buracos, acúmulo de lixo e necessidade de manutenção urgente.</p>
-    
+
                     <p class="post-loc"> Avenida Brasil 123, Carapicuiba-SP</p>
-    
+
                     <div class="post-media">
                         <img class="post-img" src="./img/image 3.png" alt="Imagem do post">
                     </div>
@@ -299,19 +299,19 @@
                             <span class="post-data">22:07 27/11/2025</span>
                         </div>
                     </header>
-    
+
                     <h2 class="post-titulo">Entulho na rua</h2>
-    
+
                     <p class="post-desc">Rua com buracos, acúmulo de lixo e necessidade de manutenção urgente.</p>
-    
+
                     <p class="post-loc"> Avenida Brasil 123, Carapicuiba-SP</p>
-    
+
                     <div class="post-media">
                         <img class="post-img" src="./img/image 3.png" alt="Imagem do post">
                     </div>
                 </section>
             </div>
-         </div>
+        </div>
 
     </main>
 

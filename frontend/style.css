@@ -297,6 +297,9 @@ nav h1 {
     color: white;
 }
 
+.popUp-localizacao-content button#Voltar {
+    background-color: #f44336; 
+}
 
 .popUp-localizacao-content {
     background-color: #fff;
@@ -329,9 +332,67 @@ nav h1 {
     color: white;
 }
 
-.popUp-localizacao-content button#Voltar {
-    background-color: #f44336; 
+
+.form-container {
+    padding: 20px; 
+    box-sizing: border-box; 
 }
+
+#form-ocorrencia,
+#aba-escolherLocal .form-container {
+    display: flex;
+    flex-direction: column; 
+    gap: 15px;
+}
+
+.form-container input[type="text"],
+.form-container select,
+.form-container textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.form-container textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.inputbox {
+    position: relative;
+}
+
+.inputbox input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.inputbox label {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    padding: 0 5px;
+    color: #999;
+    transition: 0.2s;
+    pointer-events: none;
+}
+
+
+.inputbox input:focus ~ label,
+.inputbox input:valid ~ label {
+    top: -10px;
+    left: 10px;
+    font-size: 12px;
+    background-color: white; 
+    padding: 0 5px;
+    color: #000;
+}
+
 
 
 
