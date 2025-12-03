@@ -25,9 +25,11 @@ app.use((request, response, next) => {
 
 // Import de routes
 const cidadaoRoutes = require('./routes/cidadao-route.js')
+const categoriaRoutes = require('./routes/categoria-route.js')
 
 // Utilização das rotas
 app.use('/v1/cidadao', cidadaoRoutes)
+app.use('/v1/categoria', categoriaRoutes)
 
 app.listen(porta, () => {
     console.log(`API aguardando requisições na porta ${porta}!`)
