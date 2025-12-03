@@ -11,29 +11,29 @@ const { PrismaClient } = require('../../generated/prisma')
 // Criação de um objeto do Client
 const prisma = new PrismaClient()
 
-async function selecionarTodasAsCategorias(){
+async function selecionarTodasAsCategorias() {
     try {
         const sql = `SELECT * FROM tb_categoria`
 
         const categoria = await prisma.$queryRawUnsafe(sql)
-            if(Array.isArray(categoria))
-                return categoria
-            else
-                return error
+        if (Array.isArray(categoria))
+            return categoria
+        else
+            return error
     } catch (error) {
         return false
     }
 }
 
 async function selecionarCategoriaPorID(id) {
-    try{
+    try {
         const sql = `SELECT * FROM tb_categoria WHERE id=${id}`
 
         const categoria = await prisma.$queryRawUnsafe(sql)
-            if(Array.isArray(categoria))
-                return categoria
-            else
-                return error 
+        if (Array.isArray(categoria))
+            return categoria
+        else
+            return error
     } catch (error) {
         return false
     }
