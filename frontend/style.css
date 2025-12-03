@@ -417,6 +417,17 @@ footer {
     .post-loc {
         font-size: 0.9rem;
     }
+    .popUp-buttons {
+        justify-content: center;
+        gap: 80px;
+    }
+    .popUp-cancel {
+        width: 70%;
+    }
+    .popUp-cancel p {
+        font-size: 1.1rem;
+    }
+}
 
 @media (min-width: 1051px) {
     nav {
