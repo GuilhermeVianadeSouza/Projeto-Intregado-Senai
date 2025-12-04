@@ -11,6 +11,7 @@ const ocorrenciaDAO = require('../../models/DAO/ocorrencia.js')
 
 // Import das controllers
 const cidadaoController = require('../../controllers/cidadao/cidadao-controller.js')
+const statusController = require('../../controllers/status/status-controller.js')
 
 const DEFAULT_MESSAGES = require('../modulo/config-messages.js')
 
@@ -37,9 +38,14 @@ async function obterOcorrencias(limite, pagina) {
             return MESSAGES.ERROR_NOT_FOUND // 404 - Não encontrado
 
         for (const ocorrencia of ocorrencias) {
-            const resultado = await cidadaoController.obterCidadaoPorIdOcorrencia(ocorrencia.id)
+            // Adiciona em cada ocorrência o cidadão que a registrou
+            const resultadoCidadao = await cidadaoController.obterCidadaoPorIdOcorrencia(ocorrencia.id)
             delete ocorrencia.id_cidadao
-            ocorrencia.cidadao = resultado.cidadao
+            ocorrencia.cidadao = resultadoCidadao.cidadao
+
+            // Adiciona em cada ocorrência o status atual
+            const resultadoStatus = await statusController.obterStatusAtualDeUmaOcorrencia(ocorrencia.id)
+            ocorrencia.status = resultadoStatus.status
         }
 
         MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status

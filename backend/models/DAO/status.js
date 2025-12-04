@@ -14,11 +14,11 @@ const prisma = new PrismaClient()
 async function selecionarStatusAtualPorIdOcorrencia(idOcorrencia) {
     try {
         const sql = `
-            SELECT s.nome, s.id, h.data_hora FROM tb_historico_status h JOIN
-                tb_status s ON h.id_status = s.id
-                WHERE h.id_ocorrencia = ${idOcorrencia}
-            ORDER BY
-                h.data_hora DESC
+            SELECT s.nome, s.id, h.data_hora
+            FROM tb_historico_status h JOIN tb_status s
+            ON h.id_status = s.id
+            WHERE h.id_ocorrencia = ${idOcorrencia}
+            ORDER BY h.data_hora DESC
             LIMIT 1
         `
 
