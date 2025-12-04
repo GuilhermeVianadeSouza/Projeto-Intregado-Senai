@@ -6,25 +6,39 @@
 }
 
 body {
-    padding-bottom: 90px;
-    background-color: #f5f5f5;
 }
 
 
 /* LOGIN  */
 .login-container {
+    background-color: rgb(255, 255, 255);
     width: 90%;
-    margin: 80px auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
+
 
 .login {
-    background-color: #038a63;
+    background-color: #04A579;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+.login-container h1,
+.login-container h2,
+.login a,
+.login-container p {
+    color: rgb(0, 0, 0);
+}
+
+.login-container h1 {
+    padding-bottom: 30px;
+}
 
 
 /* NAV */
