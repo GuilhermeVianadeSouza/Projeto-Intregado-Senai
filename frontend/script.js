@@ -221,7 +221,7 @@ if (formLocalizacao) {
   if (btnCancelarLocal) {
     btnCancelarLocal.addEventListener('click', (e) => {
       e.preventDefault()
-      formLocalizacao.reset()
+      // formLocalizacao.reset() // Esta linha foi removida pois causava um erro.
       showTab('aba-criar')
     })
   }

@@ -21,8 +21,33 @@
 
     <main>
 
+        <!-- ABA LOGIN  -->
+         <div class="login"> 
+            <div id="aba-login" class="aba active">
+                <div class="login-container">
+                    <img src="./img/logo green.png" alt="Logo" class="login-logo">
+                    <h1>Bem-vindo ao Repórter do Meu Bairro</h1>
+                    <form id="form-login">
+                        <div class="inputbox">
+                            <input type="email" id="email" required>
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="inputbox">
+                            <input type="password" id="senha" required>
+                            <label for="senha">Senha</label>
+                        </div>
+                        <button type="submit" class="btn-login">Entrar</button>
+                        <p class="signup-text">Não tem uma conta? <a href="#" id="link-signup">Cadastre-se</a></p>
+
+                        <p class="anonimo" id="anonimo"> Entar como anonimo </p>
+                    </form>
+                </div>
+            </div>
+         </div>
+
+
         <!-- ABA HOME (Comunidade) -->
-        <div id="aba-home" class="aba active">
+        <div id="aba-home" class="aba">
             <nav id="nav-principal">
                 <img src="./img/logo green.png" alt="" class="logo-nav">
                 <h1> Comunidade</h1>
@@ -241,7 +266,7 @@
                         <label for="estado">Estado</label>
                     </div>
                     <button type="submit" class="btn-submit">Continuar </button>
-                    <button type="button" class="btn-cancelar">Cancelar</button>
+                    <button type="button" class="btn-cancelar" id="btn-cancelar-local">Cancelar</button>
 
                 </div>
 
