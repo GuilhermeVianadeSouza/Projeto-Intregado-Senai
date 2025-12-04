@@ -35,7 +35,6 @@ async function registrarHistorico(historico, contentType) {
 
         return MESSAGES.DEFAULT_HEADER
     } catch (error) {
-        console.log(error)
         return MESSAGES.ERROR_INTERNAL_SERVER_CONTROLLER
     }
 }

@@ -15,7 +15,7 @@ async function selecionarUltimoIdDaOcorrencia() {
     try {
         const sql = `SELECT id FROM tb_ocorrencia ORDER BY id DESC LIMIT 1`
 
-        const ocorrencia = prisma.$queryRawUnsafe(sql)
+        const ocorrencia = await prisma.$queryRawUnsafe(sql)
         if (Array.isArray(ocorrencia))
             return Number(ocorrencia[0].id)
         else
@@ -46,7 +46,7 @@ async function registrarOcorrencia(ocorrencia) {
         ${ocorrencia.id_categoria}
         )`
 
-        const result = prisma.$queryRawUnsafe(sql)
+        const result = await prisma.$queryRawUnsafe(sql)
         if (result)
             return true
         else

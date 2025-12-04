@@ -34,9 +34,12 @@ const localizacaoRoutes = require('./routes/localizacao-route.js')
 
 const historicoRoutes = require('./routes/historico_status-route.js')
 
+const ocorrenciaRoutes = require('./routes/ocorrencia-route.js')
+
 // Utilização das rotas
 app.use('/v1/cidadao', cidadaoRoutes)
-app.use('/v1/ocorrencia', multimidiaRoutes)
+app.use('/v1/multimidia', multimidiaRoutes)
+app.use('/v1/ocorrencia', ocorrenciaRoutes)
 app.use('/v1/categoria', categoriaRoutes)
 app.use('/v1/localizacao', localizacaoRoutes)
 app.use('/v1/historico', historicoRoutes)
