@@ -21,7 +21,7 @@ async function obterLocalizacaoPorId(id) {
                     MESSAGES.DEFAULT_HEADER.development = 'Guilherme Viana'
                     MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
                     MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
-                    MESSAGES.DEFAULT_HEADER.items.localizacao = resultLocalizacao
+                    MESSAGES.DEFAULT_HEADER.localizacao = resultLocalizacao
 
                     return MESSAGES.DEFAULT_HEADER
                 } else {
@@ -47,6 +47,7 @@ async function registrarLocalizacao(localizacao, contentType) {
         if (validarInformacoes)
             return validarInformacoes
         let resultLocalizacao = await localizacaoDAO.inserirLocalizacao(localizacao)
+        console.log(resultLocalizacao)
         if (!resultLocalizacao)
             return MESSAGES.ERROR_INTERNAL_SERVER_MODEL
 
@@ -58,8 +59,12 @@ async function registrarLocalizacao(localizacao, contentType) {
         MESSAGES.DEFAULT_HEADER.development = 'Guilherme Viana de Souza'
         MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
         MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
+        MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
+        MESSAGES.DEFAULT_HEADER.items.localizacao = localizacao
 
+        return MESSAGES.DEFAULT_HEADER
     } catch (error) {
+        console.log(error)
         return MESSAGES.ERROR_INTERNAL_SERVER_CONTROLLER
     }
 }
@@ -86,11 +91,11 @@ async function validarDadosLocalizacao(localizacao) {
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [Rua Incorreto]'
         return MESSAGES.ERROR_REQUIRED_FIELDS
 
-    } else if (localizacao.numero == undefined || localizacao.numero.length > 20) {
+    } else if (localizacao.numero && localizacao.numero.length > 20) {
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [Numero Incompleto]'
         return MESSAGES.ERROR_REQUIRED_FIELDS
 
-    } else if (localizacao.complemento == undefined || localizacao.complemento.length > 20) {
+    } else if (localizacao.complemento && localizacao.complemento.length > 20) {
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [Complemento Incorreto]'
         return MESSAGES.ERROR_REQUIRED_FIELDS
     } else {
@@ -99,5 +104,6 @@ async function validarDadosLocalizacao(localizacao) {
 }
 
 module.exports = {
-    obterLocalizacaoPorId
+    obterLocalizacaoPorId,
+    registrarLocalizacao
 }

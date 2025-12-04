@@ -33,6 +33,14 @@ async function selecionarUmaMultimidiaPorIdOcorrencia(idOcorrencia) {
     }
 }
 
+async function registrarUmaMultimidia(multimidia) {
+    try {
+        const sql = ``
+    } catch (error) {
+        return false
+    }
+}
+
 module.exports = {
     selecionarUmaMultimidiaPorIdOcorrencia
 }
