@@ -27,6 +27,20 @@ async function selecionarLocalizacaoPorID(id) {
     }
 }
 
+async function selecionarUltimaLocalizacaoRegistrada() {
+    try {
+        const sql = `SELECT id FROM tb_localizacao order by id desc limit 1`
+
+        const localizacao = await prisma.$queryRawUnsafe(sql)
+        if (Array.isArray(localizacao))
+            return Number(localizacao[0].id)
+        else
+            return false
+    } catch (error) {
+        return false
+    }
+}
+
 async function inserirLocalizacao(localizacao) {
     try {
         const sql = `INSERT INTO tb_localizacao(
@@ -60,5 +74,6 @@ async function inserirLocalizacao(localizacao) {
 
 module.exports = {
     selecionarLocalizacaoPorID,
+    selecionarUltimaLocalizacaoRegistrada,
     inserirLocalizacao
 }

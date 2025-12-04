@@ -41,6 +41,23 @@ async function obterLocalizacaoPorId(id) {
 async function registrarLocalizacao(localizacao, contentType) {
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
     try {
+        if (String(contentType).toLocaleUpperCase() != 'APPLICATION/JSON')
+            return MESSAGES.ERROR_CONTENT_TYPE
+        let validarInformacoes = await validarDadosLocalizacao(localizacao)
+        if (validarInformacoes)
+            return validarInformacoes
+        let resultLocalizacao = await localizacaoDAO.inserirLocalizacao(localizacao)
+        if (!resultLocalizacao)
+            return MESSAGES.ERROR_INTERNAL_SERVER_MODEL
+
+        let ultimoId = await localizacaoDAO.selecionarUltimaLocalizacaoRegistrada()
+        if (!ultimoId)
+            return MESSAGES.ERROR_INTERNAL_SERVER_MODEL
+
+        localizacao.id = ultimoId
+        MESSAGES.DEFAULT_HEADER.development = 'Guilherme Viana de Souza'
+        MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
+        MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
 
     } catch (error) {
         return MESSAGES.ERROR_INTERNAL_SERVER_CONTROLLER
@@ -50,7 +67,35 @@ async function registrarLocalizacao(localizacao, contentType) {
 async function validarDadosLocalizacao(localizacao) {
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
-    if (!isNaN(localizacao.cep))
+    if (localizacao.cep == undefined || localizacao.cep.length > 8) {
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += '[Cep incompleto]'
+        return MESSAGES.ERROR_REQUIRED_FIELDS
+    } else if (localizacao.estado == undefined || localizacao.estado == null || !isNaN(localizacao.estado) || localizacao.estado == '' || localizacao.estado.length !== 2) {
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [Localização Incorreta]'
+        return MESSAGES.ERROR_REQUIRED_FIELDS
+
+    } else if (localizacao.cidade == undefined || localizacao.cidade == null || !isNaN(localizacao.cidade) || localizacao.cidade == '' || localizacao.cidade.length > 120) {
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [Cidade Incorreto]'
+        return MESSAGES.ERROR_REQUIRED_FIELDS
+
+    } else if (localizacao.bairro == undefined || localizacao.bairro == null || !isNaN(localizacao.bairro) || localizacao.bairro == '' || localizacao.bairro.length > 150) {
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [Bairro Incorreto]'
+        return MESSAGES.ERROR_REQUIRED_FIELDS
+
+    } else if (localizacao.rua == undefined || localizacao.rua == null || localizacao.rua == '' || localizacao.rua.length > 200 || typeof (localizacao.rua) != 'string') {
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [Rua Incorreto]'
+        return MESSAGES.ERROR_REQUIRED_FIELDS
+
+    } else if (localizacao.numero == undefined || localizacao.numero.length > 20) {
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [Numero Incompleto]'
+        return MESSAGES.ERROR_REQUIRED_FIELDS
+
+    } else if (localizacao.complemento == undefined || localizacao.complemento.length > 20) {
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [Complemento Incorreto]'
+        return MESSAGES.ERROR_REQUIRED_FIELDS
+    } else {
+        return false //não teve erros
+    }
 }
 
 module.exports = {
