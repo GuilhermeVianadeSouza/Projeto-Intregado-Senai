@@ -13,6 +13,7 @@ const ocorrenciaDAO = require('../../models/DAO/ocorrencia.js')
 const cidadaoController = require('../../controllers/cidadao/cidadao-controller.js')
 const statusController = require('../../controllers/status/status-controller.js')
 const localizacaoController = require('../../controllers/localizacao/localizacao-controller.js')
+const categoriaController = require('../../controllers/categoria/categoria-controller.js')
 
 const DEFAULT_MESSAGES = require('../modulo/config-messages.js')
 
@@ -52,6 +53,11 @@ async function obterOcorrencias(limite, pagina) {
             const resultadoLocalizacao = await localizacaoController.obterLocalizacaoPorId(ocorrencia.id_localizacao)
             delete ocorrencia.id_localizacao
             ocorrencia.localizacao = resultadoLocalizacao.localizacao
+
+            // Adiciona em cada ocorrência a categoria
+            const resultadoCategoria = await categoriaController.obterCategoriaPorId(ocorrencia.id_categoria)
+            delete ocorrencia.id_categoria
+            ocorrencia.categoria = resultadoCategoria.categoria
         }
 
         MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
