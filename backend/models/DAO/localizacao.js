@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Objetivo: Arquivo responsável pelas operações no MySQL da tabela localizacao
+ * Objetivo: Arquivo responsável pelas operações no MySQL da tabela localizacao.
  * Data: 03/12/2025
  * Autor: Guilherme Viana
  * Versão: 1.0

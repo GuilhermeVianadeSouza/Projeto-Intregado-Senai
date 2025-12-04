@@ -140,6 +140,6 @@ async function validarDadosOcorrencia(ocorrencia) {
 }
 
 module.exports = {
-    registrarOcorrencia
+    registrarOcorrencia,
     obterOcorrencias
 }

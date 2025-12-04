@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Objetivo: Arquivo responsável pelas rotas de historico status
+ * Objetivo: Arquivo responsável pelas rotas de ocorrências.
  * Data: 01/12/2025
  * Autor: Nathan, Guilherme Viana de Souza
  * Versão: 1.0
@@ -16,6 +16,8 @@ const controllerOcorrencia = require('../controllers/ocorrencia/ocorrencia-contr
 const router = express.Router()
 
 /********************************** ENDPOINTS *********************************/
+
+// Cria uma ocorrência e todas as informações relacionadas a ela
 router.post('/', cors(), bodyParserJSON, async (request, response) => {
     let dadosBody = request.body
     let contentType = request.headers['content-type']
@@ -24,11 +26,11 @@ router.post('/', cors(), bodyParserJSON, async (request, response) => {
     response.status(ocorrencia.status_code).json(ocorrencia)
 })
 
-// Obtém ocorrências recentes
+// Obtém ocorrências, permitindo filtros
 router.get('', cors(), async (request, response) => {
     const pagina = request.query.pagina
     const limite = request.query.limite
-    let ocorrencias = await controllerOcorrencias.obterOcorrencias(limite, pagina)
+    let ocorrencias = await controllerOcorrencia.obterOcorrencias(limite, pagina)
 
     response.status(ocorrencias.status_code).json(ocorrencias)
 })

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Objetivo: Arquivo responsável pelas operações no MySQL da tabela status
+ * Objetivo: Arquivo responsável pelas operações no MySQL da tabela status.
  * Data: 01/12/2025
  * Autor: Nathan
  * Versão: 1.0

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Objetivo: Arquivo responsável pelas operações no MySQL da tabela cidadao
+ * Objetivo: Arquivo responsável pelas operações no MySQL da tabela cidadão.
  * Data: 26/11/2025
  * Autor: Nathan
  * Versão: 1.0

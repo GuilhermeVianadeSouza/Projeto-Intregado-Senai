@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Objetivo: Arquivo responsável pelas operações no MySQL da tabela multimidia
+ * Objetivo: Arquivo responsável pelas operações no MySQL da tabela multimidia.
  * Data: 27/11/2025
  * Autor: Nathan
  * Versão: 1.0

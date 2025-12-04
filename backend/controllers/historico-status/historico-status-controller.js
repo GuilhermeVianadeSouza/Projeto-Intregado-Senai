@@ -6,7 +6,7 @@
  * Versão: 1.0
  ******************************************************************************/
 
-const historicoDAO = require('../../models/DAO/historico_status.js')
+const historicoDAO = require('../../models/DAO/historico-status.js')
 
 const DEFAULT_MESSAGES = require('../modulo/config-messages.js')
 

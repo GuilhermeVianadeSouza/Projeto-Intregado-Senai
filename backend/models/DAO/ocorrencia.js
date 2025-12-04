@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Objetivo: Arquivo responsável pelas operações no MySQL da tabela ocorrencia
+ * Objetivo: Arquivo responsável pelas operações no MySQL da tabela ocorrencia.
  * Data: 01/12/2025
  * Autor: Nathan, Guilherme Viana
  * Versão: 1.0
@@ -114,6 +114,6 @@ async function registrarOcorrencia(ocorrencia) {
 
 module.exports = {
     selecionarUltimoIdDaOcorrencia,
-    registrarOcorrencia
+    registrarOcorrencia,
     selecionarOcorrencias
 }

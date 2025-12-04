@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Objetivo: Arquivo responsável pelas operações no MySQL da tabela categoria
+ * Objetivo: Arquivo responsável pelas operações no MySQL da tabela categoria.
  * Data: 03/12/2025
  * Autor: Guilherme Viana
  * Versão: 1.0
@@ -27,7 +27,7 @@ async function selecionarTodasAsCategorias() {
 
 async function selecionarCategoriaPorID(id) {
     try {
-        const sql = `SELECT * FROM tb_categoria WHERE id=${id}`
+        const sql = `SELECT * FROM tb_categoria WHERE id = ${id}`
 
         const categoria = await prisma.$queryRawUnsafe(sql)
         if (Array.isArray(categoria))

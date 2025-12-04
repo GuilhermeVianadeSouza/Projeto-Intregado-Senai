@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Objetivo: Arquivo responsável pelas rotas de cidadão
+ * Objetivo: Arquivo responsável pelas rotas de cidadão.
  * Data: 26/11/2025
  * Autor: Nathan
  * Versão: 1.0

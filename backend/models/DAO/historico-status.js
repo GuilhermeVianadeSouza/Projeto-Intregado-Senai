@@ -1,5 +1,6 @@
 /*******************************************************************************
- * Objetivo: Arquivo responsável pelas operações no MySQL da tabela historico status
+ * Objetivo: Arquivo responsável pelas operações no MySQL da tabela
+ *           historico_status.
  * Data: 04/12/2025
  * Autor: Guilherme Viana
  * Versão: 1.0
