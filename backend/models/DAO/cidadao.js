@@ -13,7 +13,15 @@ const prisma = new PrismaClient()
 
 async function selecionarCidadaoPorId(id) {
     try {
-        const sql = `SELECT * FROM tb_cidadao WHERE id = ${id}`
+        const sql = `
+            SELECT
+                c.id, c.nome, c.email, c.telefone, c.cpf, c.cep,
+                c.estado, c.cidade, c.bairro, c.rua, c.complemento
+            FROM
+                tb_cidadao c
+            WHERE
+                id = ${id}
+        `
 
         const cidadao = await prisma.$queryRawUnsafe(sql)
 
@@ -31,7 +39,8 @@ async function selecionarCidadaoPorIdOcorrencia(idOcorrencia) {
     try {
         const sql = `
             SELECT
-                c.*
+                c.id, c.nome, c.email, c.telefone, c.cpf, c.cep,
+                c.estado, c.cidade, c.bairro, c.rua, c.complemento
             FROM
                 tb_cidadao c, tb_ocorrencia o
             WHERE

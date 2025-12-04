@@ -22,8 +22,6 @@ async function obterCidadaoPorId(id) {
 
         const cidadao = await cidadaoDAO.selecionarCidadaoPorId(Number(id))
 
-        delete cidadao[0].senha
-
         if (!cidadao)
             return MESSAGES.ERROR_INTERNAL_SERVER_MODEL // 500 - Model
 
@@ -51,10 +49,6 @@ async function obterCidadaoPorIdOcorrencia(id) {
         }
 
         const cidadao = await cidadaoDAO.selecionarCidadaoPorIdOcorrencia(Number(id))
-
-        for (const c of cidadao) {
-            delete c.senha
-        }
 
         if (!cidadao)
             return MESSAGES.ERROR_INTERNAL_SERVER_MODEL // 500 - Model
