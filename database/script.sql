@@ -73,3 +73,12 @@ id_ocorrencia INT NOT NULL,
 FOREIGN KEY (id_cidadao) REFERENCES tb_cidadao(id),
 FOREIGN KEY (id_ocorrencia) REFERENCES tb_ocorrencia(id)
 );
+
+CREATE TABLE tb_notificacao(
+    id INT PRIMARY KEY auto_increment NOT NULL,
+    mensagem VARCHAR(70) NOT NULL,
+    data_envio DATETIME NOT NULL,
+    visualizado BOOLEAN NOT NULL DEFAULT FALSE,
+    id_cidadao INT NOT NULL,
+    FOREIGN KEY (id_cidadao) REFERENCES tb_cidadao(id)
+);

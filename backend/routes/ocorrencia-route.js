@@ -1,20 +1,28 @@
 /*******************************************************************************
- * Objetivo: Arquivo responsável pelas rotas de ocorrencias
+ * Objetivo: Arquivo responsável pelas rotas de historico status
  * Data: 01/12/2025
- * Autor: Nathan
+ * Autor: Nathan, Guilherme Viana de Souza
  * Versão: 1.0
  ******************************************************************************/
-
-// Import das bibliotecas da API
 const express = require('express')
 const cors = require('cors')
+const bodyParser = require('body-parser')
 
-const controllerOcorrencias = require('../controllers/ocorrencia/ocorrencia-controller.js')
+const bodyParserJSON = bodyParser.json()
+
+const controllerOcorrencia = require('../controllers/ocorrencia/ocorrencia-controller.js')
 
 // Cria o router que irá guardar as rotas
 const router = express.Router()
 
 /********************************** ENDPOINTS *********************************/
+router.post('/', cors(), bodyParserJSON, async (request, response) => {
+    let dadosBody = request.body
+    let contentType = request.headers['content-type']
+
+    let ocorrencia = await controllerOcorrencia.registrarOcorrencia(dadosBody, contentType)
+    response.status(ocorrencia.status_code).json(ocorrencia)
+})
 
 // Obtém ocorrências recentes
 router.get('', cors(), async (request, response) => {

@@ -32,7 +32,9 @@ async function obterCidadaoPorId(id) {
         MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
         MESSAGES.DEFAULT_HEADER.cidadao = cidadao
 
+        console.log(MESSAGES.DEFAULT_HEADER)
         return MESSAGES.DEFAULT_HEADER
+
 
     } catch (error) {
         return MESSAGES.ERROR_INTERNAL_SERVER_CONTROLLER // 500 - Controller

@@ -27,8 +27,23 @@ app.use((request, response, next) => {
 const cidadaoRoutes = require('./routes/cidadao-route.js')
 const ocorrenciaRoutes = require('./routes/ocorrencia-route.js')
 
+const categoriaRoutes = require('./routes/categoria-route.js')
+
+const multimidiaRoutes = require('./routes/multimidia-route.js')
+
+const localizacaoRoutes = require('./routes/localizacao-route.js')
+
+const historicoRoutes = require('./routes/historico_status-route.js')
+
+const ocorrenciaRoutes = require('./routes/ocorrencia-route.js')
+
 // Utilização das rotas
 app.use('/v1/cidadao', cidadaoRoutes)
+app.use('/v1/multimidia', multimidiaRoutes)
+app.use('/v1/ocorrencia', ocorrenciaRoutes)
+app.use('/v1/categoria', categoriaRoutes)
+app.use('/v1/localizacao', localizacaoRoutes)
+app.use('/v1/historico', historicoRoutes)
 app.use('/v1/ocorrencia', ocorrenciaRoutes)
 
 app.listen(porta, () => {
