@@ -11,9 +11,16 @@ const { PrismaClient } = require('../../generated/prisma')
 // Criação de um objeto do Client
 const prisma = new PrismaClient()
 
-async function selecionarDezOcorrenciasRecentes() {
+async function selecionarOcorrenciasRecentes(limite, pagina) {
     try {
-        const sql = `SELECT * FROM tb_ocorrencia ORDER BY data_registro DESC LIMIT 10`
+        const offset = (pagina - 1) * limite
+
+        const sql = `
+            SELECT *
+            FROM tb_ocorrencia
+            ORDER BY data_registro DESC
+            LIMIT ${limite} OFFSET ${offset}
+        `
 
         const ocorrencias = await prisma.$queryRawUnsafe(sql)
 
@@ -28,5 +35,5 @@ async function selecionarDezOcorrenciasRecentes() {
 }
 
 module.exports = {
-    selecionarDezOcorrenciasRecentes
+    selecionarOcorrenciasRecentes
 }

@@ -16,9 +16,11 @@ const router = express.Router()
 
 /********************************** ENDPOINTS *********************************/
 
-// Obtém 10 ocorrências recentes
+// Obtém ocorrências recentes
 router.get('', cors(), async (request, response) => {
-    let ocorrencias = await controllerOcorrencias.obterDezOcorrencias()
+    const pagina = request.query.pagina
+    const limite = request.query.limite
+    let ocorrencias = await controllerOcorrencias.obterOcorrencias(limite, pagina)
 
     response.status(ocorrencias.status_code).json(ocorrencias)
 })

@@ -14,11 +14,21 @@ const cidadaoController = require('../../controllers/cidadao/cidadao-controller.
 
 const DEFAULT_MESSAGES = require('../modulo/config-messages.js')
 
-async function obterDezOcorrencias() {
+async function obterOcorrencias(limite, pagina) {
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
     try {
-        const ocorrencias = await ocorrenciaDAO.selecionarDezOcorrenciasRecentes()
+        if (isNaN(limite) || limite == '' || limite == null || limite <= 0) {
+            MESSAGES.ERROR_REQUIRED_FIELDS.message += '[Limite inválido]'
+            return MESSAGES.ERROR_REQUIRED_FIELDS // 400 - Campos obrigatórios
+        }
+
+        if (isNaN(pagina) || pagina == '' || pagina == null || pagina <= 0) {
+            MESSAGES.ERROR_REQUIRED_FIELDS.message += '[Página inválido]'
+            return MESSAGES.ERROR_REQUIRED_FIELDS // 400 - Campos obrigatórios
+        }
+
+        const ocorrencias = await ocorrenciaDAO.selecionarOcorrenciasRecentes(limite, pagina)
 
         if (!ocorrencias)
             return MESSAGES.ERROR_INTERNAL_SERVER_MODEL // 500 - Model
@@ -44,5 +54,5 @@ async function obterDezOcorrencias() {
 }
 
 module.exports = {
-    obterDezOcorrencias
+    obterOcorrencias
 }
