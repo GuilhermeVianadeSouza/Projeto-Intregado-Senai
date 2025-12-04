@@ -32,11 +32,14 @@ const multimidiaRoutes = require('./routes/multimidia-route.js')
 
 const localizacaoRoutes = require('./routes/localizacao-route.js')
 
+const historicoRoutes = require('./routes/historico_status-route.js')
+
 // Utilização das rotas
 app.use('/v1/cidadao', cidadaoRoutes)
 app.use('/v1/ocorrencia', multimidiaRoutes)
 app.use('/v1/categoria', categoriaRoutes)
 app.use('/v1/localizacao', localizacaoRoutes)
+app.use('/v1/historico', historicoRoutes)
 
 app.listen(porta, () => {
     console.log(`API aguardando requisições na porta ${porta}!`)

@@ -68,7 +68,6 @@ async function inserirLocalizacao(localizacao) {
         else
             return false
     } catch (error) {
-        console.log(error)
         return false
     }
 }
