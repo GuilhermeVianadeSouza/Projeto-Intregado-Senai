@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Objetivo: Arquivo responsável pelas rotas de multimidia
+ * Objetivo: Arquivo responsável pelas rotas de ocorrencias
  * Data: 01/12/2025
  * Autor: Nathan
  * Versão: 1.0
@@ -9,19 +9,20 @@
 const express = require('express')
 const cors = require('cors')
 
-const controllerMultimidia = require('../controllers/multimidia/multimidia-controller.js')
+const controllerOcorrencias = require('../controllers/ocorrencia/ocorrencia-controller.js')
 
 // Cria o router que irá guardar as rotas
 const router = express.Router()
 
 /********************************** ENDPOINTS *********************************/
 
-// Obtém uma multimidia pelo id de uma ocorrencia
-router.get('/multimidia/:id', cors(), async (request, response) => {
-    let idOcorrencia = request.params.id
-    let multimidia = await controllerMultimidia.obterMultimidiaPorIdOcorrencia(idOcorrencia)
+// Obtém ocorrências recentes
+router.get('', cors(), async (request, response) => {
+    const pagina = request.query.pagina
+    const limite = request.query.limite
+    let ocorrencias = await controllerOcorrencias.obterOcorrencias(limite, pagina)
 
-    response.status(multimidia.status_code).json(multimidia)
+    response.status(ocorrencias.status_code).json(ocorrencias)
 })
 
 module.exports = router
