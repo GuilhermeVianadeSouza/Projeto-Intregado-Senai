@@ -18,7 +18,9 @@ const multimidiaController = require('../../controllers/multimidia/multimidia-co
 
 const DEFAULT_MESSAGES = require('../modulo/config-messages.js')
 
-async function obterOcorrencias(limite, pagina) {
+async function obterOcorrencias(
+    limite, pagina, categoria, status, dataRegistro, ordenar = 'DESC'
+) {
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
     try {
@@ -32,7 +34,7 @@ async function obterOcorrencias(limite, pagina) {
             return MESSAGES.ERROR_REQUIRED_FIELDS // 400 - Campos obrigatórios
         }
 
-        const ocorrencias = await ocorrenciaDAO.selecionarOcorrenciasRecentes(limite, pagina)
+        const ocorrencias = await ocorrenciaDAO.selecionarOcorrencias(limite, pagina)
 
         if (!ocorrencias)
             return MESSAGES.ERROR_INTERNAL_SERVER_MODEL // 500 - Model
