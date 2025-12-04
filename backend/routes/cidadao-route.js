@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Objetivo: Arquivo responsável pelas rotas de cidadao
+ * Objetivo: Arquivo responsável pelas rotas de cidadão
  * Data: 26/11/2025
  * Autor: Nathan
  * Versão: 1.0
@@ -20,6 +20,14 @@ const router = express.Router()
 router.get('/:id', cors(), async (request, response) => {
     let idCidadao = request.params.id
     let cidadao = await controllerCidadao.obterCidadaoPorId(idCidadao)
+
+    response.status(cidadao.status_code).json(cidadao)
+})
+
+// Obtém um cidadão por id da ocorrência
+router.get('/ocorrencia/:id', cors(), async (request, response) => {
+    let idOcorrencia = request.params.id
+    let cidadao = await controllerCidadao.obterCidadaoPorIdOcorrencia(idOcorrencia)
 
     response.status(cidadao.status_code).json(cidadao)
 })

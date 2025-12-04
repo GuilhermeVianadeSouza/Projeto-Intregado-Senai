@@ -19,7 +19,7 @@ async function selecionarTodasAsCategorias() {
         if (Array.isArray(categoria))
             return categoria
         else
-            return error
+            return false
     } catch (error) {
         return false
     }
@@ -33,7 +33,7 @@ async function selecionarCategoriaPorID(id) {
         if (Array.isArray(categoria))
             return categoria
         else
-            return error
+            return false
     } catch (error) {
         return false
     }

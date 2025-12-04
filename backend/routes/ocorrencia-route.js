@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Objetivo: Arquivo responsável pelas rotas de historico status
- * Data: 04/12/2025
- * Autor: Guilherme Viana de Souza
+ * Data: 01/12/2025
+ * Autor: Nathan, Guilherme Viana de Souza
  * Versão: 1.0
  ******************************************************************************/
 const express = require('express')
@@ -15,12 +15,22 @@ const controllerOcorrencia = require('../controllers/ocorrencia/ocorrencia-contr
 // Cria o router que irá guardar as rotas
 const router = express.Router()
 
+/********************************** ENDPOINTS *********************************/
 router.post('/', cors(), bodyParserJSON, async (request, response) => {
     let dadosBody = request.body
     let contentType = request.headers['content-type']
 
     let ocorrencia = await controllerOcorrencia.registrarOcorrencia(dadosBody, contentType)
     response.status(ocorrencia.status_code).json(ocorrencia)
+})
+
+// Obtém ocorrências recentes
+router.get('', cors(), async (request, response) => {
+    const pagina = request.query.pagina
+    const limite = request.query.limite
+    let ocorrencias = await controllerOcorrencias.obterOcorrencias(limite, pagina)
+
+    response.status(ocorrencias.status_code).json(ocorrencias)
 })
 
 module.exports = router

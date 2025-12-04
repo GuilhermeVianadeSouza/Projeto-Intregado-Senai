@@ -6,6 +6,7 @@
  * Versão: 1.0
  ******************************************************************************/
 
+// Import da model
 const categoriaDAO = require('../../models/DAO/categoria.js')
 
 const DEFAULT_MESSAGES = require('../modulo/config-messages.js')

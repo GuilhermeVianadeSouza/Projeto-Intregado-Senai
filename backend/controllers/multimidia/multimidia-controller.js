@@ -1,6 +1,6 @@
 /*******************************************************************************
- * Objetivo: Arquivo responsável pela manipulação dos dados de cidadão que
- *           serão enviados e recebidos entre a model e a route
+ * Objetivo: Arquivo responsável pela manipulação dos dados de multimidia que
+ *           serão utilizados na controller de ocorrência
  * Data: 26/11/2025
  * Autor: Nathan
  * Versão: 1.0
