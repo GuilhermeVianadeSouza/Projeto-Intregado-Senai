@@ -27,7 +27,15 @@
     align-items: center;
     text-align: center;
     border-radius: 12px;
-    padding: 40px 30px;
+    padding: 50px 40px;
+}
+#aba-cadastro {
+    background-color: #04A579;
+    min-height: 100vh;
+      display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
 
 
