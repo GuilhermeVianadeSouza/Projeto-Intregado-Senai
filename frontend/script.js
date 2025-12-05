@@ -10,6 +10,7 @@ function showTab(tabId) {
   // Pega todas as abas
   const todasAsAbas = document.querySelectorAll('.aba')
   const footer = document.getElementById('footer')
+  const loginContainer = document.getElementById('login') // Pega o container #login
 
   // Remove a classe 'active' (esconde)
   todasAsAbas.forEach(aba => {
@@ -24,11 +25,20 @@ function showTab(tabId) {
     abaAtiva.classList.add('active')
   }
 
-  // Esconde o footer nas abas de login e cadastro
-  if (tabId === 'aba-login' || tabId === 'aba-cadastro') {
-    footer.style.display = 'none'
+  // Lógica para o container #login
+  if (loginContainer) {
+    if (tabId === 'aba-login') {
+        loginContainer.style.display = 'flex'; // Visível apenas para login
+    } else {
+        loginContainer.style.display = 'none'; // Oculto para todas as outras abas, incluindo cadastro
+    }
+  }
+
+  // Lógica para o footer
+  if (tabId === 'aba-login' || tabId === 'aba-cadastro' || tabId === 'aba-escolherLocal') {
+    footer.style.display = 'none' // Oculto para login, cadastro e escolherLocal
   } else {
-    footer.style.display = 'grid'
+    footer.style.display = 'grid' // Visível para as outras abas
   }
 }
 
