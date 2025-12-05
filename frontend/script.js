@@ -28,7 +28,7 @@ function showTab(tabId) {
   if (tabId === 'aba-login' || tabId === 'aba-cadastro') {
     footer.style.display = 'none'
   } else {
-    footer.style.display = 'flex'
+    footer.style.display = 'grid'
   }
 }
 
@@ -240,4 +240,21 @@ if (formLocalizacao) {
       showTab('aba-criar')
     })
   }
+}
+
+// LOGIN
+const formLogin = document.getElementById('form-login');
+if (formLogin) {
+    formLogin.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        const senha = document.getElementById('senha').value;
+
+        if (email === 'teste@gmail.com' && senha === '12345') {
+            showTab('aba-home')
+            login.style.display = 'none'
+        } else {
+            alert('Email ou senha incorretos')
+        }
+    });
 }

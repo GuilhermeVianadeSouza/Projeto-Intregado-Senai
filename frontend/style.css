@@ -20,7 +20,7 @@
 }
 
 
-.login {
+#login {
     background-color: #04A579;
     min-height: 100vh;
     display: flex;
