@@ -242,6 +242,26 @@ if (formLocalizacao) {
   }
 }
 
+// LÓGICA DA ABA-VERPOST
+const abaVerPost = document.getElementById('aba-verPost');
+const posts = document.querySelectorAll('.post');
+
+// Adiciona listener de clique a todos os posts
+posts.forEach(post => {
+    post.addEventListener('click', () => {
+        // Apenas mostra a aba-verPost
+        abaVerPost.classList.add('active');
+    });
+});
+
+// Adiciona listener de clique para fechar a aba-verPost ao clicar no fundo
+abaVerPost.addEventListener('click', (e) => {
+    // Verifica se o clique foi no próprio abaVerPost (fundo escuro) e não em um de seus filhos
+    if (e.target === abaVerPost) {
+        abaVerPost.classList.remove('active');
+    }
+});
+
 // LOGIN
 const formLogin = document.getElementById('form-login');
 if (formLogin) {
