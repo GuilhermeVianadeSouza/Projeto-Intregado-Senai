@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repórter do meu bairro </title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <main>
+
+        <!-- ABA LOGIN  -->
+         <div id="login"> 
+            <div id="aba-login" class="aba active">
+                <div class="login-container">
+                    <img src="./img/logo green.png" alt="Logo" class="login-logo">
+                    <h1>Bem-vindo ao Repórter do Meu Bairro</h1>
+                    <form id="form-login">
+                        <div class="inputbox">
+                            <input type="email" id="email" required>
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="inputbox">
+                            <input type="password" id="senha" required>
+                            <label for="senha">Senha</label>
+                        </div>
+                        <button type="submit" class="btn-login">Entrar</button>
+                        <p class="signup-text">Não tem uma conta? <a href="#" id="link-signup">Cadastre-se</a></p>
+
+                        <p class="anonimo" id="anonimo"> Entrar como anonimo </p>
+                    </form>
+                </div>
+            </div>
+         </div>
+
+
+        <!-- ABA CADASTRO -->
+        <div id="aba-cadastro" class="aba">
+            <div class="cadastro-container">
+                <img src="./img/logo green.png" alt="Logo" class="login-logo">
+                <h1>Crie sua conta</h1>
+                <form id="form-cadastro">
+                    <div class="inputbox">
+                        <input type="text" id="cadastro-nome" required>
+                        <label for="cadastro-nome">Nome Completo</label>
+                    </div>
+                    <div class="inputbox">
+                        <input type="email" id="cadastro-email" required>
+                        <label for="cadastro-email">Email</label>
+                    </div>
+                    <div class="inputbox">
+                        <input type="password" id="cadastro-senha" required>
+                        <label for="cadastro-senha">Senha</label>
+                    </div>
+                    <div class="inputbox">
+                        <input type="tel" id="cadastro-telefone" required>
+                        <label for="cadastro-telefone">Telefone</label>
+                    </div>
+                    <div class="inputbox">
+                        <input type="text" id="cadastro-localizacao" required>
+                        <label for="cadastro-localizacao">Localização (CEP)</label>
+                    </div>
+                    <button type="submit" class="btn-login">Cadastrar</button>
+                    <p class="signup-text"><a href="#" id="link-voltar-login">Voltar para o Login</a></p>
+                </form>
+            </div>
+        </div>
+
+
+        <!-- ABA HOME (Comunidade) -->
+        <div id="aba-home" class="aba">
+            <nav id="nav-principal">
+                <img src="./img/logo green.png" alt="" class="logo-nav">
+                <h1> Comunidade</h1>
+                <div class="nav-filters">
+                    <select name="categoria" id="categoria-select">
+                        <option value="" disabled selected>Categoria</option>
+                        <option value="entulho">Entulho</option>
+                        <option value="manutencao">Manutenção</option>
+                        <option value="teste">Teste</option>
+                    </select>
+
+                    <select name="data" id="data-select">
+                        <option value="" disabled selected>Datas</option>
+                        <option value="3dias">Últimos 3 dias</option>
+                        <option value="semana">Última semana</option>
+                        <option value="mes">Último mês</option>
+                    </select>
+
+                    <select name="status" id="status-select">
+                        <option value="" disabled selected>Status</option>
+                        <option value="pendente">Pendente</option>
+                        <option value="andamento">Em andamento</option>
+                        <option value="resolvido">Resolvido</option>
+                    </select>
+                </div>
+            </nav>
+
+            <section class="post" id="posts">
+                <header class="post-header">
+                    <img class="post-perfil" src="./img/profile img.png" alt="Perfil">
+                    <div class="post-autor">
+                        <span class="autor-nome">Victor Hugo</span>
+                        <span class="post-data">22:07 27/11/2025</span>
+                    </div>
+                </header>
+
+                <h2 class="post-titulo">Entulho na rua</h2>
+
+                <p class="post-desc">Rua com buracos, acúmulo de lixo e necessidade de manutenção urgente.</p>
+
+                <p class="post-loc"> Avenida Brasil 123, Carapicuiba-SP</p>
+
+                <div class="post-media">
+                    <img class="post-img" src="./img/image 3.png" alt="Imagem do post">
+                </div>
+            </section>
+
+            <section class="post">
+                <header class="post-header">
+                    <img class="post-perfil" src="./img/profile img.png" alt="Perfil">
+                    <div class="post-autor">
+                        <span class="autor-nome">Maria Santos</span>
+                        <span class="post-data">15:30 26/11/2025</span>
+                    </div>
+                </header>
+
+                <h2 class="post-titulo">Iluminação Queimada</h2>
+
+                <p class="post-desc">Poste de iluminação pública quebrado há semanas, deixando a rua escura à noite.</p>
+
+                <p class="post-loc"> Rua das Flores 456, Carapicuiba-SP</p>
+
+                <div class="post-media">
+                    <img class="post-img" src="./img/image 3.png" alt="Imagem do post">
+                </div>
+            </section>
+
+            <section class="post">
+                <header class="post-header">
+                    <img class="post-perfil" src="./img/profile img.png" alt="Perfil">
+                    <div class="post-autor">
+                        <span class="autor-nome">João Costa</span>
+                        <span class="post-data">10:15 25/11/2025</span>
+                    </div>
+                </header>
+
+                <h2 class="post-titulo">Manutenção de Calçada</h2>
+
+                <p class="post-desc">Calçada com rachaduras e desnível que oferece risco de queda.</p>
+
+                <p class="post-loc">Avenida Principal 789, Carapicuiba-SP</p>
+
+                <div class="post-media">
+                    <img class="post-img" src="./img/image 3.png" alt="Imagem do post">
+                </div>
+            </section>
+        </div>
+
+
+        <!-- Aba para visualizar do post  -->
+        <div id="aba-verPost" class="aba-verPost">
+            <div class="verPost-container">
+                <div>
+                    <header class="post-header">
+                        <img class="post-perfil" src="./img/profile img.png" alt="Perfil">
+                        <div class="post-autor">
+                            <span class="autor-nome">João Costa</span>
+                            <span class="post-data">10:15 25/11/2025</span>
+                        </div>
+                    </header>
+    
+                    <h2 class="post-titulo">Manutenção de Calçada</h2>
+    
+                    <p class="post-desc">Calçada com rachaduras e desnível que oferece risco de queda.</p>
+    
+                    <p class="post-loc">Avenida Principal 789, Carapicuiba-SP</p>
+    
+                    <div class="post-media">
+                        <img class="post-img" src="./img/image 3.png" alt="Imagem do post">
+                    </div>
+                </div>
+
+                <div class="comentario">
+                     <p> Comentário do usuário de teste</p>
+                </div>
+                
+                <!-- Comentário da Prefeitura -->
+                <div class="comentario comentario-prefeitura">
+                    <p class="autor-prefeitura">Prefeitura Municipal de Carapicuíba</p>
+                    <p>Recebemos a sua solicitação e a equipe de manutenção já foi acionada. O prazo para a resolução do problema é de 5 dias úteis. Agradecemos a sua colaboração!</p>
+                </div>
+            </div>
+         </div>
+
+
+        <!-- ABA CRIAR OCORRÊNCIA -->
+
+
+        <div id="aba-criar" class="aba">
+            <nav id="nav-principal">
+                <img src="./img/logo green.png" alt="" class="logo-nav">
+                <h1> Criar Nova Ocorrência </h1>
+            </nav>
+
+            <div class="form-container">
+                <form id="form-ocorrencia">
+                    <label for="titulo">Título do Problema</label>
+                    <input type="text" id="titulo" placeholder="Ex: Buraco na rua" required>
+
+                    <label for="categoria">Categoria</label>
+                    <select id="categoria" required>
+                        <option value="">Selecione uma categoria</option>
+                        <option value="entulho">Entulho</option>
+                        <option value="manutencao">Manutenção</option>
+                        <option value="iluminacao">Iluminação</option>
+                    </select>
+
+                    <label for="descricao">Descrição</label>
+                    <textarea id="descricao" placeholder="Descreva o problema em detalhes..." required></textarea>
+
+                    <label for="localizacao">Localização</label>
+                    <button type="button" class="btn-local">Escolher localização</button>
+
+
+                    <label for="imagem">Foto do Problema</label>
+                    <input type="file" id="imagem" accept="image/*">
+
+                    <div> 
+                        <input type="checkbox" id="anonimo"> 
+                        <label for="anonimo">Publicar como anônimo</label>    
+                      
+                    </div>
+                
+
+                    <button type="submit" class="btn-submit">Publicar Ocorrência</button>
+                    <button type="button" class="btn-cancelar">Cancelar</button>
+                </form>
+            </div>
+        </div>
+
+
+        <!-- Aba dos popUps -->
+        <div id="popUp-cancelar" class="popUp">
+            <div class="popUp-cancel">
+                <p>Deseja realmente cancelar a publicação da ocorrência?</p>
+                <div class="popUp-buttons">
+                    <button id="btn-sim" class="btn-sim">Sim</button>
+                    <button id="btn-nao" class="btn-nao">Não</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="popUp-localizacao" class="popUp">
+            <div class="popUp-localizacao-content">
+                <h2>Selecionar Localização</h2>
+                <button id="btn-auto">Meu Local</button>
+                <button id="btn-manual">Escolher Manualmente</button>
+                <button id="Voltar"> Voltar </button>
+            </div>
+
+        </div>
+
+
+        <!-- aba escolher manualmente  -->
+        <div>
+            <div id="aba-escolherLocal" class="aba ">
+                <nav id="nav-principal">
+                    <img src="./img/logo green.png" alt="" class="logo-nav">
+                    <h1> Escolher Localização </h1>
+                </nav>
+
+                <div class="form-container">
+                    <div class="inputbox">
+                        <input type="text" id="CEP" required>
+                        <label for="CEP">CEP</label>
+                    </div>
+                    <div class="inputbox">
+                        <input type="text" id="endereco" required>
+                        <label for="endereco">Endereço</label>
+                    </div>
+                    <div class="inputbox">
+                        <input type="text" id="numero" required>
+                        <label for="numero">Número</label>
+                    </div>
+                    <div class="inputbox">
+                        <input type="text" id="bairro" required>
+                        <label for="bairro">Bairro</label>
+                    </div>
+                    <div class="inputbox">
+                        <input type="text" id="cidade" required>
+                        <label for="cidade">Cidade</label>
+                    </div>
+                    <div class="inputbox">
+                        <input type="text" id="estado" required>
+                        <label for="estado">Estado</label>
+                    </div>
+                    <button type="submit" class="btn-submit">Continuar </button>
+                    <button type="button" class="btn-cancelar" id="btn-cancelar-local">Cancelar</button>
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <!-- ABA PERFIL  -->
+        <div id="aba-perfil" class="aba">
+            <div>
+                <nav id="nav-principal">
+                    <img src="./img/logo green.png" alt="" class="logo-nav">
+                    <h1> Perfil </h1>
+                </nav>
+
+                <div class="perfil-container">
+                    <img src="./img/profile img.png" alt="Foto de Perfil" class="perfil-img">
+                    <h2 class="perfil-nome">Victor Hugo</h2>
+                    <p class="perfil-loc">Avenida Brasil 123, Jardim Teste, Carapicuiba-SP</p>
+                    <p class="perfil-email">teste@exemplo.com</p>
+                    <p class="perfil-telefone">(11) 99999-9999</p>
+
+                    <button type="submit" id="btn-verOcorrencias">Visualizar minhas ocorrências</button>
+                    <button id="buttonNovaOcorrencia">Publicar nova ocorrência</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Aba Minhas ocorrencias  -->
+        <div id="aba-minhasOcorrencias" class="aba">
+            <div>
+                <nav id="nav-principal">
+                    <img src="./img/logo green.png" alt="" class="logo-nav">
+                    <h1> Minhas ocorrências </h1>
+                </nav>
+
+                <section class="post">
+                    <header class="post-header">
+                        <img class="post-perfil" src="./img/profile img.png" alt="Perfil">
+                        <div class="post-autor">
+                            <span class="autor-nome">Victor Hugo</span>
+                            <span class="post-data">22:07 27/11/2025</span>
+                        </div>
+                    </header>
+
+                    <h2 class="post-titulo">Entulho na rua</h2>
+
+                    <p class="post-desc">Rua com buracos, acúmulo de lixo e necessidade de manutenção urgente.</p>
+
+                    <p class="post-loc"> Avenida Brasil 123, Carapicuiba-SP</p>
+
+                    <div class="post-media">
+                        <img class="post-img" src="./img/image 3.png" alt="Imagem do post">
+                    </div>
+                </section>
+                <section class="post">
+                    <header class="post-header">
+                        <img class="post-perfil" src="./img/profile img.png" alt="Perfil">
+                        <div class="post-autor">
+                            <span class="autor-nome">Victor Hugo</span>
+                            <span class="post-data">22:07 27/11/2025</span>
+                        </div>
+                    </header>
+
+                    <h2 class="post-titulo">Entulho na rua</h2>
+
+                    <p class="post-desc">Rua com buracos, acúmulo de lixo e necessidade de manutenção urgente.</p>
+
+                    <p class="post-loc"> Avenida Brasil 123, Carapicuiba-SP</p>
+
+                    <div class="post-media">
+                        <img class="post-img" src="./img/image 3.png" alt="Imagem do post">
+                    </div>
+                </section>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer padrão  -->
+    <footer id="footer">
+        <div class="footer-nav">
+            <a href="#" class="footer-icon" id="btn-criar">
+                <img src="./img/btnAdd.png" alt="Adicionar">
+            </a>
+            <a href="#" class="footer-icon" id="btn-home">
+                <img src="./img/home.png" alt="Home">
+            </a>
+            <a href="#" class="footer-icon" id="btn-perfil">
+                <img src="./img/profile icon.png" alt="Perfil">
+            </a>
+        </div>
+    </footer>
+
+</body>
+
+</html>
