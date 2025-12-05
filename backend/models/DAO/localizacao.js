@@ -13,9 +13,7 @@ const prisma = new PrismaClient()
 
 async function selecionarLocalizacaoPorID(id) {
     try {
-        const sql = `SELECT id_localizacao, cep, rua, numero, bairro, complemento, cidade, estado
-                    FROM vw_localizacao_ocorrencia
-                    WHERE id_localizacao = ${id}`
+        const sql = `SELECT * FROM tb_localizacao WHERE id = ${id}`
 
         const localizacao = await prisma.$queryRawUnsafe(sql)
         if (Array.isArray(localizacao))

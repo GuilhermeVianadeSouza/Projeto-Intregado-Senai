@@ -16,6 +16,7 @@ async function obterLocalizacaoPorId(id) {
     try {
         if (!isNaN(id) && id != '' && id != null && id > 0) {
             let resultLocalizacao = await localizacaoDAO.selecionarLocalizacaoPorID(Number(id))
+
             if (resultLocalizacao) {
                 if (resultLocalizacao.length > 0) {
                     MESSAGES.DEFAULT_HEADER.development = 'Guilherme Viana'

@@ -30,6 +30,7 @@ async function selecionarCategoriaPorID(id) {
         const sql = `SELECT * FROM tb_categoria WHERE id = ${id}`
 
         const categoria = await prisma.$queryRawUnsafe(sql)
+
         if (Array.isArray(categoria))
             return categoria
         else

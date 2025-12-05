@@ -44,11 +44,14 @@ async function inserirMultimidia(multimidia, contentType) {
     try {
         if (String(contentType).toLocaleUpperCase() != 'APPLICATION/JSON')
             return MESSAGES.ERROR_CONTENT_TYPE
+
         let validarInformacoes = await validarDadosMultimidia(multimidia)
+
         if (validarInformacoes)
             return validarInformacoes
+
         let resultMultimidia = await multimidiaDAO.registrarUmaMultimidia(multimidia)
-        console.log(resultMultimidia)
+
         if (!resultMultimidia)
             return MESSAGES.ERROR_INTERNAL_SERVER_MODEL
 
