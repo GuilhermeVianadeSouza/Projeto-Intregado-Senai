@@ -70,6 +70,13 @@ if (buttonCriar) {
   });
 }
 
+const buttonCancelar = document.getElementById('btn-cancelar-local')
+if (buttonCancelar) {
+  buttonCancelar.addEventListener('click', () => {
+    showTab('aba-criar')
+  });
+}
+
 // Botão de home (comunidade)
 const buttonHome = document.getElementById('btn-home')
 if (buttonHome) {
@@ -337,56 +344,6 @@ if (formCadastro) {
     });
 }
 
-// LÓGICA DE LOCALIZAÇÃO NO CADASTRO (reutiliza a lógica do ViaCEP)
-const btnEscolherLocalCadastro = document.getElementById('btn-escolher-local-cadastro');
-
-if (btnEscolherLocalCadastro) {
-    btnEscolherLocalCadastro.addEventListener('click', () => {
-        // Armazena o ID da aba de retorno e abre o pop-up de localização
-        localStorage.setItem('aba-retorno-localizacao', 'aba-cadastro');
-        abrirPopUp('popUp-localizacao');
-    });
-}
-
-// Modificar a lógica de retorno do formulário de localização manual para a aba de cadastro
-const formLocalizacao = document.querySelector('#aba-escolherLocal .form-container');
-
-if (formLocalizacao) {
-    const btnContinuar = formLocalizacao.querySelector('.btn-submit');
-
-    if (btnContinuar) {
-        btnContinuar.addEventListener('click', (e) => {
-            e.preventDefault();
-
-            // ... (código de validação de campos) ...
-            const cep = document.getElementById('CEP').value.trim();
-            const endereco = document.getElementById('endereco').value.trim();
-            const numero = document.getElementById('numero').value.trim();
-            const bairro = document.getElementById('bairro').value.trim();
-            const cidade = document.getElementById('cidade').value.trim();
-            const estado = document.getElementById('estado').value.trim();
-
-            if (!cep || !endereco || !numero || !bairro || !cidade || !estado) {
-                alert('Por favor, preencha todos os campos de localização');
-                return;
-            }
-
-            // Se passou na validação
-            const localizacaoCompleta = `${endereco}, ${numero}, ${bairro}, ${cidade}-${estado}`;
-            alert(`Localização salva: ${localizacaoCompleta}`);
-
-            // Preenche o campo de localização na aba de retorno
-            const abaRetorno = localStorage.getItem('aba-retorno-localizacao');
-            if (abaRetorno === 'aba-cadastro') {
-                document.getElementById('cadastro-localizacao').value = `${cep} - ${cidade}/${estado}`;
-            }
-
-            // Volta para a aba de retorno (criar ocorrência ou cadastro)
-            showTab(abaRetorno || 'aba-criar');
-            localStorage.removeItem('aba-retorno-localizacao');
-        });
-    }
-}
 
 // LOGIN
 const formLogin = document.getElementById('form-login');

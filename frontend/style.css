@@ -29,15 +29,17 @@
     border-radius: 12px;
     padding: 50px 40px;
 }
+
 #aba-cadastro {
     background-color: #04A579;
     min-height: 100vh;
-      display: flex;
-    justify-content: center;
     align-items: center;
     padding: 20px;
 }
 
+.cadastro-container h1 {
+    padding-bottom: 20px;
+}
 
 #login {
     background-color: #04A579;
@@ -347,7 +349,7 @@ nav h1 {
 }
 
 .btn-cancelar {
-    width: 70%;
+    width: 65%;
     background-color: #ffffff;
     color: #333;
     font-weight: 600;
