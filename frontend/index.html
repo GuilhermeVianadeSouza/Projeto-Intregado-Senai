@@ -46,6 +46,40 @@
          </div>
 
 
+        <!-- ABA CADASTRO -->
+        <div id="aba-cadastro" class="aba">
+            <div class="login-container">
+                <img src="./img/logo green.png" alt="Logo" class="login-logo">
+                <h1>Crie sua conta</h1>
+                <form id="form-cadastro">
+                    <div class="inputbox">
+                        <input type="text" id="cadastro-nome" required>
+                        <label for="cadastro-nome">Nome Completo</label>
+                    </div>
+                    <div class="inputbox">
+                        <input type="email" id="cadastro-email" required>
+                        <label for="cadastro-email">Email</label>
+                    </div>
+                    <div class="inputbox">
+                        <input type="password" id="cadastro-senha" required>
+                        <label for="cadastro-senha">Senha</label>
+                    </div>
+                    <div class="inputbox">
+                        <input type="tel" id="cadastro-telefone" required>
+                        <label for="cadastro-telefone">Telefone</label>
+                    </div>
+                    <div class="inputbox">
+                        <input type="text" id="cadastro-localizacao" required readonly>
+                        <label for="cadastro-localizacao">Localização (CEP)</label>
+                    </div>
+                    <button type="button" id="btn-escolher-local-cadastro" class="btn-local">Escolher Localização</button>
+                    <button type="submit" class="btn-login">Cadastrar</button>
+                    <p class="signup-text"><a href="#" id="link-voltar-login">Voltar para o Login</a></p>
+                </form>
+            </div>
+        </div>
+
+
         <!-- ABA HOME (Comunidade) -->
         <div id="aba-home" class="aba">
             <nav id="nav-principal">
@@ -161,7 +195,13 @@
                 </div>
 
                 <div class="comentario">
-                     <p> teste</p>
+                     <p> Comentário do usuário de teste</p>
+                </div>
+                
+                <!-- Comentário da Prefeitura -->
+                <div class="comentario comentario-prefeitura">
+                    <p class="autor-prefeitura">Prefeitura Municipal de Carapicuíba</p>
+                    <p>Recebemos a sua solicitação e a equipe de manutenção já foi acionada. O prazo para a resolução do problema é de 5 dias úteis. Agradecemos a sua colaboração!</p>
                 </div>
             </div>
          </div>

@@ -209,33 +209,33 @@ nav h1 {
 
 /* ABA VISUALIZAR POST */
 .aba-verPost {
-    display: none; /* Esconde por padrão */
+    display: none; 
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7); /* Fundo escuro semi-transparente */
+    background: rgba(0, 0, 0, 0.7);
     padding: 20px;
-    z-index: 1000; /* Garante que fique por cima de tudo */
+    z-index: 1000; 
     justify-content: center;
     align-items: center;
     animation: fadeIn 0.3s ease-in;
 }
 
 .aba-verPost.active {
-    display: flex; /* Mostra quando a classe active é adicionada */
+    display: flex; 
 }
 
 .verPost-container {
     background-color: white;
-    width: 95%;
-    max-width: 600px; /* Limita a largura em telas maiores */
-    max-height: 90vh; /* Limita a altura para caber na tela */
+    width: 85%;
+    max-width: 600px; 
+    max-height: 90vh; 
     border-radius: 12px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     padding: 20px;
-    overflow-y: auto; /* Permite rolagem se o conteúdo for muito longo */
+    overflow-y: auto; 
 }
 
 /* ESTILIZAÇÃO DO COMENTÁRIO */
