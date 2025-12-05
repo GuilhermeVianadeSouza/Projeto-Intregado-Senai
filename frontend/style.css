@@ -242,8 +242,8 @@ nav h1 {
 .comentario {
     margin-top: 20px;
     padding: 15px;
-    border-top: 1px solid #eee; /* Separador */
-    background-color: #f9f9f9; /* Fundo leve para o bloco de comentários */
+    border-top: 1px solid #eee; 
+    background-color: #f9f9f9; 
     border-radius: 8px;
 }
 
