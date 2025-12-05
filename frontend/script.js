@@ -198,7 +198,7 @@ if (btnEscolherLocalizacao) {
   btnEscolherLocalizacao.addEventListener('click', (e) => {
     e.preventDefault()
     abrirPopUp('popUp-localizacao')
-  });
+  })
 }
 
 
@@ -249,42 +249,41 @@ async function pesquisarCep(cep) {
 async function preencherCampos({ target }) {
     limparFormulario();
 
-    const cep = target.value.replace(/\D/g, '');
+    const cep = target.value.replace(/\D/g, '')
 
     if (cepValido(cep)) {
-        const infoCep = await pesquisarCep(cep);
+        const infoCep = await pesquisarCep(cep)
 
         if (infoCep.erro) {
-            alert('CEP não encontrado ou inválido.');
+            alert('CEP não encontrado ou inválido.')
         } else {
-            document.getElementById('endereco').value = infoCep.logradouro;
-            document.getElementById('bairro').value = infoCep.bairro;
-            document.getElementById('cidade').value = infoCep.localidade;
-            document.getElementById('estado').value = infoCep.uf;
+            document.getElementById('endereco').value = infoCep.logradouro
+            document.getElementById('bairro').value = infoCep.bairro
+            document.getElementById('cidade').value = infoCep.localidade
+            document.getElementById('estado').value = infoCep.uf
 
             // Bloqueia a edição dos campos preenchidos
-            const fields = ['endereco', 'bairro', 'cidade', 'estado'];
+            const fields = ['endereco', 'bairro', 'cidade', 'estado']
             fields.forEach(id => {
-                document.getElementById(id).setAttribute('readonly', 'readonly');
+                document.getElementById(id).setAttribute('readonly', 'readonly')
             });
         }
     } else if (target.value.length > 0) {
-        alert('CEP inválido! O CEP deve conter 8 dígitos numéricos.');
+        alert('CEP inválido! O CEP deve conter 8 dígitos numéricos.')
     }
 }
 
 // Adiciona listener de focusout no campo CEP
-const inputCep = document.getElementById('CEP');
+const inputCep = document.getElementById('CEP')
 if (inputCep) {
-    inputCep.addEventListener('focusout', preencherCampos);
+    inputCep.addEventListener('focusout', preencherCampos)
 }
 
-// O bloco de código do formLocalizacao original foi movido e modificado acima para suportar o retorno para a aba de cadastro.
-// O código abaixo é apenas para manter a estrutura do arquivo, mas a lógica foi consolidada.
+
 
 // LÓGICA DA ABA-VERPOST
-const abaVerPost = document.getElementById('aba-verPost');
-const posts = document.querySelectorAll('.post');
+const abaVerPost = document.getElementById('aba-verPost')
+const posts = document.querySelectorAll('.post')
 
 // Adiciona listener de clique a todos os posts
 posts.forEach(post => {
@@ -298,18 +297,18 @@ posts.forEach(post => {
 abaVerPost.addEventListener('click', (e) => {
     // Verifica se o clique foi no próprio abaVerPost (fundo escuro) e não em um de seus filhos
     if (e.target === abaVerPost) {
-        abaVerPost.classList.remove('active');
+        abaVerPost.classList.remove('active')
     }
 });
 
 // NAVEGAÇÃO LOGIN/CADASTRO
-const linkSignup = document.getElementById('link-signup');
-const linkVoltarLogin = document.getElementById('link-voltar-login');
+const linkSignup = document.getElementById('link-signup')
+const linkVoltarLogin = document.getElementById('link-voltar-login')
 
 if (linkSignup) {
     linkSignup.addEventListener('click', (e) => {
-        e.preventDefault();
-        showTab('aba-cadastro');
+        e.preventDefault()
+        showTab('aba-cadastro')
     });
 }
 
@@ -327,31 +326,31 @@ if (formCadastro) {
     formCadastro.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        const nome = document.getElementById('cadastro-nome').value.trim();
-        const email = document.getElementById('cadastro-email').value.trim();
-        const senha = document.getElementById('cadastro-senha').value.trim();
-        const telefone = document.getElementById('cadastro-telefone').value.trim();
-        const localizacao = document.getElementById('cadastro-localizacao').value.trim();
+        const nome = document.getElementById('cadastro-nome').value.trim()
+        const email = document.getElementById('cadastro-email').value.trim()
+        const senha = document.getElementById('cadastro-senha').value.trim()
+        const telefone = document.getElementById('cadastro-telefone').value.trim()
+        const localizacao = document.getElementById('cadastro-localizacao').value.trim()
 
         if (nome && email && senha && telefone && localizacao) {
             // Simulação de cadastro bem-sucedido
-            alert('Cadastro realizado com sucesso! Faça login para continuar.');
+            alert('Cadastro realizado com sucesso! Faça login para continuar.')
             formCadastro.reset();
             showTab('aba-login');
         } else {
-            alert('Por favor, preencha todos os campos obrigatórios.');
+            alert('Por favor, preencha todos os campos obrigatórios.')
         }
     });
 }
 
 
 // LOGIN
-const formLogin = document.getElementById('form-login');
+const formLogin = document.getElementById('form-login')
 if (formLogin) {
     formLogin.addEventListener('submit', (e) => {
         e.preventDefault();
-        const email = document.getElementById('email').value;
-        const senha = document.getElementById('senha').value;
+        const email = document.getElementById('email').value
+        const senha = document.getElementById('senha').value
 
         if (email === 'teste@gmail.com' && senha === '12345') {
             showTab('aba-home')
@@ -359,5 +358,5 @@ if (formLogin) {
         } else {
             alert('Email ou senha incorretos')
         }
-    });
+    })
 }
