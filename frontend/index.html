@@ -22,7 +22,7 @@
     <main>
 
         <!-- ABA LOGIN  -->
-         <div id="login"> 
+         <div id="login-wrapper" class="aba-wrapper"> 
             <div id="aba-login" class="aba active">
                 <div class="login-container">
                     <img src="./img/logo green.png" alt="Logo" class="login-logo">
@@ -45,6 +45,7 @@
 
 
         <!-- ABA CADASTRO -->
+         <div id="cadastro-wrapper" class="aba-wrapper"> 
         <div id="aba-cadastro" class="aba">
             <div class="cadastro-container">
                 <img src="./img/logo green.png" alt="Logo" class="login-logo">
@@ -75,13 +76,16 @@
                 </form>
             </div>
         </div>
-
+</div>
 
         <!-- ABA HOME (Comunidade) -->
         <div id="aba-home" class="aba">
             <nav id="nav-principal">
                 <img src="./img/logo green.png" alt="" class="logo-nav">
                 <h1> Comunidade</h1>
+                <select name="localizacao" id="localizacao-select">
+                    <option value="" disabled selected>Selecione a Localização</option>
+                </select>
                 <div class="nav-filters">
                     <select name="categoria" id="categoria-select">
                         <option value="" disabled selected>Categoria</option>
@@ -230,7 +234,7 @@
                     <textarea id="descricao" placeholder="Descreva o problema em detalhes..." required></textarea>
 
                     <label for="localizacao">Localização</label>
-                    <button type="button" class="btn-local">Escolher localização</button>
+                    <button type="button" class="btn-local" id="btn-localizacao-ocorrencia">Escolher localização</button>
 
 
                     <label for="imagem">Foto do Problema</label>

@@ -10,7 +10,10 @@ function showTab(tabId) {
   // Pega todas as abas
   const todasAsAbas = document.querySelectorAll('.aba')
   const footer = document.getElementById('footer')
-  const loginContainer = document.getElementById('login') // Pega o container #login
+  
+  // Pega os wrappers de login e cadastro
+  const loginWrapper = document.getElementById('login-wrapper');
+  const cadastroWrapper = document.getElementById('cadastro-wrapper');
 
   // Remove a classe 'active' (esconde)
   todasAsAbas.forEach(aba => {
@@ -25,13 +28,13 @@ function showTab(tabId) {
     abaAtiva.classList.add('active')
   }
 
-  // Lógica para o container #login
-  if (loginContainer) {
-    if (tabId === 'aba-login') {
-        loginContainer.style.display = 'flex'; // Visível apenas para login
-    } else {
-        loginContainer.style.display = 'none'; // Oculto para todas as outras abas, incluindo cadastro
-    }
+  // Lógica para os containers de login e cadastro
+  if (loginWrapper) {
+    loginWrapper.style.display = (tabId === 'aba-login') ? 'flex' : 'none';
+  }
+
+  if (cadastroWrapper) {
+    cadastroWrapper.style.display = (tabId === 'aba-cadastro') ? 'flex' : 'none';
   }
 
   // Lógica para o footer
@@ -187,11 +190,10 @@ if (btnNao) {
 
 
 // POP-UP DE LOCALIZAÇÃO
-const btnEscolherLocalizacao = document.querySelector('.btn-local')
+const btnEscolherLocalizacao = document.getElementById('btn-localizacao-ocorrencia')
 const popUpLocalizacao = document.getElementById('popUp-localizacao')
 const btnVoltarLocalizacao = document.getElementById('Voltar')
 const btnManual = document.getElementById('btn-manual')
-const btnAuto = document.getElementById('btn-auto')
 
 // Abre o pop-up ao clicar em "Escolher localização"
 if (btnEscolherLocalizacao) {
@@ -220,6 +222,43 @@ if (btnVoltarLocalizacao) {
 
 // FORMULÁRIO DE LOCALIZAÇÃO MANUAL
 const formLocalizacaoOriginal = document.querySelector('#aba-escolherLocal .form-container')
+
+// Botão Continuar na aba-escolherLocal
+const btnContinuarLocal = document.querySelector('#aba-escolherLocal .btn-submit')
+
+if (btnContinuarLocal) {
+    btnContinuarLocal.addEventListener('click', (e) => {
+        e.preventDefault()
+
+        // 1. Coletar os dados de localização
+        const cep = document.getElementById('CEP').value.trim()
+        const endereco = document.getElementById('endereco').value.trim()
+        const numero = document.getElementById('numero').value.trim()
+        const bairro = document.getElementById('bairro').value.trim()
+        const cidade = document.getElementById('cidade').value.trim()
+        const estado = document.getElementById('estado').value.trim()
+
+        // 2. Validar se os campos obrigatórios estão preenchidos
+        if (!cep || !endereco || !numero || !bairro || !cidade || !estado) {
+            alert('Por favor, preencha todos os campos de localização.')
+            return
+        }
+
+        // 3. Salvar os dados (Simulação: Armazenar em uma variável global ou localStorage)
+        // Como não há um backend, vamos simular o salvamento e preencher o campo na aba-criar
+        const localizacaoCompleta = `${endereco}, ${numero}, ${bairro}, ${cidade}-${estado}, CEP: ${cep}`
+        
+        // Preencher o campo de localização na aba-criar
+        const inputLocalizacaoOcorrencia = document.getElementById('btn-localizacao-ocorrencia')
+        if (inputLocalizacaoOcorrencia) {
+            inputLocalizacaoOcorrencia.textContent = localizacaoCompleta
+            inputLocalizacaoOcorrencia.dataset.localizacao = localizacaoCompleta // Armazena o valor completo
+        }
+
+        // 4. Navegar para a aba de nova ocorrência (aba-criar)
+        showTab('aba-criar')
+    })
+}
 
 // Lógica ViaCEP (Refatorada)
 const limparFormulario = () => {
@@ -360,3 +399,64 @@ if (formLogin) {
         }
     })
 }
+
+// --- Lógica de Geolocalização Automática (Simplificada) ---
+
+const btnAuto = document.getElementById('btn-auto')
+
+if (btnAuto) {
+  btnAuto.addEventListener('click', () => {
+    fecharPopUp('popUp-localizacao');
+    // Apenas mostra a aba de escolha manual, pois a geocodificação reversa está falhando
+    showTab('aba-escolherLocal');
+    alert("Não foi possível obter sua localização automaticamente. Por favor, preencha manualmente.");
+  });
+}
+
+// Array de cidades/estados para o seletor da comunidade
+const cidadesDisponiveis = [
+    { cidade: "Carapicuíba", estado: "SP" },
+    { cidade: "Osasco", estado: "SP" },
+    { cidade: "Barueri", estado: "SP" },
+    { cidade: "São Paulo", estado: "SP" },
+    { cidade: "Rio de Janeiro", estado: "RJ" },
+];
+
+// Função para preencher o seletor de localização
+function preencherSeletorLocalizacao() {
+    const selectLocalizacao = document.getElementById('localizacao-select');
+    if (selectLocalizacao) {
+        // Limpa as opções existentes (exceto a primeira "Selecione...")
+        while (selectLocalizacao.options.length > 1) {
+            selectLocalizacao.remove(1);
+        }
+
+        cidadesDisponiveis.forEach(local => {
+            const option = document.createElement('option');
+            option.value = `${local.cidade}-${local.estado}`;
+            option.textContent = `${local.cidade}-${local.estado}`;
+            selectLocalizacao.appendChild(option);
+        });
+        
+        // Define um valor padrão (ex: Carapicuíba-SP)
+        selectLocalizacao.value = "Carapicuíba-SP";
+    }
+}
+
+// Chama a função ao carregar o DOM
+document.addEventListener('DOMContentLoaded', () => {
+    preencherSeletorLocalizacao();
+    
+    // Adiciona listener para a seleção de localização
+    const selectLocalizacao = document.getElementById('localizacao-select');
+    if (selectLocalizacao) {
+        selectLocalizacao.addEventListener('change', (e) => {
+            const novaLocalizacao = e.target.value;
+            console.log('Nova localização selecionada para a comunidade:', novaLocalizacao);
+            // Aqui seria implementada a lógica de filtragem dos posts da comunidade
+            // Por enquanto, apenas registramos a mudança.
+            alert(`Comunidade filtrada para: ${novaLocalizacao}`);
+        });
+    }
+});
+

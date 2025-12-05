@@ -27,23 +27,18 @@
     align-items: center;
     text-align: center;
     border-radius: 12px;
-    padding: 40px 80px;
+    padding: 40px 60px;
 }
 
 #aba-cadastro {
-     background-color: #04A579;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+     /* Estilos de fundo e altura já definidos no .aba-wrapper */
 }
 
 .cadastro-container h1 {
     padding-bottom: 20px;
 }
 
-#login {
+.aba-wrapper {
     background-color: #04A579;
     min-height: 100vh;
     display: flex;
@@ -51,6 +46,8 @@
     align-items: center;
     padding: 20px;
 }
+
+
 
 .login-container h1,
 .login-container h2,
@@ -87,6 +84,28 @@ nav {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+#localizacao-select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 0.9rem;
+    background-color: #f0f0f0;
+    width: 90%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 15px;
+}
+
+#localizacao-select:hover {
+    background-color: #e8e8e8;
+}
+
+#localizacao-select:focus {
+    outline: none;
+    border-color: #04A579;
+    box-shadow: 0 0 5px rgba(4, 165, 121, 0.3);
 }
 
 nav .logo-nav {
@@ -679,6 +698,10 @@ input[type="checkbox"] + label {
     nav h1 {
         font-size: 1.8rem;
     }
+    #localizacao-select {
+        width: 80%;
+        font-size: 1rem;
+    }
     .form-container label {
         font-size: 1rem;
     }
@@ -815,6 +838,11 @@ input[type="checkbox"] + label {
 
     .perfil-nome {
         font-size: 1.8rem;
+    }
+
+    #localizacao-select {
+        width: 30%;
+        font-size: 1rem;
     }
 
     .perfil-container button {
