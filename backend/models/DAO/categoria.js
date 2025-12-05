@@ -16,10 +16,12 @@ async function selecionarTodasAsCategorias() {
         const sql = `SELECT * FROM tb_categoria`
 
         const categoria = await prisma.$queryRawUnsafe(sql)
+
         if (Array.isArray(categoria))
             return categoria
         else
             return false
+
     } catch (error) {
         return false
     }
@@ -35,6 +37,7 @@ async function selecionarCategoriaPorID(id) {
             return categoria
         else
             return false
+
     } catch (error) {
         return false
     }

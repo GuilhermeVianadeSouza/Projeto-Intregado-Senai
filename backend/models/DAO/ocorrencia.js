@@ -18,12 +18,13 @@ async function selecionarUltimoIdDaOcorrencia() {
         const ocorrencia = await prisma.$queryRawUnsafe(sql)
         if (Array.isArray(ocorrencia))
             return Number(ocorrencia[0].id)
-              else
+        else
             return false
     } catch (error) {
         return false
     }
 }
+
 async function selecionarOcorrencias(
     limite, pagina, categoriaId, status, dataRegistro, ordenar = 'DESC'
 ) {
@@ -76,6 +77,7 @@ async function selecionarOcorrencias(
             return ocorrencias
         else
             return false
+
     } catch (error) {
         return false
     }
@@ -83,30 +85,33 @@ async function selecionarOcorrencias(
 
 async function registrarOcorrencia(ocorrencia) {
     try {
-        const sql = `INSERT INTO tb_ocorrencia(
-        descricao,
-        data_registro,
-        avaliacao,
-        compartilhar_dados,
-        id_cidadao,
-        id_localizacao,
-        id_categoria
-        )
-        VALUES(
-        '${ocorrencia.descricao}',
-        '${ocorrencia.data_registro}',
-        ${ocorrencia.avaliacao},
-        ${ocorrencia.compartilhar_dados},
-        ${ocorrencia.id_cidadao},
-        ${ocorrencia.id_localizacao},
-        ${ocorrencia.id_categoria}
-        )`
+        const sql = `
+            INSERT INTO tb_ocorrencia(
+                descricao,
+                data_registro,
+                avaliacao,
+                compartilhar_dados,
+                id_cidadao,
+                id_localizacao,
+                id_categoria
+            ) VALUES (
+                ?, ?, ?, ?, ?, ?, ?
+            )
+        `
 
-        const result = await prisma.$queryRawUnsafe(sql)
+        const dataAtual = new Date()
+        dataAtual.setHours(dataAtual.getHours() - 3);
+
+        const result = await prisma.$executeRawUnsafe(
+            sql, ocorrencia.descricao, dataAtual, ocorrencia.avaliacao, ocorrencia.compartilhar_dados,
+            ocorrencia.id_cidadao, ocorrencia.id_localizacao, ocorrencia.id_categoria
+        )
+
         if (result)
             return true
         else
             return false
+
     } catch (error) {
         return false
     }

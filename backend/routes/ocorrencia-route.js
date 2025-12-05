@@ -11,6 +11,7 @@ const bodyParser = require('body-parser')
 const bodyParserJSON = bodyParser.json()
 
 const controllerOcorrencia = require('../controllers/ocorrencia/ocorrencia-controller.js')
+const controllerCategoria = require('../controllers/categoria/categoria-controller.js')
 
 // Cria o router que irá guardar as rotas
 const router = express.Router()
@@ -28,7 +29,7 @@ router.post('/', cors(), bodyParserJSON, async (request, response) => {
 
 // Obtém ocorrências, permitindo filtros
 router.get('', cors(), async (request, response) => {
-    const {limite, pagina, categoria, status, dataRegistro, ordenar} = request.query
+    const { limite, pagina, categoria, status, dataRegistro, ordenar } = request.query
 
     let ocorrencias = await controllerOcorrencia.obterOcorrencias(limite, pagina, categoria, status, dataRegistro, ordenar)
 

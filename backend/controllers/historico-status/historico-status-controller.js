@@ -12,17 +12,23 @@ const DEFAULT_MESSAGES = require('../modulo/config-messages.js')
 
 async function registrarHistorico(historico, contentType) {
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
+
     try {
         if (String(contentType).toLocaleUpperCase() != 'APPLICATION/JSON')
             return MESSAGES.ERROR_CONTENT_TYPE
+
         let validarInformacoes = await validarDadosHistorico(historico)
+
         if (validarInformacoes)
             return validarInformacoes
+
         let resulthistorico = await historicoDAO.inserirHistorico(historico)
+
         if (!resulthistorico)
             return MESSAGES.ERROR_INTERNAL_SERVER_MODEL
 
         let ultimoId = await historicoDAO.selecionarUltimoIdDoHistorico()
+
         if (!ultimoId)
             return MESSAGES.ERROR_INTERNAL_SERVER_MODEL
 
@@ -32,6 +38,40 @@ async function registrarHistorico(historico, contentType) {
         MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
         MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
         MESSAGES.DEFAULT_HEADER.items.historico = historico
+
+        return MESSAGES.DEFAULT_HEADER
+    } catch (error) {
+        return MESSAGES.ERROR_INTERNAL_SERVER_CONTROLLER
+    }
+}
+
+async function iniciarHistorico(ocorrenciaId) {
+    let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
+
+    try {
+        let resulthistorico = await historicoDAO.inserirNovoHistorico(Number(ocorrenciaId))
+
+        if (!resulthistorico)
+            return MESSAGES.ERROR_INTERNAL_SERVER_MODEL
+
+        let ultimoId = await historicoDAO.selecionarUltimoIdDoHistorico()
+
+        if (!ultimoId)
+            return MESSAGES.ERROR_INTERNAL_SERVER_MODEL
+
+        const historico = {
+            id: ultimoId,
+            data_hora: new Date(),
+            id_status: 1,
+            id_ocorrencia: ocorrenciaId
+        }
+
+        historico.id = ultimoId
+        MESSAGES.DEFAULT_HEADER.development = 'Guilherme Viana de Souza'
+        MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
+        MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
+        MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
+        MESSAGES.DEFAULT_HEADER.historico = historico
 
         return MESSAGES.DEFAULT_HEADER
     } catch (error) {
@@ -60,4 +100,5 @@ async function validarDadosHistorico(historico) {
 
 module.exports = {
     registrarHistorico,
+    iniciarHistorico
 }

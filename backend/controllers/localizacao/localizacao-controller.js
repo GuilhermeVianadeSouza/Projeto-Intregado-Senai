@@ -6,7 +6,6 @@
  * Versão: 1.0
  ******************************************************************************/
 
-
 const localizacaoDAO = require('../../models/DAO/localizacao.js')
 
 const DEFAULT_MESSAGES = require('../modulo/config-messages.js')
@@ -40,14 +39,19 @@ async function obterLocalizacaoPorId(id) {
 }
 
 async function registrarLocalizacao(localizacao, contentType) {
+
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
     try {
         if (String(contentType).toLocaleUpperCase() != 'APPLICATION/JSON')
             return MESSAGES.ERROR_CONTENT_TYPE
+
         let validarInformacoes = await validarDadosLocalizacao(localizacao)
+
         if (validarInformacoes)
             return validarInformacoes
+
         let resultLocalizacao = await localizacaoDAO.inserirLocalizacao(localizacao)
+
         if (!resultLocalizacao)
             return MESSAGES.ERROR_INTERNAL_SERVER_MODEL
 
@@ -71,7 +75,7 @@ async function registrarLocalizacao(localizacao, contentType) {
 async function validarDadosLocalizacao(localizacao) {
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
-    if (localizacao.cep && localizacao.cep.length > 8) {
+    if (localizacao.cep && localizacao.cep.length != 8) {
         MESSAGES.ERROR_REQUIRED_FIELDS.message += '[Cep incompleto]'
         return MESSAGES.ERROR_REQUIRED_FIELDS // 400 - processar requisição
     } else if (localizacao.estado == undefined || localizacao.estado == null || !isNaN(localizacao.estado) || localizacao.estado == '' || localizacao.estado.length !== 2) {
@@ -91,7 +95,7 @@ async function validarDadosLocalizacao(localizacao) {
         return MESSAGES.ERROR_REQUIRED_FIELDS // 400 - processar requisição
 
     } else if (localizacao.numero && localizacao.numero.length > 20) {
-        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [Numero Incompleto]'
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [Numero Incorreto]'
         return MESSAGES.ERROR_REQUIRED_FIELDS // 400 - processar requisição
 
     } else if (localizacao.complemento && localizacao.complemento.length > 20) {

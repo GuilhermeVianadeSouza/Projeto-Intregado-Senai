@@ -49,7 +49,7 @@ async function obterCategoriaPorId(id) {
 
                     return MESSAGES.DEFAULT_HEADER
                 } else {
-                    return MESSAGES.ERROR_NOT_FOUND
+                    return MESSAGES.ERROR_INVALID_CATEGORY_ID
                 }
             } else {
                 return MESSAGES.ERROR_INTERNAL_SERVER_MODEL

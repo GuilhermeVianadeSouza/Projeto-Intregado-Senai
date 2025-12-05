@@ -90,6 +90,12 @@ const ERROR_RELATION_UPDATE = {
     message: 'A requisição do item principal foi processada com sucesso, porém houveram problemas ao atualizar dados na tabela de relação!!!'
 }
 
+const ERROR_INVALID_CATEGORY_ID = {
+    status: false,
+    status_code: 400,
+    message: 'Categoria informada não existe!!!'
+}
+
 module.exports = {
     DEFAULT_HEADER,
     SUCCESS_REQUEST,
@@ -102,5 +108,6 @@ module.exports = {
     ERROR_REQUIRED_FIELDS,
     ERROR_CONTENT_TYPE,
     ERROR_RELATION_INSERTION,
-    ERROR_RELATION_UPDATE
+    ERROR_RELATION_UPDATE,
+    ERROR_INVALID_CATEGORY_ID
 }
