@@ -1,9 +1,15 @@
 'use strict'
 
+// Documento HTML inicial carregado
+document.addEventListener('DOMContentLoaded', () => {
+    showTab('aba-login');
+});
+
 // Função para alternar entre abas
 function showTab(tabId) {
   // Pega todas as abas
   const todasAsAbas = document.querySelectorAll('.aba')
+  const footer = document.getElementById('footer')
 
   // Remove a classe 'active' (esconde)
   todasAsAbas.forEach(aba => {
@@ -17,7 +23,15 @@ function showTab(tabId) {
   if (abaAtiva) {
     abaAtiva.classList.add('active')
   }
+
+  // Esconde o footer nas abas de login e cadastro
+  if (tabId === 'aba-login' || tabId === 'aba-cadastro') {
+    footer.style.display = 'none'
+  } else {
+    footer.style.display = 'flex'
+  }
 }
+
 
 // Função para fechar popups
 function fecharPopUp(popUpId) {
@@ -185,6 +199,7 @@ if (btnVoltarLocalizacao) {
     fecharPopUp('popUp-localizacao')
   })
 }
+
 
 // FORMULÁRIO DE LOCALIZAÇÃO MANUAL
 const formLocalizacao = document.querySelector('#aba-escolherLocal .form-container')
