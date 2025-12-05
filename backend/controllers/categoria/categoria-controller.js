@@ -39,6 +39,7 @@ async function obterCategoriaPorId(id) {
     try {
         if (!isNaN(id) && id != '' && id != null && id > 0) {
             let resultCategorias = await categoriaDAO.selecionarCategoriaPorID(Number(id))
+
             if (resultCategorias) {
                 if (resultCategorias.length > 0) {
                     MESSAGES.DEFAULT_HEADER.development = 'Guilherme Viana'

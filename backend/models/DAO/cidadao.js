@@ -46,7 +46,7 @@ async function selecionarCidadaoPorIdOcorrencia(idOcorrencia) {
             WHERE
                 o.id_cidadao = c.id
             AND
-                o.id_cidadao = ${idOcorrencia};
+                o.id = ${idOcorrencia};
         `
 
         const cidadao = await prisma.$queryRawUnsafe(sql)

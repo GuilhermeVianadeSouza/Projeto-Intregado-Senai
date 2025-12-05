@@ -28,9 +28,9 @@ router.post('/', cors(), bodyParserJSON, async (request, response) => {
 
 // Obtém ocorrências, permitindo filtros
 router.get('', cors(), async (request, response) => {
-    const pagina = request.query.pagina
-    const limite = request.query.limite
-    let ocorrencias = await controllerOcorrencia.obterOcorrencias(limite, pagina)
+    const {limite, pagina, categoria, status, dataRegistro, ordenar} = request.query
+
+    let ocorrencias = await controllerOcorrencia.obterOcorrencias(limite, pagina, categoria, status, dataRegistro, ordenar)
 
     response.status(ocorrencias.status_code).json(ocorrencias)
 })

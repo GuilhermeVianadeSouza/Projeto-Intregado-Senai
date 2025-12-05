@@ -62,7 +62,7 @@ async function obterOcorrencias(
             return MESSAGES.ERROR_REQUIRED_FIELDS // 400 - Campos obrigatórios
         }
 
-        const ocorrencias = await ocorrenciaDAO.selecionarOcorrencias(limite, pagina)
+        const ocorrencias = await ocorrenciaDAO.selecionarOcorrencias(limite, pagina, categoria, status, dataRegistro, ordenar)
 
         if (!ocorrencias)
             return MESSAGES.ERROR_INTERNAL_SERVER_MODEL // 500 - Model
@@ -89,11 +89,11 @@ async function obterOcorrencias(
             // Categoria
             const resultadoCategoria = await categoriaController.obterCategoriaPorId(ocorrencia.id_categoria)
             delete ocorrencia.id_categoria
-            ocorrencia.categoria = resultadoCategoria.categoria
+            ocorrencia.categoria = resultadoCategoria.items.categorias
 
             // Uma multimidia
             const resultadoMultimidia = await multimidiaController.obterMultimidiaPorIdOcorrencia(ocorrencia.id)
-            ocorrencia.multimidia = resultadoMultimidia.multimidia
+            ocorrencia.multimidia = resultadoMultimidia
         }
 
         MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
