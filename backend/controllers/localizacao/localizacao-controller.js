@@ -68,8 +68,6 @@ async function registrarLocalizacao(localizacao, contentType) {
 
         return MESSAGES.DEFAULT_HEADER
     } catch (error) {
-        console.log(error);
-
         return MESSAGES.ERROR_INTERNAL_SERVER_CONTROLLER
     }
 }
@@ -97,7 +95,7 @@ async function validarDadosLocalizacao(localizacao) {
         return MESSAGES.ERROR_REQUIRED_FIELDS // 400 - processar requisição
 
     } else if (localizacao.numero && localizacao.numero.length > 20) {
-        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [Numero Incompleto]'
+        MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [Numero Incorreto]'
         return MESSAGES.ERROR_REQUIRED_FIELDS // 400 - processar requisição
 
     } else if (localizacao.complemento && localizacao.complemento.length > 20) {

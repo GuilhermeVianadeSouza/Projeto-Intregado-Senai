@@ -16,10 +16,12 @@ async function selecionarLocalizacaoPorID(id) {
         const sql = `SELECT * FROM tb_localizacao WHERE id = ${id}`
 
         const localizacao = await prisma.$queryRawUnsafe(sql)
+
         if (Array.isArray(localizacao))
             return localizacao
         else
             return false
+
     } catch {
         return false
     }
@@ -30,10 +32,12 @@ async function selecionarUltimaLocalizacaoRegistrada() {
         const sql = `SELECT id FROM tb_localizacao order by id desc limit 1`
 
         const localizacao = await prisma.$queryRawUnsafe(sql)
+
         if (Array.isArray(localizacao))
             return Number(localizacao[0].id)
         else
             return false
+
     } catch (error) {
         return false
     }
@@ -41,30 +45,33 @@ async function selecionarUltimaLocalizacaoRegistrada() {
 
 async function inserirLocalizacao(localizacao) {
     try {
-        const sql = `INSERT INTO tb_localizacao(
-        cep,
-        estado,
-        cidade,
-        bairro,
-        rua,
-        numero,
-        complemento
-        )
-        VALUES(
-        '${localizacao.cep}',
-        '${localizacao.estado}',
-        '${localizacao.cidade}',
-        '${localizacao.bairro}',
-        '${localizacao.rua}',
-        '${localizacao.numero}',
-        '${localizacao.complemento}'
-        )`
+        const sql = `
+            INSERT INTO tb_localizacao(
+                cep,
+                estado,
+                cidade,
+                bairro,
+                rua,
+                numero,
+                complemento
+            ) VALUES (
+                '${localizacao.cep}',
+                '${localizacao.estado}',
+                '${localizacao.cidade}',
+                '${localizacao.bairro}',
+                '${localizacao.rua}',
+                '${localizacao.numero}',
+                '${localizacao.complemento}'
+            )
+        `
 
-        const result = await prisma.$queryRawUnsafe(sql)
+        const result = await prisma.$executeRawUnsafe(sql)
+
         if (result)
             return true
         else
             return false
+
     } catch (error) {
         return false
     }
