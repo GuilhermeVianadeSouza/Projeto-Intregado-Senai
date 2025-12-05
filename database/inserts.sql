@@ -1,10 +1,3 @@
-USE db_reporter_do_meu_bairro;
-
--- ==========================================================
--- 1. TABELAS DE DOMÍNIO (Categorias e Status)
--- ==========================================================
-
--- Inserindo Status possíveis para uma ocorrência
 INSERT INTO tb_status (nome) VALUES 
 ('Aberto'),
 ('Em Análise'),
@@ -12,7 +5,6 @@ INSERT INTO tb_status (nome) VALUES
 ('Concluído'),
 ('Cancelado');
 
--- Inserindo Categorias de problemas urbanos
 INSERT INTO tb_categoria (nome) VALUES 
 ('Iluminação Pública'),
 ('Buraco na Via'),
@@ -21,68 +13,261 @@ INSERT INTO tb_categoria (nome) VALUES
 ('Sinalização de Trânsito'),
 ('Podas de Árvore');
 
--- ==========================================================
--- 2. CADASTRO DE CIDADÃOS
--- ==========================================================
+INSERT INTO tb_cidadao (nome, email, telefone, cpf, cep, estado, cidade, bairro, rua, complemento, senha) VALUES
+('Ana Silva', 'ana.silva@email.com', '11999990001', '12345678901', '01001000', 'SP', 'São Paulo', 'Sé', 'Praça da Sé', 'Apto 101', 'senha123'),
+('Carlos Souza', 'carlos.souza@email.com', '21988880002', '23456789012', '20040002', 'RJ', 'Rio de Janeiro', 'Centro', 'Av Rio Branco', NULL, 'senha456'),
+('Maria Oliveira', 'maria.oliveira@email.com', '31977770003', '34567890123', '30130005', 'MG', 'Belo Horizonte', 'Savassi', 'Rua da Bahia', 'Casa 2', 'segredo1'),
+('João Santos', 'joao.santos@email.com', '71966660004', '45678901234', '40026280', 'BA', 'Salvador', 'Pelourinho', 'Largo do Pelourinho', NULL, 'admin123'),
+('Fernanda Lima', 'fernanda.lima@email.com', '81955550005', '56789012345', '50030230', 'PE', 'Recife', 'Boa Viagem', 'Av Boa Viagem', 'Bloco B', 'recife22'),
+('Roberto Costa', 'roberto.costa@email.com', '51944440006', '67890123456', '90050100', 'RS', 'Porto Alegre', 'Cidade Baixa', 'Rua Lima e Silva', 'Térreo', 'poa2024'),
+('Lucas Mendes', 'lucas.mendes@email.com', '41933330007', '78901234567', '80020300', 'PR', 'Curitiba', 'Batel', 'Av do Batel', NULL, 'curitiba9'),
+('Juliana Alves', 'juliana.alves@email.com', '85922220008', '89012345678', '60160230', 'CE', 'Fortaleza', 'Meireles', 'Av Beira Mar', 'Apto 505', 'fortal88'),
+('Marcos Rocha', 'marcos.rocha@email.com', '61911110009', '90123456789', '70040906', 'DF', 'Brasília', 'Asa Norte', 'SQN 404', 'Bloco D', 'bsb1960'),
+('Patricia Dias', 'patricia.dias@email.com', '92999880010', '01234567890', '69095000', 'AM', 'Manaus', 'Cidade Nova', 'Av Noel Nutels', NULL, 'manaus10'),
+('Rafael Gomes', 'rafael.gomes@email.com', '48988770011', '12309845678', '88015100', 'SC', 'Florianópolis', 'Centro', 'Av Beira Mar Norte', 'Cob 01', 'floripa1'),
+('Camila Martins', 'camila.martins@email.com', '27977660012', '23410956789', '29010004', 'ES', 'Vitória', 'Centro', 'Av Jerônimo Monteiro', NULL, 'vix2025'),
+('Bruno Ferreira', 'bruno.ferreira@email.com', '91966550013', '34521067890', '66010150', 'PA', 'Belém', 'Campina', 'Rua Pres Vargas', 'Sala 4', 'belem33'),
+('Gabriela Nunes', 'gabriela.nunes@email.com', '62955440014', '45632178901', '74015040', 'GO', 'Goiânia', 'Bueno', 'Av T-63', NULL, 'goias44'),
+('Felipe Barbosa', 'felipe.barbosa@email.com', '19944330015', '56743289012', '13010000', 'SP', 'Campinas', 'Cambuí', 'Rua Coronel Quirino', 'Apto 22', 'camp55');
 
-INSERT INTO tb_cidadao (nome, email, telefone, cpf, cep, estado, cidade, bairro, rua, complemento, senha) VALUES 
-('João da Silva', 'joao.silva@email.com', '11999991234', '12345678901', '01001000', 'SP', 'São Paulo', 'Sé', 'Praça da Sé', 'Apt 12', 'senha_hash_segura_1'),
-('Maria Oliveira', 'maria.o@email.com', '21988884321', '98765432100', '20040002', 'RJ', 'Rio de Janeiro', 'Centro', 'Av. Rio Branco', NULL, 'senha_hash_segura_2'),
-('Carlos Pereira', 'carlos.dev@email.com', '31977775555', '45678912345', '30130000', 'MG', 'Belo Horizonte', 'Savassi', 'Rua da Bahia', 'Casa 3', 'senha_hash_segura_3');
+INSERT INTO tb_localizacao (cep, estado, cidade, bairro, rua, numero, complemento) VALUES
+('01001001', 'SP', 'São Paulo', 'Sé', 'Rua Direita', '10', 'Loja 1'),
+('01001002', 'SP', 'São Paulo', 'Sé', 'Rua 15 de Novembro', '20', NULL),
+('01001003', 'SP', 'São Paulo', 'República', 'Av Ipiranga', '30', 'Andar 2'),
+('01001004', 'SP', 'São Paulo', 'República', 'Av São João', '40', NULL),
+('01001005', 'SP', 'São Paulo', 'Liberdade', 'Rua Galvão Bueno', '50', 'Fundos'),
+('01001006', 'SP', 'São Paulo', 'Liberdade', 'Rua da Glória', '60', NULL),
+('01001007', 'SP', 'São Paulo', 'Pinheiros', 'Rua dos Pinheiros', '70', 'Sala 4'),
+('01001008', 'SP', 'São Paulo', 'Pinheiros', 'Rua Fradique Coutinho', '80', NULL),
+('01001009', 'SP', 'São Paulo', 'Vila Madalena', 'Rua Aspicuelta', '90', 'Casa 2'),
+('01001010', 'SP', 'São Paulo', 'Vila Madalena', 'Rua Girassol', '100', NULL),
+('20000001', 'RJ', 'Rio de Janeiro', 'Centro', 'Rua da Carioca', '11', 'Sobrado'),
+('20000002', 'RJ', 'Rio de Janeiro', 'Centro', 'Rua do Ouvidor', '22', NULL),
+('20000003', 'RJ', 'Rio de Janeiro', 'Lapa', 'Rua do Riachuelo', '33', 'Apto 101'),
+('20000004', 'RJ', 'Rio de Janeiro', 'Lapa', 'Av Mem de Sá', '44', NULL),
+('20000005', 'RJ', 'Rio de Janeiro', 'Flamengo', 'Rua Paissandu', '55', 'Bl 2'),
+('20000006', 'RJ', 'Rio de Janeiro', 'Flamengo', 'Praia do Flamengo', '66', NULL),
+('20000007', 'RJ', 'Rio de Janeiro', 'Botafogo', 'Rua Voluntários da Pátria', '77', 'Loja B'),
+('20000008', 'RJ', 'Rio de Janeiro', 'Botafogo', 'Rua São Clemente', '88', NULL),
+('20000009', 'RJ', 'Rio de Janeiro', 'Ipanema', 'Rua Visconde de Pirajá', '99', 'Cob 01'),
+('20000010', 'RJ', 'Rio de Janeiro', 'Ipanema', 'Rua Garcia dÁvila', '110', NULL),
+('30000001', 'MG', 'Belo Horizonte', 'Centro', 'Av Afonso Pena', '12', 'Sala 10'),
+('30000002', 'MG', 'Belo Horizonte', 'Centro', 'Av Amazonas', '23', NULL),
+('30000003', 'MG', 'Belo Horizonte', 'Savassi', 'Rua Pernambuco', '34', 'Térreo'),
+('30000004', 'MG', 'Belo Horizonte', 'Savassi', 'Rua Alagoas', '45', NULL),
+('30000005', 'MG', 'Belo Horizonte', 'Funcionários', 'Rua Cláudio Manoel', '56', 'Apto 22'),
+('30000006', 'MG', 'Belo Horizonte', 'Funcionários', 'Rua Santa Rita Durão', '67', NULL),
+('30000007', 'MG', 'Belo Horizonte', 'Lourdes', 'Rua Marília de Dirceu', '78', 'Esq com R. Curitiba'),
+('30000008', 'MG', 'Belo Horizonte', 'Lourdes', 'Rua Felipe dos Santos', '89', NULL),
+('30000009', 'MG', 'Belo Horizonte', 'Pampulha', 'Av Portugal', '101', 'Casa'),
+('30000010', 'MG', 'Belo Horizonte', 'Pampulha', 'Av Otacílio Negrão de Lima', '112', NULL),
+('40000001', 'BA', 'Salvador', 'Pelourinho', 'Largo do Pelourinho', '13', 'Histórico'),
+('40000002', 'BA', 'Salvador', 'Rio Vermelho', 'Rua Fonte do Boi', '24', NULL),
+('50000001', 'PE', 'Recife', 'Recife Antigo', 'Rua do Bom Jesus', '35', 'Lado A'),
+('50000002', 'PE', 'Recife', 'Pina', 'Av Herculano Bandeira', '46', NULL),
+('60000001', 'CE', 'Fortaleza', 'Aldeota', 'Av Santos Dumont', '57', 'Sala 300'),
+('60000002', 'CE', 'Fortaleza', 'Benfica', 'Av da Universidade', '68', NULL),
+('70000001', 'DF', 'Brasília', 'Asa Norte', 'SQN 202', '79', 'Bloco H'),
+('70000002', 'DF', 'Brasília', 'Lago Sul', 'QL 10', '90', NULL),
+('80000001', 'PR', 'Curitiba', 'Centro Cívico', 'Av Cândido de Abreu', '102', 'Andar 4'),
+('80000002', 'PR', 'Curitiba', 'Bigorrilho', 'Rua Padre Anchieta', '113', NULL),
+('90000001', 'RS', 'Porto Alegre', 'Cidade Baixa', 'Rua da República', '14', 'Frente'),
+('90000002', 'RS', 'Porto Alegre', 'Bom Fim', 'Av Osvaldo Aranha', '25', NULL),
+('88000001', 'SC', 'Florianópolis', 'Lagoa da Conceição', 'Av das Rendeiras', '36', 'Quiosque 2'),
+('88000002', 'SC', 'Florianópolis', 'Ingleses', 'Rodovia Armando Calil Bulos', '47', NULL),
+('29000001', 'ES', 'Vitória', 'Jardim Camburi', 'Rua Carlos Martins', '58', 'Lj 5'),
+('29000002', 'ES', 'Vitória', 'Enseada do Suá', 'Rua Professor Belmiro Siqueira', '69', NULL),
+('69000001', 'AM', 'Manaus', 'Ponta Negra', 'Av Coronel Teixeira', '80', 'Condomínio'),
+('69000002', 'AM', 'Manaus', 'Vieiralves', 'Rua Rio Branco', '91', NULL),
+('66000001', 'PA', 'Belém', 'Nazaré', 'Av Nazaré', '103', 'Prox. Basílica'),
+('66000002', 'PA', 'Belém', 'Batista Campos', 'Rua dos Mundurucus', '114', NULL);
 
--- ==========================================================
--- 3. LOCALIZAÇÕES (Onde os problemas ocorreram)
--- ==========================================================
+INSERT INTO tb_ocorrencia (descricao, data_registro, avaliacao, compartilhar_dados, id_cidadao, id_localizacao, id_categoria) VALUES
+('Lâmpada do poste principal queimada há 3 dias.', '2025-12-05 10:00:00', 3, 1, 1, 1, 1),
+('Vazamento de água limpa na calçada desperdiçando muito.', '2025-12-04 11:30:00', 5, 1, 2, 2, 2),
+('Buraco enorme na faixa da direita causando lentidão.', '2025-12-03 09:15:00', NULL, 1, 3, 3, 3),
+('Acúmulo de lixo orgânico atraindo ratos.', '2025-11-28 14:00:00', 1, 0, 4, 4, 4),
+('Assalto frequente neste ponto de ônibus à noite.', '2025-11-27 20:00:00', 5, 0, 5, 5, 5),
+('Semáforo travado no vermelho cruzamento perigoso.', '2025-11-26 16:45:00', 4, 1, 6, 6, 6),
+('Calçada totalmente quebrada impedindo passagem de cadeirante.', '2025-11-25 08:30:00', 2, 1, 7, 7, 3),
+('Esgoto voltando para dentro da residência.', '2025-11-24 12:10:00', 5, 1, 8, 8, 2),
+('Mato alto cobrindo a visão da esquina.', '2025-11-29 09:00:00', NULL, 1, 9, 9, 4),
+('Fios de telefone soltos na via pública.', '2025-11-23 15:20:00', 3, 1, 10, 10, 1),
+('Bueiro sem tampa oferecendo risco a pedestres.', '2025-11-10 11:00:00', 5, 1, 11, 11, 2),
+('Pichação no monumento histórico recém reformado.', '2025-09-05 17:30:00', 1, 1, 12, 12, 4),
+('Placa de "Pare" derrubada por ventania.', '2025-07-31 07:45:00', NULL, 1, 13, 13, 6),
+('Iluminação pública oscilando parecendo balada.', '2025-04-18 22:00:00', 2, 1, 14, 14, 1),
+('Barulho excessivo de bar após o horário permitido.', '2025-02-07 01:15:00', 5, 0, 15, 15, 5),
+('Desnível perigoso no asfalto (costela de vaca).', '2022-05-22 14:30:00', 3, 1, 1, 16, 3),
+('Entulho de obra jogado irregularmente na rua.', '2023-11-11 10:20:00', 4, 1, 2, 17, 4),
+('Falta de água na região há mais de 24 horas.', '2021-09-09 18:00:00', 1, 1, 3, 18, 2),
+('Carro abandonado servindo de foco de dengue.', '2024-03-03 09:40:00', NULL, 1, 4, 19, 6),
+('Poste inclinado com risco de queda iminente.', '2022-12-12 13:50:00', 5, 1, 5, 20, 1),
+('Árvore caída bloqueando metade da rua.', '2023-01-25 07:00:00', 5, 1, 6, 21, 3),
+('Boca de lobo entupida causando alagamento.', '2024-06-18 16:10:00', 2, 1, 7, 22, 2),
+('Sinalização de solo (faixas) apagada.', '2021-04-14 11:25:00', 3, 1, 8, 23, 6),
+('Lixeiras públicas depredadas e quebradas.', '2022-09-01 08:50:00', NULL, 1, 9, 24, 4),
+('Furtos de celular constantes nesta praça.', '2023-12-31 19:30:00', 4, 0, 10, 25, 5),
+('Lâmpadas led da avenida piscando sem parar.', '2024-10-05 21:40:00', 3, 1, 11, 26, 1),
+('Buraco na via abriu novamente após chuva.', '2022-02-14 08:15:00', 1, 1, 12, 27, 3),
+('Odor insuportável vindo da rede de esgoto.', '2023-08-20 13:00:00', 5, 0, 13, 28, 2),
+('Varrição de rua não passa aqui há duas semanas.', '2021-06-10 10:30:00', 2, 1, 14, 29, 4),
+('Semáforo de pedestres não funciona.', '2024-11-15 17:20:00', NULL, 1, 15, 30, 6),
+('Praça totalmente às escuras, perigo.', '2022-04-01 20:10:00', 5, 1, 1, 31, 1),
+('Tubulação estourada jorrando água na rua.', '2023-07-28 06:45:00', 5, 1, 2, 32, 2),
+('Asfalto cedendo próximo ao meio-fio.', '2024-05-09 12:00:00', 4, 1, 3, 33, 3),
+('Descarte irregular de móveis velhos.', '2021-10-12 09:30:00', 3, 1, 4, 34, 4),
+('Consumo de drogas em frente à escola.', '2022-11-02 22:30:00', 5, 0, 5, 35, 5),
+('Placa de proibido estacionar ilegível.', '2023-03-17 15:15:00', NULL, 1, 6, 36, 6),
+('Raiz de árvore levantando toda a calçada.', '2024-09-23 11:40:00', 2, 1, 7, 37, 3),
+('Tampa de bueiro fazendo barulho alto ao passar carro.', '2022-06-06 23:00:00', 3, 1, 8, 38, 2),
+('Contêiner de lixo incendiado.', '2023-04-22 04:00:00', 1, 1, 9, 39, 4),
+('Fios elétricos baixos encostando em caminhões.', '2024-12-20 14:50:00', 5, 1, 10, 40, 1),
+('Vazamento de esgoto na praia.', '2021-02-20 08:00:00', 5, 1, 11, 41, 2),
+('Lombada eletrônica desligada/quebrada.', '2022-08-15 16:30:00', NULL, 1, 12, 42, 6),
+('Ponto de ônibus sem cobertura (quebrou).', '2023-10-08 13:10:00', 2, 1, 13, 43, 3),
+('Coleta seletiva não passou no dia agendado.', '2024-07-14 19:45:00', 4, 1, 14, 44, 4),
+('Insegurança total na saída do metrô.', '2021-05-30 21:15:00', 3, 0, 15, 45, 5),
+('Iluminação da passarela está queimada.', '2025-01-05 20:00:00', 4, 1, 1, 46, 1),
+('Erosão na margem do córrego.', '2022-01-28 10:50:00', 5, 1, 2, 47, 3),
+('Hidrante vazando água.', '2023-06-02 15:35:00', 3, 1, 3, 48, 2),
+('Terreno baldio com foco de mosquito.', '2024-02-10 09:05:00', 5, 1, 4, 49, 4),
+('Faixa de pedestre apagada em frente ao hospital.', '2022-11-22 11:20:00', NULL, 1, 5, 50, 6);
 
-INSERT INTO tb_localizacao (cep, estado, cidade, bairro, rua, numero, complemento) VALUES 
-('01310100', 'SP', 'São Paulo', 'Bela Vista', 'Av. Paulista', '1000', 'Em frente ao Masp'),
-('22041001', 'RJ', 'Rio de Janeiro', 'Copacabana', 'Rua Barata Ribeiro', '502', NULL),
-('30140000', 'MG', 'Belo Horizonte', 'Lourdes', 'Rua Marília de Dirceu', '120', 'Esquina');
+INSERT INTO tb_historico_status (data_hora, id_status, id_ocorrencia) VALUES
+('2023-02-15 08:30:00', 1, 1), ('2023-02-16 09:00:00', 2, 1), ('2023-02-20 14:00:00', 4, 1),
+('2023-03-10 19:45:00', 1, 2), ('2023-03-11 08:00:00', 3, 2), ('2023-03-12 10:30:00', 4, 2),
+('2023-04-05 14:20:00', 1, 3), ('2023-04-06 11:00:00', 2, 3), ('2023-04-10 16:45:00', 4, 3),
+('2023-05-20 10:15:00', 1, 4), ('2023-05-21 09:30:00', 2, 4), ('2023-05-22 15:00:00', 4, 4),
+('2023-06-12 17:50:00', 1, 5), ('2023-06-13 08:15:00', 3, 5), ('2023-06-15 11:20:00', 4, 5),
+('2023-07-08 22:10:00', 1, 6), ('2023-07-09 10:00:00', 2, 6), ('2023-07-15 18:00:00', 5, 6), 
+('2023-08-25 11:30:00', 1, 7), ('2023-08-26 07:45:00', 2, 7), ('2023-08-28 13:30:00', 4, 7),
+('2023-09-14 09:05:00', 1, 8), ('2023-09-15 14:00:00', 3, 8), ('2023-09-16 17:00:00', 4, 8),
+('2023-10-30 16:40:00', 1, 9), ('2023-10-31 08:30:00', 2, 9), ('2023-11-01 10:00:00', 4, 9),
+('2023-11-15 13:25:00', 1, 10), ('2023-11-16 09:00:00', 2, 10), ('2023-11-20 12:00:00', 5, 10),
+('2023-12-01 08:00:00', 1, 11), ('2023-12-02 08:00:00', 3, 11), ('2023-12-05 16:20:00', 4, 11),
+('2023-12-24 23:55:00', 1, 12), ('2023-12-26 10:00:00', 2, 12), ('2023-12-27 14:15:00', 4, 12),
+('2024-01-10 15:10:00', 1, 13), ('2024-01-11 09:00:00', 2, 13), ('2024-01-12 11:30:00', 4, 13),
+('2024-02-22 10:55:00', 1, 14), ('2024-02-23 08:45:00', 3, 14), ('2024-02-25 19:00:00', 4, 14),
+('2024-03-05 12:00:00', 1, 15), ('2024-03-06 07:30:00', 2, 15), ('2024-03-08 15:45:00', 4, 15),
+('2024-04-18 14:30:00', 1, 16), ('2024-04-19 10:00:00', 2, 16), ('2024-04-22 13:00:00', 4, 16),
+('2024-05-01 09:20:00', 1, 17), ('2024-05-02 08:00:00', 3, 17), ('2024-05-03 16:30:00', 4, 17),
+('2024-05-20 18:45:00', 1, 18), ('2024-05-21 06:00:00', 2, 18), ('2024-05-21 20:00:00', 4, 18),
+('2024-06-15 11:40:00', 1, 19), ('2024-06-16 09:30:00', 2, 19), ('2024-06-20 14:00:00', 4, 19),
+('2024-07-07 13:50:00', 1, 20), ('2024-07-08 10:15:00', 3, 20), ('2024-07-09 11:00:00', 4, 20),
+('2024-08-02 06:15:00', 1, 21), ('2024-08-02 08:00:00', 2, 21), ('2024-08-02 18:00:00', 4, 21),
+('2024-08-20 16:10:00', 1, 22), ('2024-08-21 09:40:00', 2, 22), ('2024-08-23 15:20:00', 4, 22),
+('2024-09-10 11:25:00', 1, 23), ('2024-09-11 08:00:00', 3, 23), ('2024-09-12 17:00:00', 4, 23),
+('2024-09-25 08:50:00', 1, 24), ('2024-09-26 10:00:00', 2, 24), ('2024-09-30 09:00:00', 4, 24),
+('2024-10-05 19:30:00', 1, 25), ('2024-10-06 14:00:00', 2, 25), ('2024-10-10 10:00:00', 4, 25),
+('2024-10-30 21:40:00', 1, 26), ('2024-10-31 08:00:00', 3, 26), ('2024-11-01 20:00:00', 4, 26),
+('2024-11-12 08:15:00', 1, 27), ('2024-11-13 09:15:00', 2, 27), ('2024-11-15 16:00:00', 4, 27),
+('2024-11-28 13:00:00', 1, 28), ('2024-11-28 15:00:00', 2, 28), ('2024-11-29 11:00:00', 4, 28),
+('2024-12-10 10:30:00', 1, 29), ('2024-12-11 08:30:00', 3, 29), ('2024-12-12 14:40:00', 4, 29),
+('2024-12-20 17:20:00', 1, 30), ('2024-12-21 09:00:00', 2, 30), ('2024-12-23 18:00:00', 4, 30),
+('2025-01-05 20:10:00', 1, 31), ('2025-01-06 09:00:00', 2, 31), ('2025-01-08 15:00:00', 3, 31),
+('2025-01-15 06:45:00', 1, 32), ('2025-01-15 08:00:00', 3, 32), ('2025-01-16 10:00:00', 4, 32),
+('2025-02-02 12:00:00', 1, 33), ('2025-02-03 14:30:00', 2, 33),
+('2025-02-20 09:30:00', 1, 34), ('2025-02-21 11:00:00', 2, 34),
+('2025-03-01 22:30:00', 1, 35), ('2025-03-02 10:00:00', 2, 35), ('2025-03-05 09:00:00', 5, 35),
+('2025-03-15 15:15:00', 1, 36), ('2025-03-16 08:30:00', 2, 36),
+('2025-04-10 11:40:00', 1, 37), ('2025-04-11 09:00:00', 3, 37),
+('2025-05-05 23:00:00', 1, 38), ('2025-05-06 08:00:00', 2, 38),
+('2025-06-12 04:00:00', 1, 39), ('2025-06-12 06:00:00', 3, 39),
+('2025-07-20 14:50:00', 1, 40), ('2025-07-21 13:00:00', 2, 40),
+('2025-08-15 08:00:00', 1, 41), ('2025-08-16 10:00:00', 2, 41),
+('2025-09-01 16:30:00', 1, 42), ('2025-09-02 09:15:00', 3, 42),
+('2025-10-10 13:10:00', 1, 43), ('2025-10-11 14:00:00', 2, 43),
+('2025-11-05 19:45:00', 1, 44), ('2025-11-06 08:30:00', 2, 44),
+('2025-11-20 21:15:00', 1, 45), ('2025-11-21 09:00:00', 2, 45),
+('2025-12-01 20:00:00', 1, 46),
+('2025-12-02 10:50:00', 1, 47),
+('2025-12-03 15:35:00', 1, 48),
+('2025-12-04 09:05:00', 1, 49),
+('2025-12-04 11:20:00', 1, 50);
 
--- ==========================================================
--- 4. REGISTRO DE OCORRÊNCIAS
--- ==========================================================
--- Observação: IDs de cidadão, localização e categoria baseados na ordem de inserção acima.
-
--- Ocorrência 1: João reclama de buraco na Av. Paulista (Categoria 2: Buraco, Loc: 1, Cidadão: 1)
-INSERT INTO tb_ocorrencia (descricao, data_registro, avaliacao, compartilhar_dados, id_cidadao, id_localizacao, id_categoria) VALUES 
-('Buraco enorme na faixa da direita causando risco de acidentes.', '2023-10-25 08:30:00', NULL, TRUE, 1, 1, 2);
-
--- Ocorrência 2: Maria reclama de luz queimada (Categoria 1: Iluminação, Loc: 2, Cidadão: 2)
-INSERT INTO tb_ocorrencia (descricao, data_registro, avaliacao, compartilhar_dados, id_cidadao, id_localizacao, id_categoria) VALUES 
-('Poste de luz apagado há 3 dias. Rua muito escura.', '2023-10-26 19:15:00', NULL, FALSE, 2, 2, 1);
-
--- Ocorrência 3: Carlos reclama de lixo (Categoria 4: Lixo, Loc: 3, Cidadão: 3) - Já resolvido (com avaliação)
-INSERT INTO tb_ocorrencia (descricao, data_registro, avaliacao, compartilhar_dados, id_cidadao, id_localizacao, id_categoria) VALUES 
-('Entulho de obra deixado na calçada impedindo passagem.', '2023-10-20 14:00:00', 5, TRUE, 3, 3, 4);
-
--- ==========================================================
--- 5. TABELAS DEPENDENTES (Multimídia, Histórico, Comentários)
--- ==========================================================
-
--- Multimídia (Fotos das ocorrências)
-INSERT INTO tb_multimidia (link, id_ocorrencia) VALUES 
-('https://s3.bucket/fotos/buraco_paulista_01.jpg', 1),
-('https://s3.bucket/fotos/buraco_paulista_02.jpg', 1),
-('https://s3.bucket/fotos/poste_escuro.jpg', 2);
-
--- Histórico de Status (Rastreabilidade)
--- Ocorrência 1 (Buraco) - Apenas aberta
-INSERT INTO tb_historico_status (data_hora, id_status, id_ocorrencia) VALUES 
-('2023-10-25 08:30:00', 1, 1); -- Status: Aberto
-
--- Ocorrência 2 (Luz) - Aberta e já em análise
-INSERT INTO tb_historico_status (data_hora, id_status, id_ocorrencia) VALUES 
-('2023-10-26 19:15:00', 1, 2), -- Status: Aberto
-('2023-10-27 09:00:00', 2, 2); -- Status: Em Análise
-
--- Ocorrência 3 (Lixo) - Ciclo completo
-INSERT INTO tb_historico_status (data_hora, id_status, id_ocorrencia) VALUES 
-('2023-10-20 14:00:00', 1, 3), -- Aberto
-('2023-10-21 08:00:00', 3, 3), -- Em Andamento
-('2023-10-22 16:00:00', 4, 3); -- Concluído
-
--- Comentários dos Cidadãos (Interação nas ocorrências)
-INSERT INTO tb_comentario_cidadao (conteudo, data_comentada, id_cidadao, id_ocorrencia) VALUES 
-('Quase caí de moto nesse buraco, perigoso demais!', '2023-10-25 10:00:00', 3, 1), -- Carlos comentando na ocorrencia do João
-('Obrigado pela agilidade na limpeza.', '2023-10-22 17:00:00', 3, 3); -- Carlos comentando na própria ocorrência
+INSERT INTO tb_multimidia (link, id_ocorrencia) VALUES
+('/uploads/2023/pavimentacao/buraco_rua_centro_01.jpg', 1),
+('/uploads/2023/pavimentacao/buraco_rua_centro_zoom.jpg', 1),
+('/uploads/2023/iluminacao/poste_405_apagado.jpg', 2),
+('/uploads/2023/limpeza/lixo_calcada_01.png', 3),
+('/uploads/2023/limpeza/lixo_calcada_02.png', 3),
+('/uploads/2023/limpeza/lixo_espalhado_rua.png', 3),
+('/uploads/2023/agua/video_vazamento_cano.mp4', 4),
+('/uploads/2023/transito/semaforo_intermitente.mp4', 5),
+('/uploads/2023/transito/foto_cruzamento.jpg', 5),
+('/uploads/2023/seguranca/boletim_ocorrencia_scan.pdf', 6),
+('/uploads/2023/saneamento/bueiro_cheio_agua.jpg', 7),
+('/uploads/2023/saneamento/bueiro_lixo.jpg', 7),
+('/uploads/2023/urbanismo/muro_escola_pichado.jpg', 8),
+('/uploads/2023/eletrica/fios_caidos_chao.jpg', 9),
+('/uploads/2023/eletrica/poste_fiacao_exposta.jpg', 9),
+('/uploads/2023/eletrica/perigo_pedestres.jpg', 9),
+('/uploads/2023/transito/carro_velho_placa.jpg', 10),
+('/uploads/2023/transito/carro_abandonado_lateral.jpg', 10),
+('/uploads/2023/urbanismo/calcada_buraco.jpeg', 11),
+('/uploads/2023/fiscalizacao/audio_barulho_bar.mp3', 12),
+('/uploads/2024/limpeza/lixeiras_lotadas_01.jpg', 13),
+('/uploads/2024/limpeza/lixeiras_lotadas_02.jpg', 13),
+('/uploads/2024/transito/placa_pare_chao.jpg', 14),
+('/uploads/2024/saneamento/esgoto_vazando.jpg', 15),
+('/uploads/2024/saneamento/esgoto_calcada.jpg', 15),
+('/uploads/2024/saneamento/detalhe_tampa_quebrada.jpg', 15),
+('/uploads/2024/pavimentacao/lombada_irregular.jpg', 16),
+('/uploads/2024/limpeza/entulho_obra_irregular.jpg', 17),
+('/uploads/2024/limpeza/sofa_velho_rua.jpg', 17),
+('/uploads/2024/agua/foto_hidrometro_seco.jpg', 18),
+('/uploads/2024/saude/pneus_velhos_agua.jpg', 19),
+('/uploads/2024/saude/vasos_plantas_foco.jpg', 19),
+('/uploads/2024/saude/caixa_dagua_destampada.jpg', 19),
+('/uploads/2024/iluminacao/poste_torto_frente.jpg', 20),
+('/uploads/2024/iluminacao/poste_torto_lateral.jpg', 20),
+('/uploads/2024/ambiente/arvore_via_publica.jpg', 21),
+('/uploads/2024/ambiente/tronco_bloqueando_rua.jpg', 21),
+('/uploads/2024/saneamento/boca_lobo_terra.jpg', 22),
+('/uploads/2024/transito/faixa_pedestre_apagada.jpg', 23),
+('/uploads/2024/urbanismo/lixeira_vandalizada.jpg', 24),
+('/uploads/2024/urbanismo/lixo_chao_lixeira.jpg', 24),
+('/uploads/2024/seguranca/bo_online_furto_celular.pdf', 25),
+('/uploads/2024/iluminacao/video_led_piscando_noite.mp4', 26),
+('/uploads/2024/pavimentacao/cratera_pos_chuva_01.jpg', 27),
+('/uploads/2024/pavimentacao/cratera_pos_chuva_02.jpg', 27),
+('/uploads/2024/pavimentacao/medicao_profundidade.jpg', 27),
+('/uploads/2024/saneamento/local_mau_cheiro.jpg', 28),
+('/uploads/2024/limpeza/folhas_acumuladas_rua.jpg', 29),
+('/uploads/2024/limpeza/sujeira_meio_fio.jpg', 29),
+('/uploads/2024/transito/video_sinal_pedestre_queimado.mp4', 30),
+('/uploads/2025/iluminacao/praca_breu_total.jpg', 31),
+('/uploads/2025/iluminacao/postes_praca_apagados.jpg', 31),
+('/uploads/2025/agua/geiser_calçada.jpg', 32),
+('/uploads/2025/agua/alagamento_rua.jpg', 32),
+('/uploads/2025/agua/video_vazamento_forte.mp4', 32),
+('/uploads/2025/pavimentacao/afundamento_pista.jpg', 33),
+('/uploads/2025/pavimentacao/rachaduras_asfalto.jpg', 33),
+('/uploads/2025/limpeza/descarte_guardaroupa.jpg', 34),
+('/uploads/2025/seguranca/foto_local_susp_escola.jpg', 35),
+('/uploads/2025/transito/placa_pichada_total.jpg', 36),
+('/uploads/2025/transito/placa_ferrugem.jpg', 36),
+('/uploads/2025/ambiente/raiz_levantando_calcada.jpg', 37),
+('/uploads/2025/urbanismo/calcada_destruida_raiz.jpg', 37),
+('/uploads/2025/saneamento/tampa_bueiro_solta.jpg', 38),
+('/uploads/2025/limpeza/residuos_queimados.jpg', 39),
+('/uploads/2025/limpeza/fumaca_terreno.jpg', 39),
+('/uploads/2025/eletrica/fio_telefone_baixo.jpg', 40),
+('/uploads/2025/saneamento/lingua_negra_areia.jpg', 41),
+('/uploads/2025/saneamento/agua_suja_mar.jpg', 41),
+('/uploads/2025/saneamento/placa_impropria.jpg', 41),
+('/uploads/2025/transito/lombada_sem_pintura.jpg', 42),
+('/uploads/2025/urbanismo/cobertura_ponto_quebrada.jpg', 43),
+('/uploads/2025/urbanismo/banco_ponto_quebrado.jpg', 43),
+('/uploads/2025/limpeza/lixo_acumulado_3dias.jpg', 44),
+('/uploads/2025/seguranca/rua_deserta_sem_luz.jpg', 45),
+('/uploads/2025/iluminacao/passarela_escura.jpg', 46),
+('/uploads/2025/iluminacao/lampada_quebrada_passarela.jpg', 46),
+('/uploads/2025/ambiente/barranco_caindo.jpg', 47),
+('/uploads/2025/ambiente/erosao_proxima_rua.jpg', 47),
+('/uploads/2025/ambiente/video_correnteza.mp4', 47),
+('/uploads/2025/agua/hidrante_vazando_agua.jpg', 48),
+('/uploads/2025/limpeza/mato_alto_terreno.jpg', 49),
+('/uploads/2025/limpeza/lixo_jogado_terreno.jpg', 49),
+('/uploads/2025/transito/cruzamento_sem_sinalizacao.jpg', 50);
