@@ -5,9 +5,6 @@
     font-family: "Inter", sans-serif;
 }
 
-body {
-}
-
 
 /* LOGIN  */
 .login-container {
@@ -20,7 +17,6 @@ body {
     text-align: center;
     border-radius: 12px;
     padding: 40px 30px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -46,20 +42,9 @@ body {
     font-weight: 700;
 }
 
-.login-container .subtitle {
-    font-size: 0.95rem;
-    color: #666;
-    margin-bottom: 25px;
-    line-height: 1.4;
-}
-
 .login-logo {
-
     margin-bottom: 20px;
 }
-
-
-
 
 .btn-login {
     background-color: #04A579;
@@ -69,7 +54,18 @@ body {
     border-radius: 8px;
     font-weight: 700;
     font-size: 1rem;
+    margin: 10px;
+}
+
+
+
+.anonimo {
+    font-size: 0.85rem;
+    color: #999;
+    margin-top: 20px;
     cursor: pointer;
+
+    text-decoration: underline;
 }
 
 
