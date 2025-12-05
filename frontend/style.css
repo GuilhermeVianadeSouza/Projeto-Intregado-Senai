@@ -12,21 +12,25 @@ body {
 /* LOGIN  */
 .login-container {
     background-color: rgb(255, 255, 255);
-    width: 90%;
+    max-width: 450px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
+    border-radius: 12px;
+    padding: 40px 30px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
 
 .login {
     background-color: #04A579;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
 }
 
 .login-container h1,
@@ -37,7 +41,35 @@ body {
 }
 
 .login-container h1 {
-    padding-bottom: 30px;
+    padding-bottom: 20px;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.login-container .subtitle {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 25px;
+    line-height: 1.4;
+}
+
+.login-logo {
+
+    margin-bottom: 20px;
+}
+
+
+
+
+.btn-login {
+    background-color: #04A579;
+    color: white;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
 }
 
 
