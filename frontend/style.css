@@ -328,7 +328,7 @@ nav h1 {
 }
 
 .btn-cancelar {
-    width: 80%;
+    width: 70%;
     background-color: #ffffff;
     color: #333;
     font-weight: 600;
@@ -855,5 +855,9 @@ input[type="checkbox"] + label {
 
     body {
         padding-bottom: 100px;
+    }
+
+    .btn-cancelar {
+        width: 84%;
     }
 }
