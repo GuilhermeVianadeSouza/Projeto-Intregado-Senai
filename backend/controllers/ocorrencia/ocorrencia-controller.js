@@ -22,19 +22,26 @@ async function registrarOcorrencia(ocorrencia, contentType) {
     try {
         if (String(contentType).toLocaleUpperCase() != 'APPLICATION/JSON')
             return MESSAGES.ERROR_CONTENT_TYPE
+
         let validarInformacoes = await validarDadosOcorrencia(ocorrencia)
+
         if (validarInformacoes)
             return validarInformacoes
+
+        ocorrencia.data_registro = new Date()
+
         let resultOcorrencia = await ocorrenciaDAO.registrarOcorrencia(ocorrencia)
+
         if (!resultOcorrencia)
             return MESSAGES.ERROR_INTERNAL_SERVER_MODEL
 
         let ultimoId = await ocorrenciaDAO.selecionarUltimoIdDaOcorrencia()
+
         if (!ultimoId)
             return MESSAGES.ERROR_INTERNAL_SERVER_MODEL
 
         ocorrencia.id = ultimoId
-        MESSAGES.DEFAULT_HEADER.development = 'Guilherme Viana de Souza'
+        MESSAGES.DEFAULT_HEADER.development = 'Guilherme Viana de Souza, Nathan'
         MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
         MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
         MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
@@ -110,13 +117,8 @@ async function obterOcorrencias(
 async function validarDadosOcorrencia(ocorrencia) {
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
-    const dataTeste = new Date(ocorrencia.data_registro)
-
     if (ocorrencia.descricao == undefined || ocorrencia.descricao == null || !isNaN(ocorrencia.descricao) || ocorrencia.descricao == '' || ocorrencia.descricao.length > 1000) {
         MESSAGES.ERROR_REQUIRED_FIELDS.message += '[Descrição incorreta]'
-        return MESSAGES.ERROR_REQUIRED_FIELDS // 400 - processar requisição
-    } else if (ocorrencia.data_registro == undefined || ocorrencia.data_registro == null || ocorrencia.data_registro == '' || isNaN(dataTeste.getTime())) {
-        MESSAGES.ERROR_REQUIRED_FIELDS.message += '[Data incorreta]'
         return MESSAGES.ERROR_REQUIRED_FIELDS // 400 - processar requisição
     } else if (!Number.isInteger(Number(ocorrencia.avaliacao))) {
         MESSAGES.ERROR_REQUIRED_FIELDS.message += '[Avaliação incorreta]'

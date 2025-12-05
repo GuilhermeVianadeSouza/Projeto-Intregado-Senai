@@ -24,4 +24,11 @@ router.get('/:id', cors(), async (request, response) => {
     response.status(localizacao.status_code).json(localizacao)
 })
 
+router.post('', cors(), async (request, response) => {
+    let contentType = request.headers['content-type']
+    const dados = request.body
+    const localizacao = await controllerLocalizacao.registrarLocalizacao(dados, contentType)
+    response.status(localizacao.status_code).json(localizacao)
+})
+
 module.exports = router
