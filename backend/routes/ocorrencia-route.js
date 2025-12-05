@@ -36,4 +36,11 @@ router.get('', cors(), async (request, response) => {
     response.status(ocorrencias.status_code).json(ocorrencias)
 })
 
+// Obtém corrências de um cidadão
+router.get('/cidadao/:id', cors(), async (request, response) => {
+    const id = request.params.id
+    const ocorrencias = await controllerOcorrencia.obterOcorrenciasDeUmCidadao(id)
+    response.status(ocorrencias.status_code).json(ocorrencias)
+})
+
 module.exports = router
