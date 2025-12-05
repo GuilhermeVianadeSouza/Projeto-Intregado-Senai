@@ -19,6 +19,17 @@
     padding: 40px 30px;
 }
 
+.cadastro-container {
+       background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 12px;
+    padding: 40px 30px;
+}
+
 
 #login {
     background-color: #04A579;
@@ -753,6 +764,7 @@ input[type="checkbox"] + label {
         margin: 20px auto;
         max-width: 700px;
         padding: 20px;
+        margin-bottom: 80px;
     }
 
     .post:hover {
@@ -851,10 +863,6 @@ input[type="checkbox"] + label {
     .footer-icon img {
         width: 32px;
         height: 32px;
-    }
-
-    body {
-        padding-bottom: 100px;
     }
 
     .btn-cancelar {
