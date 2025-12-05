@@ -208,11 +208,15 @@ nav h1 {
 }
 
 .verPost-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 20px;
     height: 80%;
     background-color: white;
+}
+
+.comentario {
+    display: flex;
+    justify-content: flex-end;
+    background-color: yellow;
 }
 
 .aba-verPost {
@@ -317,6 +321,7 @@ nav h1 {
     background-color: #f0f0f0;
     border-color: #999;
 }
+
 
 /* Perfil */
 .perfil-container {
