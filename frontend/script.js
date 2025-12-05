@@ -204,6 +204,64 @@ if (btnVoltarLocalizacao) {
 // FORMULÁRIO DE LOCALIZAÇÃO MANUAL
 const formLocalizacao = document.querySelector('#aba-escolherLocal .form-container')
 
+// Lógica ViaCEP (Refatorada)
+const limparFormulario = () => {
+    const fields = ['endereco', 'bairro', 'cidade', 'estado'];
+    fields.forEach(id => {
+        const element = document.getElementById(id);
+        element.value = '';
+        element.removeAttribute('readonly'); // Remove o bloqueio para permitir nova busca
+    });
+}
+
+const cepValido = (cep) => cep.length == 8 && /^[0-9]+$/.test(cep);
+
+async function pesquisarCep(cep) {
+    const url = `https://viacep.com.br/ws/${cep}/json/`;
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Erro ao buscar CEP:', error);
+        // Retorna um objeto com erro em caso de falha na requisição
+        return { erro: true, message: 'Erro de conexão.' };
+    }
+}
+
+async function preencherCampos({ target }) {
+    limparFormulario();
+
+    const cep = target.value.replace(/\D/g, '');
+
+    if (cepValido(cep)) {
+        const infoCep = await pesquisarCep(cep);
+
+        if (infoCep.erro) {
+            alert('CEP não encontrado ou inválido.');
+        } else {
+            document.getElementById('endereco').value = infoCep.logradouro;
+            document.getElementById('bairro').value = infoCep.bairro;
+            document.getElementById('cidade').value = infoCep.localidade;
+            document.getElementById('estado').value = infoCep.uf;
+
+            // Bloqueia a edição dos campos preenchidos
+            const fields = ['endereco', 'bairro', 'cidade', 'estado'];
+            fields.forEach(id => {
+                document.getElementById(id).setAttribute('readonly', 'readonly');
+            });
+        }
+    } else if (target.value.length > 0) {
+        alert('CEP inválido! O CEP deve conter 8 dígitos numéricos.');
+    }
+}
+
+// Adiciona listener de focusout no campo CEP
+const inputCep = document.getElementById('CEP');
+if (inputCep) {
+    inputCep.addEventListener('focusout', preencherCampos);
+}
+
 if (formLocalizacao) {
   const btnContinuar = formLocalizacao.querySelector('.btn-submit')
   const btnCancelarLocal = formLocalizacao.querySelector('.btn-cancelar')

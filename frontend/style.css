@@ -583,7 +583,8 @@ nav h1 {
 }
 
 .inputbox input:focus ~ label,
-.inputbox input:valid ~ label {
+.inputbox input:valid ~ label,
+.inputbox input[readonly]:not(:placeholder-shown) ~ label {
     top: -10px;
     left: 10px;
     font-size: 12px;
