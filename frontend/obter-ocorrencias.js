@@ -12,8 +12,8 @@ export async function buscarOcorrencias(limite, pagina, filtros = {}) {
         url.searchParams.append("status", filtros.status);
     }
 
-    if (filtros.dataRegistro) {
-        url.searchParams.append("dataRegistro", filtros.dataRegistro);
+    if (filtros.data_registro) {
+        url.searchParams.append("data_registro", filtros.data_registro);
     }
 
     if (filtros.ordenar) {
