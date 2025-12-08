@@ -1,5 +1,11 @@
 'use strict'
 
+import { criarOcorrencias } from "./obter-ocorrencias-cidadao.js"
+import { criarOcorrenciasComunidade } from "./obter-ocorrencias.js"
+
+criarOcorrencias()
+criarOcorrenciasComunidade()
+
 // Documento HTML inicial carregado
 document.addEventListener('DOMContentLoaded', () => {
     showTab('aba-login');
@@ -10,7 +16,7 @@ function showTab(tabId) {
   // Pega todas as abas
   const todasAsAbas = document.querySelectorAll('.aba')
   const footer = document.getElementById('footer')
-  
+
   // Pega os wrappers de login e cadastro
   const loginWrapper = document.getElementById('login-wrapper');
   const cadastroWrapper = document.getElementById('cadastro-wrapper');
@@ -247,7 +253,7 @@ if (btnContinuarLocal) {
         // 3. Salvar os dados (Simulação: Armazenar em uma variável global ou localStorage)
         // Como não há um backend, vamos simular o salvamento e preencher o campo na aba-criar
         const localizacaoCompleta = `${endereco}, ${numero}, ${bairro}, ${cidade}-${estado}, CEP: ${cep}`
-        
+
         // Preencher o campo de localização na aba-criar
         const inputLocalizacaoOcorrencia = document.getElementById('btn-localizacao-ocorrencia')
         if (inputLocalizacaoOcorrencia) {
@@ -437,7 +443,7 @@ function preencherSeletorLocalizacao() {
             option.textContent = `${local.cidade}-${local.estado}`;
             selectLocalizacao.appendChild(option);
         });
-        
+
         // Define um valor padrão (ex: Carapicuíba-SP)
         selectLocalizacao.value = "Carapicuíba-SP";
     }
@@ -446,7 +452,7 @@ function preencherSeletorLocalizacao() {
 // Chama a função ao carregar o DOM
 document.addEventListener('DOMContentLoaded', () => {
     preencherSeletorLocalizacao();
-    
+
     // Adiciona listener para a seleção de localização
     const selectLocalizacao = document.getElementById('localizacao-select');
     if (selectLocalizacao) {

@@ -1,14 +1,13 @@
-async function obterOcorrenciasCidadao() {
-    const url = 'http://localhost:8080/v1/ocorrencia/cidadao/1'
+async function obterOcorrencias() {
+    const url = 'http://localhost:8080/v1/ocorrencia?limite=10&pagina=1'
     const response = await fetch(url)
     const data = await response.json()
     return data.ocorrencias
 }
 
-export async function criarOcorrencias() {
-    const ocorrencias = await obterOcorrenciasCidadao()
+export async function criarOcorrenciasComunidade() {
+    const ocorrencias = await obterOcorrencias()
     ocorrencias.forEach(ocorrencia => {
-
         const {rua, numero, cidade, estado} = ocorrencia.localizacao[0]
 
         const data = new Date(ocorrencia.data_registro)
@@ -30,8 +29,7 @@ export async function criarOcorrencias() {
 }
 
 function criarPost(ocorrencia) {
-    const divPai = document.getElementById("aba-minhasOcorrencias")
-    const container = divPai.querySelector("div")
+    const abaHome = document.getElementById("aba-home")
 
     const section = document.createElement("section")
     section.classList.add("post")
@@ -41,7 +39,7 @@ function criarPost(ocorrencia) {
 
     const imgPerfil = document.createElement("img")
     imgPerfil.classList.add("post-perfil")
-    imgPerfil.src = './img/profile img.png'
+    imgPerfil.src = "./img/profile img.png"
     imgPerfil.alt = "Perfil"
 
     const divAutor = document.createElement("div")
@@ -49,7 +47,7 @@ function criarPost(ocorrencia) {
 
     const spanNome = document.createElement("span")
     spanNome.classList.add("autor-nome")
-    spanNome.textContent = 'Victor Hugo'
+    spanNome.textContent = "Victor Hugo"
 
     const spanData = document.createElement("span")
     spanData.classList.add("post-data")
@@ -61,33 +59,33 @@ function criarPost(ocorrencia) {
     header.appendChild(imgPerfil)
     header.appendChild(divAutor)
 
-    const titulo = document.createElement("h2")
-    titulo.classList.add("post-titulo")
-    titulo.textContent = ocorrencia.titulo
+    const h2 = document.createElement("h2")
+    h2.classList.add("post-titulo")
+    h2.textContent = ocorrencia.titulo
 
-    const descricao = document.createElement("p")
-    descricao.classList.add("post-desc")
-    descricao.textContent = ocorrencia.descricao
+    const pDesc = document.createElement("p")
+    pDesc.classList.add("post-desc")
+    pDesc.textContent = ocorrencia.descricao
 
-    const localizacao = document.createElement("p")
-    localizacao.classList.add("post-loc")
-    localizacao.textContent = ocorrencia.local
+    const pLoc = document.createElement("p")
+    pLoc.classList.add("post-loc")
+    pLoc.textContent = ocorrencia.local
 
-    const divImg = document.createElement("div")
-    divImg.classList.add("post-media")
+    const divMedia = document.createElement("div")
+    divMedia.classList.add("post-media")
 
-    const imagem = document.createElement("img")
-    imagem.classList.add("post-img")
-    imagem.src = './img/image 3.png'
-    imagem.alt = "Imagem do post"
+    const imgPost = document.createElement("img")
+    imgPost.classList.add("post-img")
+    imgPost.src = "./img/image 3.png"
+    imgPost.alt = "Imagem do post"
 
-    divImg.appendChild(imagem)
+    divMedia.appendChild(imgPost)
 
     section.appendChild(header)
-    section.appendChild(titulo)
-    section.appendChild(descricao)
-    section.appendChild(localizacao)
-    section.appendChild(divImg)
+    section.appendChild(h2)
+    section.appendChild(pDesc)
+    section.appendChild(pLoc)
+    section.appendChild(divMedia)
 
-    container.appendChild(section)
+    abaHome.appendChild(section)
 }

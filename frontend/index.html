@@ -14,7 +14,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon-16x16.png">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
-    <script src="script.js" defer></script>
+    <script src="script.js" type="module" defer></script>
 </head>
 
 <body>
@@ -22,7 +22,7 @@
     <main>
 
         <!-- ABA LOGIN  -->
-         <div id="login-wrapper" class="aba-wrapper"> 
+        <div id="login-wrapper" class="aba-wrapper">
             <div id="aba-login" class="aba active">
                 <div class="login-container">
                     <img src="./img/logo green.png" alt="Logo" class="login-logo">
@@ -41,42 +41,42 @@
                     </form>
                 </div>
             </div>
-         </div>
+        </div>
 
 
         <!-- ABA CADASTRO -->
-         <div id="cadastro-wrapper" class="aba-wrapper"> 
-        <div id="aba-cadastro" class="aba">
-            <div class="cadastro-container">
-                <img src="./img/logo green.png" alt="Logo" class="login-logo">
-                <h1>Crie sua conta</h1>
-                <form id="form-cadastro">
-                    <div class="inputbox">
-                        <input type="text" id="cadastro-nome" required>
-                        <label for="cadastro-nome">Nome Completo</label>
-                    </div>
-                    <div class="inputbox">
-                        <input type="email" id="cadastro-email" required>
-                        <label for="cadastro-email">Email</label>
-                    </div>
-                    <div class="inputbox">
-                        <input type="password" id="cadastro-senha" required>
-                        <label for="cadastro-senha">Senha</label>
-                    </div>
-                    <div class="inputbox">
-                        <input type="tel" id="cadastro-telefone" required>
-                        <label for="cadastro-telefone">Telefone</label>
-                    </div>
-                    <div class="inputbox">
-                        <input type="text" id="cadastro-localizacao" required>
-                        <label for="cadastro-localizacao">Localização (CEP)</label>
-                    </div>
-                    <button type="submit" class="btn-login">Cadastrar</button>
-                    <p class="signup-text"><a href="#" id="link-voltar-login">Voltar para o Login</a></p>
-                </form>
+        <div id="cadastro-wrapper" class="aba-wrapper">
+            <div id="aba-cadastro" class="aba">
+                <div class="cadastro-container">
+                    <img src="./img/logo green.png" alt="Logo" class="login-logo">
+                    <h1>Crie sua conta</h1>
+                    <form id="form-cadastro">
+                        <div class="inputbox">
+                            <input type="text" id="cadastro-nome" required>
+                            <label for="cadastro-nome">Nome Completo</label>
+                        </div>
+                        <div class="inputbox">
+                            <input type="email" id="cadastro-email" required>
+                            <label for="cadastro-email">Email</label>
+                        </div>
+                        <div class="inputbox">
+                            <input type="password" id="cadastro-senha" required>
+                            <label for="cadastro-senha">Senha</label>
+                        </div>
+                        <div class="inputbox">
+                            <input type="tel" id="cadastro-telefone" required>
+                            <label for="cadastro-telefone">Telefone</label>
+                        </div>
+                        <div class="inputbox">
+                            <input type="text" id="cadastro-localizacao" required>
+                            <label for="cadastro-localizacao">Localização (CEP)</label>
+                        </div>
+                        <button type="submit" class="btn-login">Cadastrar</button>
+                        <p class="signup-text"><a href="#" id="link-voltar-login">Voltar para o Login</a></p>
+                    </form>
+                </div>
             </div>
         </div>
-</div>
 
         <!-- ABA HOME (Comunidade) -->
         <div id="aba-home" class="aba">
@@ -109,66 +109,6 @@
                     </select>
                 </div>
             </nav>
-
-            <section class="post" id="posts">
-                <header class="post-header">
-                    <img class="post-perfil" src="./img/profile img.png" alt="Perfil">
-                    <div class="post-autor">
-                        <span class="autor-nome">Victor Hugo</span>
-                        <span class="post-data">22:07 27/11/2025</span>
-                    </div>
-                </header>
-
-                <h2 class="post-titulo">Entulho na rua</h2>
-
-                <p class="post-desc">Rua com buracos, acúmulo de lixo e necessidade de manutenção urgente.</p>
-
-                <p class="post-loc"> Avenida Brasil 123, Carapicuiba-SP</p>
-
-                <div class="post-media">
-                    <img class="post-img" src="./img/image 3.png" alt="Imagem do post">
-                </div>
-            </section>
-
-            <section class="post">
-                <header class="post-header">
-                    <img class="post-perfil" src="./img/profile img.png" alt="Perfil">
-                    <div class="post-autor">
-                        <span class="autor-nome">Maria Santos</span>
-                        <span class="post-data">15:30 26/11/2025</span>
-                    </div>
-                </header>
-
-                <h2 class="post-titulo">Iluminação Queimada</h2>
-
-                <p class="post-desc">Poste de iluminação pública quebrado há semanas, deixando a rua escura à noite.</p>
-
-                <p class="post-loc"> Rua das Flores 456, Carapicuiba-SP</p>
-
-                <div class="post-media">
-                    <img class="post-img" src="./img/image 3.png" alt="Imagem do post">
-                </div>
-            </section>
-
-            <section class="post">
-                <header class="post-header">
-                    <img class="post-perfil" src="./img/profile img.png" alt="Perfil">
-                    <div class="post-autor">
-                        <span class="autor-nome">João Costa</span>
-                        <span class="post-data">10:15 25/11/2025</span>
-                    </div>
-                </header>
-
-                <h2 class="post-titulo">Manutenção de Calçada</h2>
-
-                <p class="post-desc">Calçada com rachaduras e desnível que oferece risco de queda.</p>
-
-                <p class="post-loc">Avenida Principal 789, Carapicuiba-SP</p>
-
-                <div class="post-media">
-                    <img class="post-img" src="./img/image 3.png" alt="Imagem do post">
-                </div>
-            </section>
         </div>
 
 
@@ -183,29 +123,30 @@
                             <span class="post-data">10:15 25/11/2025</span>
                         </div>
                     </header>
-    
+
                     <h2 class="post-titulo">Manutenção de Calçada</h2>
-    
+
                     <p class="post-desc">Calçada com rachaduras e desnível que oferece risco de queda.</p>
-    
+
                     <p class="post-loc">Avenida Principal 789, Carapicuiba-SP</p>
-    
+
                     <div class="post-media">
                         <img class="post-img" src="./img/image 3.png" alt="Imagem do post">
                     </div>
                 </div>
 
                 <div class="comentario">
-                     <p> Comentário do usuário de teste</p>
+                    <p> Comentário do usuário de teste</p>
                 </div>
-                
+
                 <!-- Comentário da Prefeitura -->
                 <div class="comentario comentario-prefeitura">
                     <p class="autor-prefeitura">Prefeitura Municipal de Carapicuíba</p>
-                    <p>Recebemos a sua solicitação e a equipe de manutenção já foi acionada. O prazo para a resolução do problema é de 5 dias úteis. Agradecemos a sua colaboração!</p>
+                    <p>Recebemos a sua solicitação e a equipe de manutenção já foi acionada. O prazo para a resolução do
+                        problema é de 5 dias úteis. Agradecemos a sua colaboração!</p>
                 </div>
             </div>
-         </div>
+        </div>
 
 
         <!-- ABA CRIAR OCORRÊNCIA -->
@@ -234,18 +175,19 @@
                     <textarea id="descricao" placeholder="Descreva o problema em detalhes..." required></textarea>
 
                     <label for="localizacao">Localização</label>
-                    <button type="button" class="btn-local" id="btn-localizacao-ocorrencia">Escolher localização</button>
+                    <button type="button" class="btn-local" id="btn-localizacao-ocorrencia">Escolher
+                        localização</button>
 
 
                     <label for="imagem">Foto do Problema</label>
                     <input type="file" id="imagem" accept="image/*">
 
-                    <div> 
-                        <input type="checkbox" id="anonimo"> 
-                        <label for="anonimo">Publicar como anônimo</label>    
-                      
+                    <div>
+                        <input type="checkbox" id="anonimo">
+                        <label for="anonimo">Publicar como anônimo</label>
+
                     </div>
-                
+
 
                     <button type="submit" class="btn-submit">Publicar Ocorrência</button>
                     <button type="button" class="btn-cancelar">Cancelar</button>
@@ -347,45 +289,6 @@
                     <img src="./img/logo green.png" alt="" class="logo-nav">
                     <h1> Minhas ocorrências </h1>
                 </nav>
-
-                <section class="post">
-                    <header class="post-header">
-                        <img class="post-perfil" src="./img/profile img.png" alt="Perfil">
-                        <div class="post-autor">
-                            <span class="autor-nome">Victor Hugo</span>
-                            <span class="post-data">22:07 27/11/2025</span>
-                        </div>
-                    </header>
-
-                    <h2 class="post-titulo">Entulho na rua</h2>
-
-                    <p class="post-desc">Rua com buracos, acúmulo de lixo e necessidade de manutenção urgente.</p>
-
-                    <p class="post-loc"> Avenida Brasil 123, Carapicuiba-SP</p>
-
-                    <div class="post-media">
-                        <img class="post-img" src="./img/image 3.png" alt="Imagem do post">
-                    </div>
-                </section>
-                <section class="post">
-                    <header class="post-header">
-                        <img class="post-perfil" src="./img/profile img.png" alt="Perfil">
-                        <div class="post-autor">
-                            <span class="autor-nome">Victor Hugo</span>
-                            <span class="post-data">22:07 27/11/2025</span>
-                        </div>
-                    </header>
-
-                    <h2 class="post-titulo">Entulho na rua</h2>
-
-                    <p class="post-desc">Rua com buracos, acúmulo de lixo e necessidade de manutenção urgente.</p>
-
-                    <p class="post-loc"> Avenida Brasil 123, Carapicuiba-SP</p>
-
-                    <div class="post-media">
-                        <img class="post-img" src="./img/image 3.png" alt="Imagem do post">
-                    </div>
-                </section>
             </div>
         </div>
 
