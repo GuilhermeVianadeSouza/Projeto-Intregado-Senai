@@ -8,12 +8,12 @@ criarOcorrenciasComunidade()
 
 // Documento HTML inicial carregado
 document.addEventListener('DOMContentLoaded', () => {
-    const user = JSON.parse(localStorage.getItem('user'))
-    if (user) {
-        showTab('aba-home')
-    } else {
-        showTab('aba-login')
-    }
+  const user = JSON.parse(localStorage.getItem('user'))
+  if (user) {
+    showTab('aba-home')
+  } else {
+    showTab('aba-login')
+  }
 });
 
 // Função para alternar entre abas
@@ -56,7 +56,6 @@ function showTab(tabId) {
   }
 }
 
-
 // Função para fechar popups
 function fecharPopUp(popUpId) {
   const popUp = document.getElementById(popUpId)
@@ -74,7 +73,6 @@ function abrirPopUp(popUpId) {
     popUp.style.display = 'flex'
   }
 }
-
 
 // Botão de criar ocorrência
 const buttonCriar = document.getElementById('btn-criar')
@@ -113,7 +111,6 @@ if (buttonPerfil) {
   });
 }
 
-
 // BOTÕES DE PERFIL
 const buttonNovaOcorrencia = document.getElementById('buttonNovaOcorrencia')
 if (buttonNovaOcorrencia) {
@@ -131,10 +128,10 @@ if (buttonVerOcorrencias) {
 
 const btnLogout = document.getElementById('btn-logout');
 if (btnLogout) {
-    btnLogout.addEventListener('click', () => {
-        localStorage.removeItem('user');
-        showTab('aba-login');
-    });
+  btnLogout.addEventListener('click', () => {
+    localStorage.removeItem('user');
+    showTab('aba-login');
+  });
 }
 
 // FORMULÁRIO DE CRIAR OCORRÊNCIA
@@ -154,6 +151,8 @@ if (formOcorrencia) {
     alert('Ocorrência publicada com sucesso!')
 
     formOcorrencia.reset()
+    document.getElementById('form-localizacao').reset()
+    document.getElementById('btn-localizacao-ocorrencia').textContent = 'Escolher localização'
 
     showTab('aba-home')
   })
@@ -162,7 +161,6 @@ if (formOcorrencia) {
 // POP-UP DE CANCELAMENTO
 
 const btnCancelarForm = document.querySelector('.btn-cancelar')
-const popUpCancelar = document.getElementById('popUp-cancelar')
 const btnSim = document.getElementById('btn-sim')
 const btnNao = document.getElementById('btn-nao')
 
@@ -198,7 +196,6 @@ if (btnNao) {
   })
 }
 
-
 // POP-UP DE LOCALIZAÇÃO
 const btnEscolherLocalizacao = document.getElementById('btn-localizacao-ocorrencia')
 const btnVoltarLocalizacao = document.getElementById('Voltar')
@@ -211,7 +208,6 @@ if (btnEscolherLocalizacao) {
     abrirPopUp('popUp-localizacao')
   })
 }
-
 
 // Botão "Escolher Manualmente"
 if (btnManual) {
@@ -227,8 +223,6 @@ if (btnVoltarLocalizacao) {
     fecharPopUp('popUp-localizacao')
   })
 }
-
-
 
 // Botão Continuar na aba-escolherLocal
 const btnContinuarLocal = document.querySelector('#aba-escolherLocal .btn-submit')
@@ -280,27 +274,27 @@ if (btnContinuarLocal) {
 
 // Lógica ViaCEP (Refatorada)
 const limparFormulario = () => {
-    const fields = ['endereco', 'bairro', 'cidade', 'estado']
-    fields.forEach(id => {
-        const element = document.getElementById(id)
-        element.value = ''
-        element.removeAttribute('readonly') // Remove o bloqueio para permitir nova busca
-    });
+  const fields = ['endereco', 'bairro', 'cidade', 'estado']
+  fields.forEach(id => {
+    const element = document.getElementById(id)
+    element.value = ''
+    element.removeAttribute('readonly') // Remove o bloqueio para permitir nova busca
+  });
 }
 
 const cepValido = (cep) => cep.length == 8 && /^[0-9]+$/.test(cep);
 
 async function pesquisarCep(cep) {
-    const url = `https://viacep.com.br/ws/${cep}/json/`
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error('Erro ao buscar CEP:', error)
-        // Retorna um objeto com erro em caso de falha na requisição
-        return { erro: true, message: 'Erro de conexão.' }
-    }
+  const url = `https://viacep.com.br/ws/${cep}/json/`
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Erro ao buscar CEP:', error)
+    // Retorna um objeto com erro em caso de falha na requisição
+    return { erro: true, message: 'Erro de conexão.' }
+  }
 }
 
 async function preencherCampos({ target }) {
@@ -336,28 +330,26 @@ if (inputCep) {
   inputCep.addEventListener('focusout', preencherCampos)
 }
 
-
-
 // LÓGICA DA ABA-VERPOST
 const abaVerPost = document.getElementById('aba-verPost')
 const posts = document.querySelectorAll('.post')
 
 // Adiciona listener de clique a todos os posts
 posts.forEach(post => {
-    post.addEventListener('click', () => {
-        // Apenas mostra a aba-verPost
-        abaVerPost.classList.add('active')
-    });
+  post.addEventListener('click', () => {
+    // Apenas mostra a aba-verPost
+    abaVerPost.classList.add('active')
+  });
 });
 
 // Adiciona listener de clique para fechar a aba-verPost ao clicar no fundo
 if (abaVerPost) {
-    abaVerPost.addEventListener('click', (e) => {
-        // Verifica se o clique foi no próprio abaVerPost (fundo escuro) e não em um de seus filhos
-        if (e.target === abaVerPost) {
-            abaVerPost.classList.remove('active')
-        }
-    });
+  abaVerPost.addEventListener('click', (e) => {
+    // Verifica se o clique foi no próprio abaVerPost (fundo escuro) e não em um de seus filhos
+    if (e.target === abaVerPost) {
+      abaVerPost.classList.remove('active')
+    }
+  });
 }
 
 // NAVEGAÇÃO LOGIN/CADASTRO
@@ -372,10 +364,10 @@ if (linkSignup) {
 }
 
 if (linkVoltarLogin) {
-    linkVoltarLogin.addEventListener('click', (e) => {
-        e.preventDefault()
-        showTab('aba-login')
-    });
+  linkVoltarLogin.addEventListener('click', (e) => {
+    e.preventDefault()
+    showTab('aba-login')
+  });
 }
 
 // FORMULÁRIO DE CADASTRO
@@ -402,34 +394,33 @@ if (formCadastro) {
   });
 }
 
-
 // LOGIN
 
 // Botão Entrar como anonimo
 const btnAnonimo = document.getElementById('anonimo');
 if (btnAnonimo) {
-    btnAnonimo.addEventListener('click', (e) => {
-        e.preventDefault();
-        localStorage.setItem('user', JSON.stringify({ isAnonymous: true }));
-        showTab('aba-home');
-    });
+  btnAnonimo.addEventListener('click', (e) => {
+    e.preventDefault();
+    localStorage.setItem('user', JSON.stringify({ isAnonymous: true }));
+    showTab('aba-home');
+  });
 }
 const formLogin = document.getElementById('form-login')
 if (formLogin) {
-    formLogin.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const email = document.getElementById('email').value
-        const senha = document.getElementById('senha').value
+  formLogin.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('email').value
+    const senha = document.getElementById('senha').value
 
-        if (email === 'teste@gmail.com' && senha === '12345') {
-            localStorage.setItem('user', JSON.stringify({ email: email, name: 'Victor Hugo', isAnonymous: false }))
-            showTab('aba-home')
-            // A variável 'login' não está definida, removendo a linha
-            // login.style.display = 'none' 
-        } else {
-            alert('Email ou senha incorretos')
-        }
-    })
+    if (email === 'teste@gmail.com' && senha === '12345') {
+      localStorage.setItem('user', JSON.stringify({ email: email, name: 'Victor Hugo', isAnonymous: false }))
+      showTab('aba-home')
+      // A variável 'login' não está definida, removendo a linha
+      // login.style.display = 'none'
+    } else {
+      alert('Email ou senha incorretos')
+    }
+  })
 }
 
 // --- Lógica de Geolocalização Automática (Simplificada) ---
@@ -456,49 +447,38 @@ const cidadesDisponiveis = [
 
 // Função para preencher o seletor de localização
 function preencherSeletorLocalizacao() {
-    const selectLocalizacao = document.getElementById('localizacao-select')
-    if (selectLocalizacao) {
-        // Limpa as opções existentes (exceto a primeira "Selecione...")
-        while (selectLocalizacao.options.length > 1) {
-            selectLocalizacao.remove(1)
-        }
-
-        cidadesDisponiveis.forEach(local => {
-            const option = document.createElement('option')
-            option.value = `${local.cidade}-${local.estado}`
-            option.textContent = `${local.cidade}-${local.estado}`
-            selectLocalizacao.appendChild(option);
-        });
-
-        // Define um valor padrão (ex: Carapicuíba-SP)
-        selectLocalizacao.value = "Carapicuíba-SP"
+  const selectLocalizacao = document.getElementById('localizacao-select')
+  if (selectLocalizacao) {
+    // Limpa as opções existentes (exceto a primeira "Selecione...")
+    while (selectLocalizacao.options.length > 1) {
+      selectLocalizacao.remove(1)
     }
 
     cidadesDisponiveis.forEach(local => {
-      const option = document.createElement('option');
-      option.value = `${local.cidade}-${local.estado}`;
-      option.textContent = `${local.cidade}-${local.estado}`;
+      const option = document.createElement('option')
+      option.value = `${local.cidade}-${local.estado}`
+      option.textContent = `${local.cidade}-${local.estado}`
       selectLocalizacao.appendChild(option);
     });
 
     // Define um valor padrão (ex: Carapicuíba-SP)
-    selectLocalizacao.value = "Carapicuíba-SP";
+    selectLocalizacao.value = "Carapicuíba-SP"
   }
 }
 
 // Chama a função ao carregar o DOM
 document.addEventListener('DOMContentLoaded', () => {
-    preencherSeletorLocalizacao()
+  preencherSeletorLocalizacao()
 
-    // Adiciona listener para a seleção de localização
-    const selectLocalizacao = document.getElementById('localizacao-select')
-    if (selectLocalizacao) {
-        selectLocalizacao.addEventListener('change', (e) => {
-            const novaLocalizacao = e.target.value
-            console.log('Nova localização selecionada para a comunidade:', novaLocalizacao)
-            // Aqui seria implementada a lógica de filtragem dos posts da comunidade
-            // Por enquanto, apenas registramos a mudança.
-            alert(`Comunidade filtrada para: ${novaLocalizacao}`)
-        })
-    }
+  // Adiciona listener para a seleção de localização
+  const selectLocalizacao = document.getElementById('localizacao-select')
+  if (selectLocalizacao) {
+    selectLocalizacao.addEventListener('change', (e) => {
+      const novaLocalizacao = e.target.value
+      console.log('Nova localização selecionada para a comunidade:', novaLocalizacao)
+      // Aqui seria implementada a lógica de filtragem dos posts da comunidade
+      // Por enquanto, apenas registramos a mudança.
+      alert(`Comunidade filtrada para: ${novaLocalizacao}`)
+    })
+  }
 })
