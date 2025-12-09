@@ -112,8 +112,9 @@ if (buttonPerfil) {
   buttonPerfil.addEventListener('click', () => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user && user.isAnonymous) {
-      alert('Você precisa fazer login para acessar seu perfil.');
-      showTab('aba-login');
+      if (confirm('Deseja fazer login para continuar?')) {
+        showTab('aba-login');
+      }
     } else {
       showTab('aba-perfil');
     }
