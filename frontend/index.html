@@ -38,6 +38,7 @@
                         </div>
                         <button type="submit" class="btn-login">Entrar</button>
                         <p class="signup-text">Não tem uma conta? <a href="#" id="link-signup">Cadastre-se</a></p>
+                        <p class="anonimo" id="anonimo"> Entrar como anonimo </p>
                     </form>
                 </div>
             </div>
@@ -84,25 +85,25 @@
                 <img src="./img/logo green.png" alt="" class="logo-nav">
                 <h1> Comunidade</h1>
                 <select name="localizacao" id="localizacao-select">
-                    <option value="" disabled selected>Selecione a Localização</option>
+                    <option value="" selected>Selecione a Localização</option>
                 </select>
                 <div class="nav-filters">
                     <select name="categoria" id="categoria-select">
-                        <option value="" disabled selected>Categoria</option>
+                        <option value="" selected>Categoria</option>
                         <option value="entulho">Entulho</option>
                         <option value="manutencao">Manutenção</option>
                         <option value="teste">Teste</option>
                     </select>
 
                     <select name="data" id="data-select">
-                        <option value="" disabled selected>Datas</option>
+                        <option value="" selected>Datas</option>
                         <option value="3dias">Últimos 3 dias</option>
                         <option value="semana">Última semana</option>
                         <option value="mes">Último mês</option>
                     </select>
 
                     <select name="status" id="status-select">
-                        <option value="" disabled selected>Status</option>
+                        <option value="" selected>Status</option>
                         <option value="pendente">Pendente</option>
                         <option value="andamento">Em andamento</option>
                         <option value="resolvido">Resolvido</option>
@@ -144,7 +145,10 @@
                     <p class="autor-prefeitura">Prefeitura Municipal de Carapicuíba</p>
                     <p>Recebemos a sua solicitação e a equipe de manutenção já foi acionada. O prazo para a resolução do
                         problema é de 5 dias úteis. Agradecemos a sua colaboração!</p>
+                        
                 </div>
+
+               
             </div>
         </div>
 
@@ -236,7 +240,7 @@
                         <label for="endereco">Endereço</label>
                     </div>
                     <div class="inputbox">
-                        <input type="text" id="numero" required>
+                        <input type="text" id="numero">
                         <label for="numero">Número</label>
                     </div>
                     <div class="inputbox">
@@ -278,6 +282,7 @@
 
                     <button type="submit" id="btn-verOcorrencias">Visualizar minhas ocorrências</button>
                     <button id="buttonNovaOcorrencia">Publicar nova ocorrência</button>
+                    <button id="btn-logout">Sair</button>
                 </div>
             </div>
         </div>
