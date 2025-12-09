@@ -3,7 +3,7 @@
 import { criarOcorrencias } from "./obter-ocorrencias-cidadao.js"
 import { criarOcorrenciasComunidade } from "./obter-ocorrencias.js"
 
-criarOcorrencias()
+criarOcorrencias(1)
 criarOcorrenciasComunidade()
 
 // Documento HTML inicial carregado
@@ -150,21 +150,6 @@ if (formOcorrencia) {
     const categoria = document.getElementById('categoria').value
     const descricao = document.getElementById('descricao').value.trim()
 
-    if (!titulo) {
-      alert('Por favor, preencha o título do problema')
-      return
-    }
-
-    if (!categoria) {
-      alert('Por favor, selecione uma categoria')
-      return
-    }
-
-    if (!descricao) {
-      alert('Por favor, preencha a descrição do problema')
-      return
-    }
-
     // Se passou na validação
     alert('Ocorrência publicada com sucesso!')
 
@@ -249,37 +234,48 @@ if (btnVoltarLocalizacao) {
 const btnContinuarLocal = document.querySelector('#aba-escolherLocal .btn-submit')
 
 if (btnContinuarLocal) {
-    btnContinuarLocal.addEventListener('click', (e) => {
-        e.preventDefault()
+  btnContinuarLocal.addEventListener('click', (e) => {
+    e.preventDefault()
 
-        // 1. Coletar os dados de localização
-        const cep = document.getElementById('CEP').value.trim()
-        const endereco = document.getElementById('endereco').value.trim()
-        const numero = document.getElementById('numero').value.trim()
-        const bairro = document.getElementById('bairro').value.trim()
-        const cidade = document.getElementById('cidade').value.trim()
-        const estado = document.getElementById('estado').value.trim()
+    // 1. Coletar os dados de localização
+    const cep = document.getElementById('CEP').value.trim()
+    const endereco = document.getElementById('endereco').value.trim()
+    const numero = document.getElementById('numero').value.trim()
+    const bairro = document.getElementById('bairro').value.trim()
+    const cidade = document.getElementById('cidade').value.trim()
+    const estado = document.getElementById('estado').value.trim()
 
-        // 2. Validar se os campos obrigatórios estão preenchidos
-        if (!cep || !endereco || !numero || !bairro || !cidade || !estado) {
-            alert('Por favor, preencha todos os campos de localização.')
-            return
-        }
+    // 2. Validar se os campos obrigatórios estão preenchidos
+    if (!cep || !endereco || !bairro || !cidade || !estado) {
+      alert('Por favor, preencha todos os campos de localização.')
+      return
+    }
 
-        // 3. Salvar os dados (Simulação: Armazenar em uma variável global ou localStorage)
-        // Como não há um backend, vamos simular o salvamento e preencher o campo na aba-criar
-        const localizacaoCompleta = `${endereco}, ${numero}, ${bairro}, ${cidade}-${estado}, CEP: ${cep}`
+    // 3. Salvar os dados (Simulação: Armazenar em uma variável global ou localStorage)
+    // Como não há um backend, vamos simular o salvamento e preencher o campo na aba-criar
 
-        // Preencher o campo de localização na aba-criar
-        const inputLocalizacaoOcorrencia = document.getElementById('btn-localizacao-ocorrencia')
-        if (inputLocalizacaoOcorrencia) {
-            inputLocalizacaoOcorrencia.textContent = localizacaoCompleta
-            inputLocalizacaoOcorrencia.dataset.localizacao = localizacaoCompleta // Armazena o valor completo
-        }
+    const numeroString = numero.length > 0 ? `${numero}, ` : ''
+    const localizacaoString = `${endereco}, ${numeroString}${bairro}, ${cidade}-${estado}, CEP: ${cep}`
+    const localizacaoJSON = {
+      cep: cep,
+      estado: estado,
+      cidade: cidade,
+      bairro: bairro,
+      rua: endereco,
+      numero: numero,
+      complemento: null
+    }
 
-        // 4. Navegar para a aba de nova ocorrência (aba-criar)
-        showTab('aba-criar')
-    })
+    // Preencher o campo de localização na aba-criar
+    const inputLocalizacaoOcorrencia = document.getElementById('btn-localizacao-ocorrencia')
+    if (inputLocalizacaoOcorrencia) {
+      inputLocalizacaoOcorrencia.textContent = localizacaoString
+      inputLocalizacaoOcorrencia.dataset.localizacao = localizacaoJSON
+    }
+
+    // 4. Navegar para a aba de nova ocorrência (aba-criar)
+    showTab('aba-criar')
+  })
 }
 
 // Lógica ViaCEP (Refatorada)
@@ -308,36 +304,36 @@ async function pesquisarCep(cep) {
 }
 
 async function preencherCampos({ target }) {
-    limparFormulario();
+  limparFormulario();
 
-    const cep = target.value.replace(/\D/g, '')
+  const cep = target.value.replace(/\D/g, '')
 
-    if (cepValido(cep)) {
-        const infoCep = await pesquisarCep(cep)
+  if (cepValido(cep)) {
+    const infoCep = await pesquisarCep(cep)
 
-        if (infoCep.erro) {
-            alert('CEP não encontrado ou inválido.')
-        } else {
-            document.getElementById('endereco').value = infoCep.logradouro
-            document.getElementById('bairro').value = infoCep.bairro
-            document.getElementById('cidade').value = infoCep.localidade
-            document.getElementById('estado').value = infoCep.uf
+    if (infoCep.erro) {
+      alert('CEP não encontrado ou inválido.')
+    } else {
+      document.getElementById('endereco').value = infoCep.logradouro
+      document.getElementById('bairro').value = infoCep.bairro
+      document.getElementById('cidade').value = infoCep.localidade
+      document.getElementById('estado').value = infoCep.uf
 
-            // Bloqueia a edição dos campos preenchidos
-            const fields = ['endereco', 'bairro', 'cidade', 'estado']
-            fields.forEach(id => {
-                document.getElementById(id).setAttribute('readonly', 'readonly')
-            });
-        }
-    } else if (target.value.length > 0) {
-        alert('CEP inválido! O CEP deve conter 8 dígitos numéricos.')
+      // Bloqueia a edição dos campos preenchidos
+      const fields = ['endereco', 'bairro', 'cidade', 'estado']
+      fields.forEach(id => {
+        document.getElementById(id).setAttribute('readonly', 'readonly')
+      });
     }
+  } else if (target.value.length > 0) {
+    alert('CEP inválido! O CEP deve conter 8 dígitos numéricos.')
+  }
 }
 
 // Adiciona listener de focusout no campo CEP
 const inputCep = document.getElementById('CEP')
 if (inputCep) {
-    inputCep.addEventListener('focusout', preencherCampos)
+  inputCep.addEventListener('focusout', preencherCampos)
 }
 
 
@@ -369,10 +365,10 @@ const linkSignup = document.getElementById('link-signup')
 const linkVoltarLogin = document.getElementById('link-voltar-login')
 
 if (linkSignup) {
-    linkSignup.addEventListener('click', (e) => {
-        e.preventDefault()
-        showTab('aba-cadastro')
-    });
+  linkSignup.addEventListener('click', (e) => {
+    e.preventDefault()
+    showTab('aba-cadastro')
+  });
 }
 
 if (linkVoltarLogin) {
@@ -386,24 +382,24 @@ if (linkVoltarLogin) {
 const formCadastro = document.getElementById('form-cadastro')
 
 if (formCadastro) {
-    formCadastro.addEventListener('submit', (e) => {
-        e.preventDefault();
+  formCadastro.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-        const nome = document.getElementById('cadastro-nome').value.trim()
-        const email = document.getElementById('cadastro-email').value.trim()
-        const senha = document.getElementById('cadastro-senha').value.trim()
-        const telefone = document.getElementById('cadastro-telefone').value.trim()
-        const localizacao = document.getElementById('cadastro-localizacao').value.trim()
+    const nome = document.getElementById('cadastro-nome').value.trim()
+    const email = document.getElementById('cadastro-email').value.trim()
+    const senha = document.getElementById('cadastro-senha').value.trim()
+    const telefone = document.getElementById('cadastro-telefone').value.trim()
+    const localizacao = document.getElementById('cadastro-localizacao').value.trim()
 
-        if (nome && email && senha && telefone && localizacao) {
-            // Simulação de cadastro bem-sucedido
-            alert('Cadastro realizado com sucesso! Faça login para continuar.')
-            formCadastro.reset();
-            showTab('aba-login');
-        } else {
-            alert('Por favor, preencha todos os campos obrigatórios.')
-        }
-    });
+    if (nome && email && senha && telefone && localizacao) {
+      // Simulação de cadastro bem-sucedido
+      alert('Cadastro realizado com sucesso! Faça login para continuar.')
+      formCadastro.reset();
+      showTab('aba-login');
+    } else {
+      alert('Por favor, preencha todos os campos obrigatórios.')
+    }
+  });
 }
 
 
@@ -451,11 +447,11 @@ if (btnAuto) {
 
 // Array de cidades/estados para o seletor da comunidade
 const cidadesDisponiveis = [
-    { cidade: "Carapicuíba", estado: "SP" },
-    { cidade: "Osasco", estado: "SP" },
-    { cidade: "Barueri", estado: "SP" },
-    { cidade: "São Paulo", estado: "SP" },
-    { cidade: "Rio de Janeiro", estado: "RJ" },
+  { cidade: "Carapicuíba", estado: "SP" },
+  { cidade: "Osasco", estado: "SP" },
+  { cidade: "Barueri", estado: "SP" },
+  { cidade: "São Paulo", estado: "SP" },
+  { cidade: "Rio de Janeiro", estado: "RJ" },
 ];
 
 // Função para preencher o seletor de localização
@@ -477,6 +473,17 @@ function preencherSeletorLocalizacao() {
         // Define um valor padrão (ex: Carapicuíba-SP)
         selectLocalizacao.value = "Carapicuíba-SP"
     }
+
+    cidadesDisponiveis.forEach(local => {
+      const option = document.createElement('option');
+      option.value = `${local.cidade}-${local.estado}`;
+      option.textContent = `${local.cidade}-${local.estado}`;
+      selectLocalizacao.appendChild(option);
+    });
+
+    // Define um valor padrão (ex: Carapicuíba-SP)
+    selectLocalizacao.value = "Carapicuíba-SP";
+  }
 }
 
 // Chama a função ao carregar o DOM
