@@ -8,7 +8,7 @@ async function obterOcorrencias() {
 export async function criarOcorrenciasComunidade() {
     const ocorrencias = await obterOcorrencias()
     ocorrencias.forEach(ocorrencia => {
-        const {rua, numero, cidade, estado} = ocorrencia.localizacao[0]
+        const { rua, numero, cidade, estado } = ocorrencia.localizacao[0]
 
         const data = new Date(ocorrencia.data_registro)
 
@@ -78,6 +78,10 @@ function criarPost(ocorrencia) {
     imgPost.classList.add("post-img")
     imgPost.src = "./img/image 3.png"
     imgPost.alt = "Imagem do post"
+
+    section.addEventListener('click', () => {
+        document.getElementById('aba-verPost').classList.add('active');
+    });
 
     divMedia.appendChild(imgPost)
 
