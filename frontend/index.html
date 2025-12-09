@@ -145,10 +145,10 @@
                     <p class="autor-prefeitura">Prefeitura Municipal de Carapicuíba</p>
                     <p>Recebemos a sua solicitação e a equipe de manutenção já foi acionada. O prazo para a resolução do
                         problema é de 5 dias úteis. Agradecemos a sua colaboração!</p>
-                        
+
                 </div>
 
-               
+
             </div>
         </div>
 
@@ -164,9 +164,6 @@
 
             <div class="form-container">
                 <form id="form-ocorrencia">
-                    <label for="titulo">Título do Problema</label>
-                    <input type="text" id="titulo" placeholder="Ex: Buraco na rua" required>
-
                     <label for="categoria">Categoria</label>
                     <select id="categoria" required>
                         <option value="">Selecione uma categoria</option>
@@ -230,7 +227,7 @@
                     <h1> Escolher Localização </h1>
                 </nav>
 
-                <div class="form-container">
+                <form class="form-container" id="form-localizacao">
                     <div class="inputbox">
                         <input type="text" id="CEP" required>
                         <label for="CEP">CEP</label>
@@ -255,10 +252,14 @@
                         <input type="text" id="estado" required>
                         <label for="estado">Estado</label>
                     </div>
+                    <div class="inputbox">
+                        <input type="text" id="complemento" required>
+                        <label for="complemento">Complemento</label>
+                    </div>
                     <button type="submit" class="btn-submit">Continuar </button>
                     <button type="button" class="btn-cancelar" id="btn-cancelar-local">Cancelar</button>
 
-                </div>
+                </form>
 
 
             </div>
