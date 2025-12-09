@@ -8,11 +8,11 @@ criarOcorrenciasComunidade()
 
 // Documento HTML inicial carregado
 document.addEventListener('DOMContentLoaded', () => {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem('user'))
     if (user) {
-        showTab('aba-home');
+        showTab('aba-home')
     } else {
-        showTab('aba-login');
+        showTab('aba-login')
     }
 });
 
@@ -23,8 +23,8 @@ function showTab(tabId) {
   const footer = document.getElementById('footer')
 
   // Pega os wrappers de login e cadastro
-  const loginWrapper = document.getElementById('login-wrapper');
-  const cadastroWrapper = document.getElementById('cadastro-wrapper');
+  const loginWrapper = document.getElementById('login-wrapper')
+  const cadastroWrapper = document.getElementById('cadastro-wrapper')
 
   // Remove a classe 'active' (esconde)
   todasAsAbas.forEach(aba => {
@@ -41,11 +41,11 @@ function showTab(tabId) {
 
   // Lógica para os containers de login e cadastro
   if (loginWrapper) {
-    loginWrapper.style.display = (tabId === 'aba-login') ? 'flex' : 'none';
+    loginWrapper.style.display = (tabId === 'aba-login') ? 'flex' : 'none'
   }
 
   if (cadastroWrapper) {
-    cadastroWrapper.style.display = (tabId === 'aba-cadastro') ? 'flex' : 'none';
+    cadastroWrapper.style.display = (tabId === 'aba-cadastro') ? 'flex' : 'none'
   }
 
   // Lógica para o footer
@@ -103,7 +103,13 @@ if (buttonHome) {
 const buttonPerfil = document.getElementById('btn-perfil')
 if (buttonPerfil) {
   buttonPerfil.addEventListener('click', () => {
-    showTab('aba-perfil')
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user && user.isAnonymous) {
+      alert('Você precisa fazer login para acessar seu perfil.');
+      showTab('aba-login');
+    } else {
+      showTab('aba-perfil');
+    }
   });
 }
 
@@ -210,7 +216,6 @@ if (btnNao) {
 
 // POP-UP DE LOCALIZAÇÃO
 const btnEscolherLocalizacao = document.getElementById('btn-localizacao-ocorrencia')
-const popUpLocalizacao = document.getElementById('popUp-localizacao')
 const btnVoltarLocalizacao = document.getElementById('Voltar')
 const btnManual = document.getElementById('btn-manual')
 
@@ -239,8 +244,6 @@ if (btnVoltarLocalizacao) {
 }
 
 
-// FORMULÁRIO DE LOCALIZAÇÃO MANUAL
-const formLocalizacaoOriginal = document.querySelector('#aba-escolherLocal .form-container')
 
 // Botão Continuar na aba-escolherLocal
 const btnContinuarLocal = document.querySelector('#aba-escolherLocal .btn-submit')
@@ -281,26 +284,26 @@ if (btnContinuarLocal) {
 
 // Lógica ViaCEP (Refatorada)
 const limparFormulario = () => {
-    const fields = ['endereco', 'bairro', 'cidade', 'estado'];
+    const fields = ['endereco', 'bairro', 'cidade', 'estado']
     fields.forEach(id => {
-        const element = document.getElementById(id);
-        element.value = '';
-        element.removeAttribute('readonly'); // Remove o bloqueio para permitir nova busca
+        const element = document.getElementById(id)
+        element.value = ''
+        element.removeAttribute('readonly') // Remove o bloqueio para permitir nova busca
     });
 }
 
 const cepValido = (cep) => cep.length == 8 && /^[0-9]+$/.test(cep);
 
 async function pesquisarCep(cep) {
-    const url = `https://viacep.com.br/ws/${cep}/json/`;
+    const url = `https://viacep.com.br/ws/${cep}/json/`
     try {
         const response = await fetch(url);
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error('Erro ao buscar CEP:', error);
+        console.error('Erro ao buscar CEP:', error)
         // Retorna um objeto com erro em caso de falha na requisição
-        return { erro: true, message: 'Erro de conexão.' };
+        return { erro: true, message: 'Erro de conexão.' }
     }
 }
 
@@ -347,17 +350,19 @@ const posts = document.querySelectorAll('.post')
 posts.forEach(post => {
     post.addEventListener('click', () => {
         // Apenas mostra a aba-verPost
-        abaVerPost.classList.add('active');
+        abaVerPost.classList.add('active')
     });
 });
 
 // Adiciona listener de clique para fechar a aba-verPost ao clicar no fundo
-abaVerPost.addEventListener('click', (e) => {
-    // Verifica se o clique foi no próprio abaVerPost (fundo escuro) e não em um de seus filhos
-    if (e.target === abaVerPost) {
-        abaVerPost.classList.remove('active')
-    }
-});
+if (abaVerPost) {
+    abaVerPost.addEventListener('click', (e) => {
+        // Verifica se o clique foi no próprio abaVerPost (fundo escuro) e não em um de seus filhos
+        if (e.target === abaVerPost) {
+            abaVerPost.classList.remove('active')
+        }
+    });
+}
 
 // NAVEGAÇÃO LOGIN/CADASTRO
 const linkSignup = document.getElementById('link-signup')
@@ -372,13 +377,13 @@ if (linkSignup) {
 
 if (linkVoltarLogin) {
     linkVoltarLogin.addEventListener('click', (e) => {
-        e.preventDefault();
-        showTab('aba-login');
+        e.preventDefault()
+        showTab('aba-login')
     });
 }
 
 // FORMULÁRIO DE CADASTRO
-const formCadastro = document.getElementById('form-cadastro');
+const formCadastro = document.getElementById('form-cadastro')
 
 if (formCadastro) {
     formCadastro.addEventListener('submit', (e) => {
@@ -403,6 +408,16 @@ if (formCadastro) {
 
 
 // LOGIN
+
+// Botão Entrar como anonimo
+const btnAnonimo = document.getElementById('anonimo');
+if (btnAnonimo) {
+    btnAnonimo.addEventListener('click', (e) => {
+        e.preventDefault();
+        localStorage.setItem('user', JSON.stringify({ isAnonymous: true }));
+        showTab('aba-home');
+    });
+}
 const formLogin = document.getElementById('form-login')
 if (formLogin) {
     formLogin.addEventListener('submit', (e) => {
@@ -411,9 +426,10 @@ if (formLogin) {
         const senha = document.getElementById('senha').value
 
         if (email === 'teste@gmail.com' && senha === '12345') {
-            localStorage.setItem('user', JSON.stringify({ email: email, name: 'Victor Hugo' }));
+            localStorage.setItem('user', JSON.stringify({ email: email, name: 'Victor Hugo', isAnonymous: false }))
             showTab('aba-home')
-            login.style.display = 'none'
+            // A variável 'login' não está definida, removendo a linha
+            // login.style.display = 'none' 
         } else {
             alert('Email ou senha incorretos')
         }
@@ -429,7 +445,7 @@ if (btnAuto) {
     fecharPopUp('popUp-localizacao');
     // Apenas mostra a aba de escolha manual, pois a geocodificação reversa está falhando
     showTab('aba-escolherLocal');
-    alert("Não foi possível obter sua localização automaticamente. Por favor, preencha manualmente.");
+    alert("Não foi possível obter sua localização automaticamente. Por favor, preencha manualmente.")
   });
 }
 
@@ -444,39 +460,38 @@ const cidadesDisponiveis = [
 
 // Função para preencher o seletor de localização
 function preencherSeletorLocalizacao() {
-    const selectLocalizacao = document.getElementById('localizacao-select');
+    const selectLocalizacao = document.getElementById('localizacao-select')
     if (selectLocalizacao) {
         // Limpa as opções existentes (exceto a primeira "Selecione...")
         while (selectLocalizacao.options.length > 1) {
-            selectLocalizacao.remove(1);
+            selectLocalizacao.remove(1)
         }
 
         cidadesDisponiveis.forEach(local => {
-            const option = document.createElement('option');
-            option.value = `${local.cidade}-${local.estado}`;
-            option.textContent = `${local.cidade}-${local.estado}`;
+            const option = document.createElement('option')
+            option.value = `${local.cidade}-${local.estado}`
+            option.textContent = `${local.cidade}-${local.estado}`
             selectLocalizacao.appendChild(option);
         });
 
         // Define um valor padrão (ex: Carapicuíba-SP)
-        selectLocalizacao.value = "Carapicuíba-SP";
+        selectLocalizacao.value = "Carapicuíba-SP"
     }
 }
 
 // Chama a função ao carregar o DOM
 document.addEventListener('DOMContentLoaded', () => {
-    preencherSeletorLocalizacao();
+    preencherSeletorLocalizacao()
 
     // Adiciona listener para a seleção de localização
-    const selectLocalizacao = document.getElementById('localizacao-select');
+    const selectLocalizacao = document.getElementById('localizacao-select')
     if (selectLocalizacao) {
         selectLocalizacao.addEventListener('change', (e) => {
-            const novaLocalizacao = e.target.value;
-            console.log('Nova localização selecionada para a comunidade:', novaLocalizacao);
+            const novaLocalizacao = e.target.value
+            console.log('Nova localização selecionada para a comunidade:', novaLocalizacao)
             // Aqui seria implementada a lógica de filtragem dos posts da comunidade
             // Por enquanto, apenas registramos a mudança.
-            alert(`Comunidade filtrada para: ${novaLocalizacao}`);
-        });
+            alert(`Comunidade filtrada para: ${novaLocalizacao}`)
+        })
     }
-});
-
+})

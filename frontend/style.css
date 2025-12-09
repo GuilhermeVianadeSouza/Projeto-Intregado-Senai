@@ -170,6 +170,11 @@ nav h1 {
     display: block;
 }
 
+
+#aba-minhasOcorrencias {
+    padding-bottom: 80px; 
+}
+
 /* POSTS */
 .post {
     background: white;
