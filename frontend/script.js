@@ -2,6 +2,7 @@
 
 import { criarOcorrencias } from "./obter-ocorrencias-cidadao.js"
 import { criarOcorrenciasComunidade } from "./obter-ocorrencias.js"
+import { CriarNovaOcorrencia } from "./criar-ocorrencia.js";
 
 criarOcorrencias(1)
 criarOcorrenciasComunidade()
@@ -74,12 +75,17 @@ function abrirPopUp(popUpId) {
   }
 }
 
+function limparDadosLocalizacao() {
+  document.getElementById('form-localizacao').reset()
+  document.getElementById('btn-localizacao-ocorrencia').textContent = 'Escolher localização'
+  delete document.getElementById('btn-localizacao-ocorrencia').dataset.localizacao
+}
+
 // Botão de criar ocorrência
 const buttonCriar = document.getElementById('btn-criar')
 if (buttonCriar) {
   buttonCriar.addEventListener('click', () => {
-    document.getElementById('form-localizacao').reset()
-    document.getElementById('btn-localizacao-ocorrencia').textContent = 'Escolher localização'
+    limparDadosLocalizacao()
     showTab('aba-criar')
   });
 }
@@ -87,7 +93,7 @@ if (buttonCriar) {
 const buttonCancelar = document.getElementById('btn-cancelar-local')
 if (buttonCancelar) {
   buttonCancelar.addEventListener('click', () => {
-    document.getElementById('form-localizacao').reset()
+    limparDadosLocalizacao()
     showTab('aba-criar')
   });
 }
@@ -118,7 +124,7 @@ if (buttonPerfil) {
 const buttonNovaOcorrencia = document.getElementById('buttonNovaOcorrencia')
 if (buttonNovaOcorrencia) {
   buttonNovaOcorrencia.addEventListener('click', () => {
-    document.getElementById('form-localizacao').reset()
+    limparDadosLocalizacao()
     showTab('aba-criar')
   })
 }
@@ -143,16 +149,43 @@ const formOcorrencia = document.getElementById('form-ocorrencia')
 
 if (formOcorrencia) {
   // Validação do formulário
-  formOcorrencia.addEventListener('submit', (evento) => {
+  formOcorrencia.addEventListener('submit', async (evento) => {
     evento.preventDefault()
 
-    // Validar campos obrigatórios
-    const titulo = document.getElementById('titulo').value.trim()
     const categoria = document.getElementById('categoria').value
+    console.log(categoria);
     const descricao = document.getElementById('descricao').value.trim()
+    const localizacao = JSON.parse(document.getElementById('btn-localizacao-ocorrencia').dataset.localizacao)
+
+    const anonimo = document.getElementById('anonimo');
+
+    let compartilharDados
+
+    if (anonimo.checked) {
+      compartilharDados = false
+    } else {
+      compartilharDados = true
+    }
+
+    const ocorrencia = {
+      descricao: descricao,
+      avaliacao: 1,
+      compartilhar_dados: compartilharDados,
+      id_cidadao: 1,
+      id_categoria: 1,
+      multimidia: [
+        {
+          link: "https://bucket-s3.exemplo.com/evidencias/foto_01.jpg"
+        }
+      ],
+      localizacao: localizacao
+    }
+
+    await CriarNovaOcorrencia(ocorrencia)
 
     // Se passou na validação
     alert('Ocorrência publicada com sucesso!')
+
 
     formOcorrencia.reset()
 
@@ -240,6 +273,7 @@ if (btnContinuarLocal) {
     const bairro = document.getElementById('bairro').value.trim()
     const cidade = document.getElementById('cidade').value.trim()
     const estado = document.getElementById('estado').value.trim()
+    const complemento = document.getElementById('complemento').value.trim()
 
     // 2. Validar se os campos obrigatórios estão preenchidos
     if (!cep || !endereco || !bairro || !cidade || !estado) {
@@ -247,26 +281,25 @@ if (btnContinuarLocal) {
       return
     }
 
-    // 3. Salvar os dados (Simulação: Armazenar em uma variável global ou localStorage)
-    // Como não há um backend, vamos simular o salvamento e preencher o campo na aba-criar
-
+    // 3. Salvar os dados (Simulação: Armazenar em dataset)
     const numeroString = numero.length > 0 ? `${numero}, ` : ''
     const localizacaoString = `${endereco}, ${numeroString}${bairro}, ${cidade}-${estado}, CEP: ${cep}`
+
     const localizacaoJSON = {
       cep: cep,
       estado: estado,
       cidade: cidade,
       bairro: bairro,
       rua: endereco,
-      numero: numero,
-      complemento: null
+      numero: numero == '' ? null : numero,
+      complemento: complemento == '' ? null : complemento
     }
 
     // Preencher o campo de localização na aba-criar
     const inputLocalizacaoOcorrencia = document.getElementById('btn-localizacao-ocorrencia')
     if (inputLocalizacaoOcorrencia) {
       inputLocalizacaoOcorrencia.textContent = localizacaoString
-      inputLocalizacaoOcorrencia.dataset.localizacao = localizacaoJSON
+      inputLocalizacaoOcorrencia.dataset.localizacao = JSON.stringify(localizacaoJSON)
     }
 
     // 4. Navegar para a aba de nova ocorrência (aba-criar)
