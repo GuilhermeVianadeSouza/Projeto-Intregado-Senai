@@ -8,7 +8,12 @@ criarOcorrenciasComunidade()
 
 // Documento HTML inicial carregado
 document.addEventListener('DOMContentLoaded', () => {
-    showTab('aba-login');
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+        showTab('aba-home');
+    } else {
+        showTab('aba-login');
+    }
 });
 
 // Função para alternar entre abas
@@ -116,6 +121,14 @@ if (buttonVerOcorrencias) {
   buttonVerOcorrencias.addEventListener('click', () => {
     showTab('aba-minhasOcorrencias')
   })
+}
+
+const btnLogout = document.getElementById('btn-logout');
+if (btnLogout) {
+    btnLogout.addEventListener('click', () => {
+        localStorage.removeItem('user');
+        showTab('aba-login');
+    });
 }
 
 // FORMULÁRIO DE CRIAR OCORRÊNCIA
@@ -398,6 +411,7 @@ if (formLogin) {
         const senha = document.getElementById('senha').value
 
         if (email === 'teste@gmail.com' && senha === '12345') {
+            localStorage.setItem('user', JSON.stringify({ email: email, name: 'Victor Hugo' }));
             showTab('aba-home')
             login.style.display = 'none'
         } else {

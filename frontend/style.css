@@ -54,7 +54,7 @@
 
 #aba-home {
     min-height: 100vh;
-    padding-bottom: 40px; 
+    padding-bottom: 80px; 
 }
 
 .login-container h1,
@@ -85,6 +85,9 @@
     margin: 10px;
 }
 
+#btn-logout {
+    background-color: #f44336;
+}
 
 
 /* NAV */
@@ -466,6 +469,8 @@ nav h1 {
     background-color: #e8e8e8;
     border-color: #04A579;
 }
+
+
 
 /* POPUPS */
 .popUp {
