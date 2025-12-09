@@ -78,6 +78,8 @@ function abrirPopUp(popUpId) {
 const buttonCriar = document.getElementById('btn-criar')
 if (buttonCriar) {
   buttonCriar.addEventListener('click', () => {
+    document.getElementById('form-localizacao').reset()
+    document.getElementById('btn-localizacao-ocorrencia').textContent = 'Escolher localização'
     showTab('aba-criar')
   });
 }
@@ -85,6 +87,7 @@ if (buttonCriar) {
 const buttonCancelar = document.getElementById('btn-cancelar-local')
 if (buttonCancelar) {
   buttonCancelar.addEventListener('click', () => {
+    document.getElementById('form-localizacao').reset()
     showTab('aba-criar')
   });
 }
@@ -115,6 +118,7 @@ if (buttonPerfil) {
 const buttonNovaOcorrencia = document.getElementById('buttonNovaOcorrencia')
 if (buttonNovaOcorrencia) {
   buttonNovaOcorrencia.addEventListener('click', () => {
+    document.getElementById('form-localizacao').reset()
     showTab('aba-criar')
   })
 }
@@ -151,8 +155,6 @@ if (formOcorrencia) {
     alert('Ocorrência publicada com sucesso!')
 
     formOcorrencia.reset()
-    document.getElementById('form-localizacao').reset()
-    document.getElementById('btn-localizacao-ocorrencia').textContent = 'Escolher localização'
 
     showTab('aba-home')
   })
