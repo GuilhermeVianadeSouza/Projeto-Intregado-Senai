@@ -27,11 +27,13 @@ app.use((request, response, next) => {
 const ocorrenciaRoutes = require('./routes/ocorrencia-route.js')
 const cidadaoRoutes = require('./routes/cidadao-route.js')
 const localizacaoRoutes = require('./routes/localizacao-route.js')
+const categoriaRoutes = require('./routes/categoria-route.js')
 
 // Utilização das rotas
 app.use('/v1/ocorrencia', ocorrenciaRoutes)
 app.use('/v1/cidadao', cidadaoRoutes)
 app.use('/v1/localizacao', localizacaoRoutes)
+app.use('/v1/categoria', categoriaRoutes)
 
 app.listen(porta, () => {
     console.log(`API aguardando requisições na porta ${porta}!`)
