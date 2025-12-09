@@ -5,6 +5,13 @@ async function obterOcorrencias() {
     return data.ocorrencias
 }
 
+async function obterCategorias() {
+    const url = 'http://localhost:8080/v1/categoria'
+    const response = await fetch(url)
+    const data = await response.json()
+    return data.items.categorias
+}
+
 export async function criarOcorrenciasComunidade() {
     const ocorrencias = await obterOcorrencias()
     ocorrencias.forEach(ocorrencia => {
@@ -28,6 +35,35 @@ export async function criarOcorrenciasComunidade() {
     })
 }
 
+async function criarDropBoxCategorias() {
+    const selectElement = document.getElementById('categoria-select');
+
+    if (!selectElement) {
+        return error;
+    }
+
+    try {
+        const categorias = await obterCategorias(); 
+
+        if (Array.isArray(categorias) && categorias.length > 0) {
+            categorias.forEach(categoria => {
+                const option = document.createElement('option');
+                option.value = categoria.id;      
+                option.textContent = categoria.nome; 
+                selectElement.appendChild(option);
+            });
+        } else {
+            const option = document.createElement('option');
+            option.textContent = 'Nenhuma categoria disponível';
+            option.disabled = true;
+            selectElement.appendChild(option);
+        }
+
+    } catch (error) {
+       return error;
+    }
+}
+
 // Função de buscar ocorrencia com filtros
 export async function obterOcorrenciaComFiltro(filtros){
     //Primeiramente: defino que os padrões são inicialmente "nulos"
@@ -49,7 +85,7 @@ export async function obterOcorrenciaComFiltro(filtros){
     }
 }
 
-function criarPost(elemento) {
+function criarPost(ocorrencia) {
     const abaHome = document.getElementById("aba-home")
 
     const section = document.createElement("section")
@@ -72,7 +108,7 @@ function criarPost(elemento) {
 
     const spanData = document.createElement("span")
     spanData.classList.add("post-data")
-    spanData.textContent = elemento.dataHora
+    spanData.textContent = ocorrencia.dataHora
 
     divAutor.appendChild(spanNome)
     divAutor.appendChild(spanData)
@@ -82,15 +118,15 @@ function criarPost(elemento) {
 
     const h2 = document.createElement("h2")
     h2.classList.add("post-titulo")
-    h2.textContent = elemento.titulo
+    h2.textContent = ocorrencia.titulo
 
     const pDesc = document.createElement("p")
     pDesc.classList.add("post-desc")
-    pDesc.textContent = elemento.descricao
+    pDesc.textContent = ocorrencia.descricao
 
     const pLoc = document.createElement("p")
     pLoc.classList.add("post-loc")
-    pLoc.textContent = elemento.local
+    pLoc.textContent = ocorrencia.local
 
     const divMedia = document.createElement("div")
     divMedia.classList.add("post-media")
@@ -111,11 +147,6 @@ function criarPost(elemento) {
     abaHome.appendChild(section)
 }
 
-/**
- * Função assíncrona para buscar ocorrências filtradas e renderizá-las no DOM.
- * Implementa a chamada à API e a renderização dos posts.
- * @param {object} filtros - O objeto de filtros a ser passado para a API.
- */
 async function carregarOcorrenciasFiltradas(filtros = { pagina: 1, limite: 10 }) {
     try {
         const abaHome = document.getElementById('aba-home');
@@ -151,13 +182,7 @@ async function carregarOcorrenciasFiltradas(filtros = { pagina: 1, limite: 10 })
         }
     }
 }
-/**
- * Função assíncrona para buscar ocorrências filtradas e renderizá-las no DOM.
- * @param {object} filtros - O objeto de filtros a ser passado para a API.
- */
-/**
- * Configura o listener de evento para o input de categoria usando o ID 'categoria-select'.
- */
+
 function configurarListenerDeFiltro() {
     // 1. Obter o elemento de input/select do filtro (ID CORRIGIDO)
     const inputCategoria = document.getElementById("categoria-select");
@@ -190,5 +215,10 @@ function configurarListenerDeFiltro() {
     });
 }
 
-// Chame esta função para ativar o filtro
-configurarListenerDeFiltro();
+
+
+// Adiciona um listener para garantir que a função seja chamada após o carregamento do HTML
+document.addEventListener('DOMContentLoaded', () => {
+    criarDropBoxCategorias(); 
+    configurarListenerDeFiltro();
+});
