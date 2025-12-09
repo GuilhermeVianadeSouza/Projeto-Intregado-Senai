@@ -30,8 +30,13 @@
     padding: 40px 60px;
 }
 
-#aba-cadastro {
-     /* Estilos de fundo e altura já definidos no .aba-wrapper */
+.anonimo {
+    font-size: 0.85rem;
+    color: #999;
+    margin-top: 20px;
+    cursor: pointer;
+
+    text-decoration: underline;
 }
 
 .cadastro-container h1 {
@@ -47,7 +52,10 @@
     padding: 20px;
 }
 
-
+#aba-home {
+    min-height: 100vh;
+    padding-bottom: 40px; 
+}
 
 .login-container h1,
 .login-container h2,
@@ -634,6 +642,7 @@ footer {
     right: 0;
     padding: 15px 20px;
     z-index: 100;
+    
 }
 
 .footer-nav {
