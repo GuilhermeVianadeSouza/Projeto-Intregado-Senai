@@ -1,31 +1,37 @@
-async function obterOcorrencias() {
-    const url = 'http://localhost:8080/v1/ocorrencia?limite=10&pagina=1'
+async function obterCategorias() {
+    const url = 'http://localhost:8080/v1/categoria'
     const response = await fetch(url)
     const data = await response.json()
-    return data.ocorrencias
+    return data.items.categorias
 }
 
-export async function criarOcorrenciasComunidade() {
-    const ocorrencias = await obterOcorrencias()
-    ocorrencias.forEach(ocorrencia => {
-        const { rua, numero, cidade, estado } = ocorrencia.localizacao[0]
+async function criarDropBoxCategorias() {
+    const selectElement = document.getElementById('categoria-select');
 
-        const data = new Date(ocorrencia.data_registro)
+    if (!selectElement) {
+        return error;
+    }
 
-        const horas = String(data.getUTCHours()).padStart(2, "0")
-        const minutos = String(data.getUTCMinutes()).padStart(2, "0")
-        const dia = String(data.getUTCDate()).padStart(2, "0")
-        const mes = String(data.getUTCMonth() + 1).padStart(2, "0")
-        const ano = data.getUTCFullYear()
+    try {
+        const categorias = await obterCategorias(); 
 
-        const elemento = {
-            dataHora: `${horas}:${minutos} ${dia}/${mes}/${ano}`,
-            titulo: ocorrencia.categoria[0].nome,
-            descricao: ocorrencia.descricao,
-            local: `${rua} ${numero}, ${cidade}-${estado}`
+        if (Array.isArray(categorias) && categorias.length > 0) {
+            categorias.forEach(categoria => {
+                const option = document.createElement('option');
+                option.value = categoria.id;      
+                option.textContent = categoria.nome; 
+                selectElement.appendChild(option);
+            });
+        } else {
+            const option = document.createElement('option');
+            option.textContent = 'Nenhuma categoria disponível';
+            option.disabled = true;
+            selectElement.appendChild(option);
         }
-        criarPost(elemento)
-    })
+
+    } catch (error) {
+       return error;
+    }
 }
 
 // Função de buscar ocorrencia com filtros
@@ -49,7 +55,7 @@ export async function obterOcorrenciaComFiltro(filtros){
     }
 }
 
-function criarPost(elemento) {
+function criarPost(ocorrencia) {
     const abaHome = document.getElementById("aba-home")
 
     const section = document.createElement("section")
@@ -72,7 +78,7 @@ function criarPost(elemento) {
 
     const spanData = document.createElement("span")
     spanData.classList.add("post-data")
-    spanData.textContent = elemento.dataHora
+    spanData.textContent = ocorrencia.dataHora
 
     divAutor.appendChild(spanNome)
     divAutor.appendChild(spanData)
@@ -82,15 +88,15 @@ function criarPost(elemento) {
 
     const h2 = document.createElement("h2")
     h2.classList.add("post-titulo")
-    h2.textContent = elemento.titulo
+    h2.textContent = ocorrencia.titulo
 
     const pDesc = document.createElement("p")
     pDesc.classList.add("post-desc")
-    pDesc.textContent = elemento.descricao
+    pDesc.textContent = ocorrencia.descricao
 
     const pLoc = document.createElement("p")
     pLoc.classList.add("post-loc")
-    pLoc.textContent = elemento.local
+    pLoc.textContent = ocorrencia.local
 
     const divMedia = document.createElement("div")
     divMedia.classList.add("post-media")
@@ -115,53 +121,127 @@ function criarPost(elemento) {
     abaHome.appendChild(section)
 }
 
-/**
- * Função assíncrona para buscar ocorrências filtradas e renderizá-las no DOM.
- * Implementa a chamada à API e a renderização dos posts.
- * @param {object} filtros - O objeto de filtros a ser passado para a API.
- */
+// Função auxiliar para preparar o objeto antes de chamar criarPost
+function prepararDadosParaPost(ocorrencia) {
+    // Acessa a localização, assumindo que é um array e pegando o primeiro item
+    const {rua, numero, cidade, estado} = ocorrencia.localizacao?.[0] || {}; 
+
+    // Processamento da Data
+    const data = new Date(ocorrencia.data_registro);
+    const horas = String(data.getUTCHours()).padStart(2, "0");
+    const minutos = String(data.getUTCMinutes()).padStart(2, "0");
+    const dia = String(data.getUTCDate()).padStart(2, "0");
+    const mes = String(data.getUTCMonth() + 1).padStart(2, "0");
+    const ano = data.getUTCFullYear();
+
+    // Acessa a categoria, assumindo que é um array e pegando o primeiro item
+    const nomeCategoria = ocorrencia.categoria?.[0]?.nome || 'Sem Categoria'; 
+    const localFormatado = (rua && numero) ? `${rua} ${numero}, ${cidade}-${estado}` : 'Local não informado';
+    
+    // --- CRIAÇÃO DO OBJETO FINAL ---
+    return {
+        dataHora: `${horas}:${minutos} ${dia}/${mes}/${ano}`,
+        titulo: nomeCategoria,
+        descricao: ocorrencia.descricao,
+        local: localFormatado
+    };
+}
+
+
 async function carregarOcorrenciasFiltradas(filtros = { pagina: 1, limite: 10 }) {
     try {
         const abaHome = document.getElementById('aba-home');
         
         if (abaHome) {
-            // Encontra e remove todos os elementos que têm a classe 'post' dentro de 'aba-home'
             const postsExistentes = abaHome.querySelectorAll('.post');
-            
             postsExistentes.forEach(post => {
                 post.remove(); 
             });
-        }
+            
+            const avisoExistente = abaHome.querySelector('.aviso-sem-ocorrencia');
+            if(avisoExistente) {
+                avisoExistente.remove();
+            }
 
-        const dados = await obterOcorrenciaComFiltro(filtros); 
+            const erroExistente = abaHome.querySelector('.erro-api');
+            if(erroExistente) {
+                erroExistente.remove();
+            }
+        }
         
-        // --- 3. RENDERIZAÇÃO DOS NOVOS POSTS ---
+        const dados = await obterOcorrenciaComFiltro(filtros); 
+
         if (dados && dados.ocorrencias && Array.isArray(dados.ocorrencias)) {
             dados.ocorrencias.forEach(ocorrencia => {
-                // Chama a função que cria e insere o novo post na aba-home
-                criarPost(ocorrencia); 
+                const elementoPost = prepararDadosParaPost(ocorrencia); // Certifique-se de usar a função prepararDadosParaPost
+                criarPost(elementoPost); 
             });
         } else if (abaHome) {
-             const aviso = document.createElement('p');
-             aviso.classList.add('aviso-sem-ocorrencia');
-             aviso.textContent = 'Nenhuma ocorrência encontrada com os filtros aplicados.';
-             abaHome.appendChild(aviso);
+            // Se não encontrar ocorrências, adiciona o aviso SEM apagar a nav
+            const aviso = document.createElement('p');
+            aviso.classList.add('aviso-sem-ocorrencia');
+            aviso.textContent = 'Nenhuma ocorrência encontrada com os filtros aplicados.';
+            abaHome.appendChild(aviso);
         }
 
     } catch (error) {
         const abaHome = document.getElementById('aba-home');
         if (abaHome) {
-             abaHome.innerHTML = '<p class="erro-api">Erro ao carregar os dados. Tente novamente.</p>';
+            // Adiciona a mensagem de erro SEM apagar a nav
+            const erro = document.createElement('p');
+            erro.classList.add('erro-api');
+            erro.textContent = 'Erro ao carregar os dados. Tente novamente.';
+            abaHome.appendChild(erro);
         }
     }
 }
-/**
- * Função assíncrona para buscar ocorrências filtradas e renderizá-las no DOM.
- * @param {object} filtros - O objeto de filtros a ser passado para a API.
- */
-/**
- * Configura o listener de evento para o input de categoria usando o ID 'categoria-select'.
- */
+
+function aplicarFiltrosCompletos() {
+    const filtros = {};
+
+    // Obtém os valores dos selects.
+    // Lembre-se: categoria e status agora retornam IDs, e dataPeriodo retorna a string ('3dias', 'semana', etc.)
+    const categoria = document.getElementById('categoria-select')?.value;
+    const status = document.getElementById('status-select')?.value; 
+    const dataPeriodo = document.getElementById('data-select')?.value;
+    const localizacao = document.getElementById('localizacao-select')?.value;
+    
+    // Adicionar paginação padrão
+    filtros.pagina = 1;
+    filtros.limite = 10;
+
+    // 1. Categoria (Envia o ID da categoria)
+    if (categoria) {
+        // O backend espera o ID no parâmetro 'categoria' (filtros.id_categoria)
+        filtros.id_categoria = categoria; 
+    }
+    
+    // 2. Status (Envia o ID do status)
+    if (status) {
+        // O backend espera o ID do status no parâmetro 'status' (filtros.status)
+        filtros.status = status; 
+    }
+    
+    // 3. Data (Envia a string de período)
+    if (dataPeriodo) {
+        // O backend espera a string ('3dias', 'semana', 'mes') no parâmetro 'dataRegistro' (filtros.data_registro)
+        filtros.data_registro = dataPeriodo;
+    }
+    
+    // 4. Localização (Mantido como um placeholder, pois o backend não o suporta)
+    if (localizacao) {
+        // Você pode decidir como tratar o filtro de localização aqui, se o backend for implementá-lo.
+    }
+
+    carregarOcorrenciasFiltradas(filtros);
+}
+
+// Sua função criarOcorrenciasComunidade agora pode ser simplificada para chamar carregarOcorrenciasFiltradas
+export async function criarOcorrenciasComunidade() {
+    // Esta função agora pode apenas garantir o carregamento inicial sem filtros
+    await carregarOcorrenciasFiltradas({ pagina: 1, limite: 10 });
+}
+
 function configurarListenerDeFiltro() {
     // 1. Obter o elemento de input/select do filtro (ID CORRIGIDO)
     const inputCategoria = document.getElementById("categoria-select");
@@ -171,16 +251,14 @@ function configurarListenerDeFiltro() {
         return;
     }
 
-    // 2. Adicionar o listener para o evento 'change'
     inputCategoria.addEventListener('change', (evento) => {
-        // Pega o valor selecionado do input (ex: 'entulho', 'manutencao')
         const categoriaSelecionada = evento.target.value;
 
         // Verifica se um valor válido (não vazio/disabled) foi selecionado
         if (categoriaSelecionada && categoriaSelecionada !== 'Categoria') {;
             
             const filtros = {
-                categoria: categoriaSelecionada,
+                id_categoria: categoriaSelecionada,
                 pagina: 1, 
                 limite: 10
             };
@@ -194,5 +272,9 @@ function configurarListenerDeFiltro() {
     });
 }
 
-// Chame esta função para ativar o filtro
-configurarListenerDeFiltro();
+
+// Ajustar o DOMContentLoaded para incluir o novo listener
+document.addEventListener('DOMContentLoaded', () => {
+    criarDropBoxCategorias(); 
+    configurarListenerDeFiltro(); // Listener da Categoria
+});
