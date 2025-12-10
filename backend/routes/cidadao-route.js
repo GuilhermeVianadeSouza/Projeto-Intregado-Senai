@@ -16,6 +16,14 @@ const router = express.Router()
 
 /********************************** ENDPOINTS *********************************/
 
+// Obtém o id de um cidadão a partir do email dele
+router.get('/email/:email', cors(), async (request, response) => {
+    const email = request.params.email
+    const cidadao = await controllerCidadao.obterIdDoCidadaoPorEmail(email)
+
+    response.status(cidadao.status_code).json(cidadao)
+})
+
 // Obtém um cidadão por id
 router.get('/:id', cors(), async (request, response) => {
     let idCidadao = request.params.id
@@ -28,13 +36,6 @@ router.get('/:id', cors(), async (request, response) => {
 router.get('/ocorrencia/:id', cors(), async (request, response) => {
     let idOcorrencia = request.params.id
     let cidadao = await controllerCidadao.obterCidadaoPorIdOcorrencia(idOcorrencia)
-
-    response.status(cidadao.status_code).json(cidadao)
-})
-
-router.get('/email', cors(), async (request, response) => {
-    const email = request.body.email
-    const cidadao = await controllerCidadao.obterIdDoCidadaoPorEmail(email)
 
     response.status(cidadao.status_code).json(cidadao)
 })
