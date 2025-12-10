@@ -918,3 +918,11 @@ input[type="checkbox"] + label {
         width: 84%;
     }
 }
+
+.char-counter {
+    text-align: right;
+    font-size: 0.8em;
+    color: #666;
+    margin-top: 5px;
+    margin-right: 5px;
+}
