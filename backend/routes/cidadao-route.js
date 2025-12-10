@@ -32,4 +32,11 @@ router.get('/ocorrencia/:id', cors(), async (request, response) => {
     response.status(cidadao.status_code).json(cidadao)
 })
 
+router.get('/email', cors(), async (request, response) => {
+    const email = request.body.email
+    const cidadao = await controllerCidadao.obterIdDoCidadaoPorEmail(email)
+
+    response.status(cidadao.status_code).json(cidadao)
+})
+
 module.exports = router
