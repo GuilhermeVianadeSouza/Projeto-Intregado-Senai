@@ -97,10 +97,11 @@
                         <option value="3dias">Últimos 3 dias</option>
                         <option value="semana">Última semana</option>
                         <option value="mes">Último mês</option>
+                        <option value="ano">Último ano</option>
                     </select>
 
                     <select name="status" id="status-select">
-                        <option value="" disabled selected>Status</option>
+                        <option value="" selected>Status</option>
                         <option value="1">Pendente</option>
                         <option value="3">Em andamento</option>
                         <option value="4">Resolvido</option>
@@ -167,7 +168,8 @@
                     </select>
 
                     <label for="descricao">Descrição</label>
-                    <textarea id="descricao" placeholder="Descreva o problema em detalhes..." required></textarea>
+                    <textarea id="descricao" placeholder="Descreva o problema em detalhes..." required maxlength="1000"></textarea>
+                    <div id="char-count" class="char-counter">0/1000</div>
 
                     <label for="localizacao">Localização</label>
                     <button type="button" class="btn-local" id="btn-localizacao-ocorrencia">
