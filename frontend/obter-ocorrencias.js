@@ -43,7 +43,7 @@ export async function obterOcorrenciaComFiltro(filtros){
 
     if(filtros.id_categoria) parametros.append('categoria', filtros.id_categoria)
     if(filtros.status) parametros.append('status', filtros.status)
-    if(filtros.data_registro) parametros.append('data_registro', filtros.data_registro)
+    if(filtros.data_registro) parametros.append('dataRegistro', filtros.data_registro)
 
     const url = 'http://localhost:8080/v1/ocorrencia'
     try {
@@ -171,55 +171,54 @@ async function carregarOcorrenciasFiltradas(filtros = { pagina: 1, limite: 10 })
 
         if (dados && dados.ocorrencias && Array.isArray(dados.ocorrencias)) {
             dados.ocorrencias.forEach(ocorrencia => {
-                const elementoPost = prepararDadosParaPost(ocorrencia); 
-                criarPost(elementoPost); 
+                const elementoPost = prepararDadosParaPost(ocorrencia) 
+                criarPost(elementoPost) 
             });
         } else if (abaHome) {
             // Se não encontrar ocorrências, adiciona o aviso SEM apagar a nav
-            const aviso = document.createElement('p');
-            aviso.classList.add('aviso-sem-ocorrencia');
-            aviso.textContent = 'Nenhuma ocorrência encontrada com os filtros aplicados.';
-            abaHome.appendChild(aviso);
+            const aviso = document.createElement('p')
+            aviso.classList.add('aviso-sem-ocorrencia')
+            aviso.textContent = 'Nenhuma ocorrência encontrada com os filtros aplicados.'
+            abaHome.appendChild(aviso)
         }
 
     } catch (error) {
-        const abaHome = document.getElementById('aba-home');
+        const abaHome = document.getElementById('aba-home')
         if (abaHome) {
             // Adiciona a mensagem de erro SEM apagar a nav
-            const erro = document.createElement('p');
-            erro.classList.add('erro-api');
-            erro.textContent = 'Erro ao carregar os dados. Tente novamente.';
-            abaHome.appendChild(erro);
+            const erro = document.createElement('p')
+            erro.classList.add('erro-api')
+            erro.textContent = 'Erro ao carregar os dados. Tente novamente.'
+            abaHome.appendChild(erro)
         }
     }
 }
 
 function aplicarFiltrosCompletos() {
-    const filtros = {};
+    const filtros = {}
 
     // Obtém os valores dos selects.
-    const categoria = document.getElementById('categoria-select')?.value;
-    const status = document.getElementById('status-select')?.value; 
-    const dataPeriodo = document.getElementById('data-select')?.value;
-    const localizacao = document.getElementById('localizacao-select')?.value;
+    const categoria = document.getElementById('categoria-select')?.value
+    const status = document.getElementById('status-select')?.value
+    const dataPeriodo = document.getElementById('data-select')?.value
+    const localizacao = document.getElementById('localizacao-select')?.value
     
     // Adicionar paginação padrão
-    filtros.pagina = 1;
-    filtros.limite = 10;
+    filtros.pagina = 1
+    filtros.limite = 10
 
     // 1. Categoria (Envia o ID da categoria)
     if (categoria) {
-        filtros.id_categoria = categoria; 
+        filtros.id_categoria = categoria
     }
     
     // 2. Status (Envia o ID do status)
     if (status) {
-        filtros.status = status; 
-    }
-    
+        filtros.status = status;
+    } 
     // 3. Data (Envia a string de período)
     if (dataPeriodo) {
-        filtros.data_registro = dataPeriodo;
+        filtros.data_registro = dataPeriodo
     }
     
    
@@ -227,13 +226,13 @@ function aplicarFiltrosCompletos() {
       
     }
 
-    carregarOcorrenciasFiltradas(filtros);
+    carregarOcorrenciasFiltradas(filtros)
 }
 
 // Sua função criarOcorrenciasComunidade agora pode ser simplificada para chamar carregarOcorrenciasFiltradas
 export async function criarOcorrenciasComunidade() {
     // Esta função agora pode apenas garantir o carregamento inicial sem filtros
-    await carregarOcorrenciasFiltradas({ pagina: 1, limite: 10 });
+    await carregarOcorrenciasFiltradas({ pagina: 1, limite: 10 })
 }
 
 function configurarListenerDeFiltro() {
@@ -249,9 +248,7 @@ function configurarListenerDeFiltro() {
 }
 
 
-// Ajustar o DOMContentLoaded para incluir o novo listener
-document.addEventListener('DOMContentLoaded', () => {
     criarDropBoxCategorias();  // Para a criação da DROPBOX
     aplicarFiltrosCompletos(); //Para aplicação dos filtros
     configurarListenerDeFiltro(); // Listener da Categoria
-});
+
