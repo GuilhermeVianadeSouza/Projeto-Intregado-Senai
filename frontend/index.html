@@ -38,6 +38,7 @@
                         </div>
                         <button type="submit" class="btn-login">Entrar</button>
                         <p class="signup-text">Não tem uma conta? <a href="#" id="link-signup">Cadastre-se</a></p>
+                        <p class="anonimo" id="anonimo"> Entrar como anonimo </p>
                     </form>
                 </div>
             </div>
@@ -84,7 +85,7 @@
                 <img src="./img/logo green.png" alt="" class="logo-nav">
                 <h1> Comunidade</h1>
                 <select name="localizacao" id="localizacao-select">
-                    <option value="" disabled selected>Selecione a Localização</option>
+                    <option value="" selected>Selecione a Localização</option>
                 </select>
                 <div class="nav-filters">
                     <select name="categoria" id="categoria-select">
@@ -92,7 +93,7 @@
                     </select>
 
                     <select name="data" id="data-select">
-                        <option value="" disabled selected>Datas</option>
+                        <option value="" selected>Datas</option>
                         <option value="3dias">Últimos 3 dias</option>
                         <option value="semana">Última semana</option>
                         <option value="mes">Último mês</option>
@@ -141,7 +142,10 @@
                     <p class="autor-prefeitura">Prefeitura Municipal de Carapicuíba</p>
                     <p>Recebemos a sua solicitação e a equipe de manutenção já foi acionada. O prazo para a resolução do
                         problema é de 5 dias úteis. Agradecemos a sua colaboração!</p>
+
                 </div>
+
+
             </div>
         </div>
 
@@ -157,9 +161,6 @@
 
             <div class="form-container">
                 <form id="form-ocorrencia">
-                    <label for="titulo">Título do Problema</label>
-                    <input type="text" id="titulo" placeholder="Ex: Buraco na rua" required>
-
                     <label for="categoria">Categoria</label>
                     <select id="categoria" required>
                         <option value="">Selecione uma categoria</option>
@@ -223,7 +224,7 @@
                     <h1> Escolher Localização </h1>
                 </nav>
 
-                <div class="form-container">
+                <form class="form-container" id="form-localizacao">
                     <div class="inputbox">
                         <input type="text" id="CEP" required>
                         <label for="CEP">CEP</label>
@@ -233,7 +234,7 @@
                         <label for="endereco">Endereço</label>
                     </div>
                     <div class="inputbox">
-                        <input type="text" id="numero" required>
+                        <input type="text" id="numero">
                         <label for="numero">Número</label>
                     </div>
                     <div class="inputbox">
@@ -248,10 +249,14 @@
                         <input type="text" id="estado" required>
                         <label for="estado">Estado</label>
                     </div>
+                    <div class="inputbox">
+                        <input type="text" id="complemento" required>
+                        <label for="complemento">Complemento</label>
+                    </div>
                     <button type="submit" class="btn-submit">Continuar </button>
                     <button type="button" class="btn-cancelar" id="btn-cancelar-local">Cancelar</button>
 
-                </div>
+                </form>
 
 
             </div>
@@ -275,6 +280,7 @@
 
                     <button type="submit" id="btn-verOcorrencias">Visualizar minhas ocorrências</button>
                     <button id="buttonNovaOcorrencia">Publicar nova ocorrência</button>
+                    <button id="btn-logout">Sair</button>
                 </div>
             </div>
         </div>

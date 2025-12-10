@@ -1,15 +1,15 @@
-async function obterOcorrenciasCidadao() {
-    const url = 'http://localhost:8080/v1/ocorrencia/cidadao/1'
+async function obterOcorrenciasCidadao(id) {
+    const url = `http://localhost:8080/v1/ocorrencia/cidadao/${id}`
     const response = await fetch(url)
     const data = await response.json()
     return data.ocorrencias
 }
 
-export async function criarOcorrencias() {
-    const ocorrencias = await obterOcorrenciasCidadao()
+export async function criarOcorrencias(id) {
+    const ocorrencias = await obterOcorrenciasCidadao(id)
     ocorrencias.forEach(ocorrencia => {
 
-        const {rua, numero, cidade, estado} = ocorrencia.localizacao[0]
+        const { rua, numero, cidade, estado } = ocorrencia.localizacao[0]
 
         const data = new Date(ocorrencia.data_registro)
 
@@ -81,6 +81,10 @@ function criarPost(ocorrencia) {
     imagem.src = './img/image 3.png'
     imagem.alt = "Imagem do post"
 
+    section.addEventListener('click', () => {
+        document.getElementById('aba-verPost').classList.add('active');
+    });
+
     divImg.appendChild(imagem)
 
     section.appendChild(header)
@@ -88,6 +92,7 @@ function criarPost(ocorrencia) {
     section.appendChild(descricao)
     section.appendChild(localizacao)
     section.appendChild(divImg)
+
 
     container.appendChild(section)
 }

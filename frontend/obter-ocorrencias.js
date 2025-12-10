@@ -106,6 +106,10 @@ function criarPost(ocorrencia) {
     imgPost.src = "./img/image 3.png"
     imgPost.alt = "Imagem do post"
 
+    section.addEventListener('click', () => {
+        document.getElementById('aba-verPost').classList.add('active');
+    });
+
     divMedia.appendChild(imgPost)
 
     section.appendChild(header)
