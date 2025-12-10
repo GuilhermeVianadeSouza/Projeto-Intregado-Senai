@@ -89,7 +89,7 @@
                 </select>
                 <div class="nav-filters">
                     <select name="categoria" id="categoria-select">
-                        <option value="" disabled selected>Categoria</option>
+                        <option value="" selected>Categoria</option>
                     </select>
 
                     <select name="data" id="data-select">
@@ -163,19 +163,16 @@
                 <form id="form-ocorrencia">
                     <label for="categoria">Categoria</label>
                     <select id="categoria" required>
-                        <option value="">Selecione uma categoria</option>
-                        <option value="entulho">Entulho</option>
-                        <option value="manutencao">Manutenção</option>
-                        <option value="iluminacao">Iluminação</option>
+                        <option value="" selected>Selecione uma categoria</option>
                     </select>
 
                     <label for="descricao">Descrição</label>
                     <textarea id="descricao" placeholder="Descreva o problema em detalhes..." required></textarea>
 
                     <label for="localizacao">Localização</label>
-                    <button type="button" class="btn-local" id="btn-localizacao-ocorrencia">Escolher
-                        localização</button>
-
+                    <button type="button" class="btn-local" id="btn-localizacao-ocorrencia">
+                        Escolher localização
+                    </button>
 
                     <label for="imagem">Foto do Problema</label>
                     <input type="file" id="imagem" accept="image/*">
@@ -183,9 +180,7 @@
                     <div>
                         <input type="checkbox" id="anonimo">
                         <label for="anonimo">Publicar como anônimo</label>
-
                     </div>
-
 
                     <button type="submit" class="btn-submit">Publicar Ocorrência</button>
                     <button type="button" class="btn-cancelar">Cancelar</button>
