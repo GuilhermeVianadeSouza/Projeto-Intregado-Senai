@@ -7,30 +7,34 @@ async function obterCategorias() {
 
 async function criarDropBoxCategorias() {
     const selectElement = document.getElementById('categoria-select');
+    const dropboxCriarOcorrencia = document.getElementById('categoria');
 
     if (!selectElement) {
         return error;
     }
 
     try {
-        const categorias = await obterCategorias(); 
+        const categorias = await obterCategorias();
 
         if (Array.isArray(categorias) && categorias.length > 0) {
             categorias.forEach(categoria => {
                 const option = document.createElement('option');
-                option.value = categoria.id;      
-                option.textContent = categoria.nome; 
+                option.value = categoria.id;
+                option.textContent = categoria.nome;
                 selectElement.appendChild(option);
+                dropboxCriarOcorrencia.appendChild(option);
+
             });
         } else {
             const option = document.createElement('option');
             option.textContent = 'Nenhuma categoria disponível';
             option.disabled = true;
             selectElement.appendChild(option);
+            dropboxCriarOcorrencia.append(option);
         }
 
     } catch (error) {
-       return error;
+        return error;
     }
 }
 
@@ -123,7 +127,7 @@ function criarPost(ocorrencia) {
 // Função auxiliar para preparar o objeto antes de chamar criarPost
 function prepararDadosParaPost(ocorrencia) {
     // Acessa a localização, assumindo que é um array e pegando o primeiro item
-    const {rua, numero, cidade, estado} = ocorrencia.localizacao?.[0] || {}; 
+    const { rua, numero, cidade, estado } = ocorrencia.localizacao?.[0] || {};
 
     // Processamento da Data
     const data = new Date(ocorrencia.data_registro);
@@ -134,7 +138,7 @@ function prepararDadosParaPost(ocorrencia) {
     const ano = data.getUTCFullYear();
 
     // Acessa a categoria, assumindo que é um array e pegando o primeiro item
-    const nomeCategoria = ocorrencia.categoria?.[0]?.nome || 'Sem Categoria'; 
+    const nomeCategoria = ocorrencia.categoria?.[0]?.nome || 'Sem Categoria';
     const localFormatado = (rua && numero) ? `${rua} ${numero}, ${cidade}-${estado}` : 'Local não informado';
     
     return {
@@ -145,29 +149,28 @@ function prepararDadosParaPost(ocorrencia) {
     };
 }
 
-
 async function carregarOcorrenciasFiltradas(filtros = { pagina: 1, limite: 10 }) {
     try {
         const abaHome = document.getElementById('aba-home');
-        
+
         if (abaHome) {
             const postsExistentes = abaHome.querySelectorAll('.post');
             postsExistentes.forEach(post => {
-                post.remove(); 
+                post.remove();
             });
-            
+
             const avisoExistente = abaHome.querySelector('.aviso-sem-ocorrencia');
-            if(avisoExistente) {
+            if (avisoExistente) {
                 avisoExistente.remove();
             }
 
             const erroExistente = abaHome.querySelector('.erro-api');
-            if(erroExistente) {
+            if (erroExistente) {
                 erroExistente.remove();
             }
         }
-        
-        const dados = await obterOcorrenciaComFiltro(filtros); 
+
+        const dados = await obterOcorrenciaComFiltro(filtros);
 
         if (dados && dados.ocorrencias && Array.isArray(dados.ocorrencias)) {
             dados.ocorrencias.forEach(ocorrencia => {
@@ -211,7 +214,7 @@ function aplicarFiltrosCompletos() {
     if (categoria) {
         filtros.id_categoria = categoria
     }
-    
+
     // 2. Status (Envia o ID do status)
     if (status) {
         filtros.status = status;
@@ -219,11 +222,6 @@ function aplicarFiltrosCompletos() {
     // 3. Data (Envia a string de período)
     if (dataPeriodo) {
         filtros.data_registro = dataPeriodo
-    }
-    
-   
-    if (localizacao) {
-      
     }
 
     carregarOcorrenciasFiltradas(filtros)
@@ -247,8 +245,7 @@ function configurarListenerDeFiltro() {
 
 }
 
-
-    criarDropBoxCategorias();  // Para a criação da DROPBOX
-    aplicarFiltrosCompletos(); //Para aplicação dos filtros
-    configurarListenerDeFiltro(); // Listener da Categoria
+criarDropBoxCategorias();  // Para a criação da DROPBOX
+aplicarFiltrosCompletos(); //Para aplicação dos filtros
+configurarListenerDeFiltro(); // Listener da Categoria
 
