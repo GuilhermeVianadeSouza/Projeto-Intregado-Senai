@@ -518,3 +518,15 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   }
 })
+
+// maximo de caracter
+const descricaoTextarea = document.getElementById('descricao')
+const charCountDisplay = document.getElementById('char-count')
+const maxChars = 1000
+
+if (descricaoTextarea && charCountDisplay) {
+    descricaoTextarea.addEventListener('input', () => {
+        const currentChars = descricaoTextarea.value.length
+        charCountDisplay.textContent = `${currentChars}/${maxChars}`
+    });
+}
