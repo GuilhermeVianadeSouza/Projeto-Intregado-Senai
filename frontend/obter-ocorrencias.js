@@ -36,15 +36,14 @@ async function criarDropBoxCategorias() {
 
 // Função de buscar ocorrencia com filtros
 export async function obterOcorrenciaComFiltro(filtros){
-    //Primeiramente: defino que os padrões são inicialmente "nulos"
     const parametros = new URLSearchParams()
-    //Para esses parametros em especifico 
+
     parametros.append('pagina', filtros.pagina || 1)
     parametros.append('limite', filtros.limite || 10)
 
     if(filtros.id_categoria) parametros.append('categoria', filtros.id_categoria)
     if(filtros.status) parametros.append('status', filtros.status)
-    if(filtros.data_registro) parametros.append('data_registro', filtros.data_registro)
+    if(filtros.data_registro) parametros.append('dataRegistro', filtros.data_registro)
 
     const url = 'http://localhost:8080/v1/ocorrencia'
     try {
@@ -138,7 +137,6 @@ function prepararDadosParaPost(ocorrencia) {
     const nomeCategoria = ocorrencia.categoria?.[0]?.nome || 'Sem Categoria'; 
     const localFormatado = (rua && numero) ? `${rua} ${numero}, ${cidade}-${estado}` : 'Local não informado';
     
-    // --- CRIAÇÃO DO OBJETO FINAL ---
     return {
         dataHora: `${horas}:${minutos} ${dia}/${mes}/${ano}`,
         titulo: nomeCategoria,
@@ -173,108 +171,84 @@ async function carregarOcorrenciasFiltradas(filtros = { pagina: 1, limite: 10 })
 
         if (dados && dados.ocorrencias && Array.isArray(dados.ocorrencias)) {
             dados.ocorrencias.forEach(ocorrencia => {
-                const elementoPost = prepararDadosParaPost(ocorrencia); // Certifique-se de usar a função prepararDadosParaPost
-                criarPost(elementoPost); 
+                const elementoPost = prepararDadosParaPost(ocorrencia) 
+                criarPost(elementoPost) 
             });
         } else if (abaHome) {
             // Se não encontrar ocorrências, adiciona o aviso SEM apagar a nav
-            const aviso = document.createElement('p');
-            aviso.classList.add('aviso-sem-ocorrencia');
-            aviso.textContent = 'Nenhuma ocorrência encontrada com os filtros aplicados.';
-            abaHome.appendChild(aviso);
+            const aviso = document.createElement('p')
+            aviso.classList.add('aviso-sem-ocorrencia')
+            aviso.textContent = 'Nenhuma ocorrência encontrada com os filtros aplicados.'
+            abaHome.appendChild(aviso)
         }
 
     } catch (error) {
-        const abaHome = document.getElementById('aba-home');
+        const abaHome = document.getElementById('aba-home')
         if (abaHome) {
             // Adiciona a mensagem de erro SEM apagar a nav
-            const erro = document.createElement('p');
-            erro.classList.add('erro-api');
-            erro.textContent = 'Erro ao carregar os dados. Tente novamente.';
-            abaHome.appendChild(erro);
+            const erro = document.createElement('p')
+            erro.classList.add('erro-api')
+            erro.textContent = 'Erro ao carregar os dados. Tente novamente.'
+            abaHome.appendChild(erro)
         }
     }
 }
 
 function aplicarFiltrosCompletos() {
-    const filtros = {};
+    const filtros = {}
 
     // Obtém os valores dos selects.
-    // Lembre-se: categoria e status agora retornam IDs, e dataPeriodo retorna a string ('3dias', 'semana', etc.)
-    const categoria = document.getElementById('categoria-select')?.value;
-    const status = document.getElementById('status-select')?.value; 
-    const dataPeriodo = document.getElementById('data-select')?.value;
-    const localizacao = document.getElementById('localizacao-select')?.value;
+    const categoria = document.getElementById('categoria-select')?.value
+    const status = document.getElementById('status-select')?.value
+    const dataPeriodo = document.getElementById('data-select')?.value
+    const localizacao = document.getElementById('localizacao-select')?.value
     
     // Adicionar paginação padrão
-    filtros.pagina = 1;
-    filtros.limite = 10;
+    filtros.pagina = 1
+    filtros.limite = 10
 
     // 1. Categoria (Envia o ID da categoria)
     if (categoria) {
-        // O backend espera o ID no parâmetro 'categoria' (filtros.id_categoria)
-        filtros.id_categoria = categoria; 
+        filtros.id_categoria = categoria
     }
     
     // 2. Status (Envia o ID do status)
     if (status) {
-        // O backend espera o ID do status no parâmetro 'status' (filtros.status)
-        filtros.status = status; 
-    }
-    
+        filtros.status = status;
+    } 
     // 3. Data (Envia a string de período)
     if (dataPeriodo) {
-        // O backend espera a string ('3dias', 'semana', 'mes') no parâmetro 'dataRegistro' (filtros.data_registro)
-        filtros.data_registro = dataPeriodo;
+        filtros.data_registro = dataPeriodo
     }
     
-    // 4. Localização (Mantido como um placeholder, pois o backend não o suporta)
+   
     if (localizacao) {
-        // Você pode decidir como tratar o filtro de localização aqui, se o backend for implementá-lo.
+      
     }
 
-    carregarOcorrenciasFiltradas(filtros);
+    carregarOcorrenciasFiltradas(filtros)
 }
 
 // Sua função criarOcorrenciasComunidade agora pode ser simplificada para chamar carregarOcorrenciasFiltradas
 export async function criarOcorrenciasComunidade() {
     // Esta função agora pode apenas garantir o carregamento inicial sem filtros
-    await carregarOcorrenciasFiltradas({ pagina: 1, limite: 10 });
+    await carregarOcorrenciasFiltradas({ pagina: 1, limite: 10 })
 }
 
 function configurarListenerDeFiltro() {
     // 1. Obter o elemento de input/select do filtro (ID CORRIGIDO)
-    const inputCategoria = document.getElementById("categoria-select");
+    const inputCategoria = document.getElementById("categoria-select")
+    const inputData = document.getElementById("data-select")
+    const inputStatus = document.getElementById("status-select")
 
-    if (!inputCategoria) {
-     
-        return;
-    }
+    inputCategoria.addEventListener('change', aplicarFiltrosCompletos)
+    inputData.addEventListener('change', aplicarFiltrosCompletos)
+    inputStatus.addEventListener('change', aplicarFiltrosCompletos)
 
-    inputCategoria.addEventListener('change', (evento) => {
-        const categoriaSelecionada = evento.target.value;
-
-        // Verifica se um valor válido (não vazio/disabled) foi selecionado
-        if (categoriaSelecionada && categoriaSelecionada !== 'Categoria') {;
-            
-            const filtros = {
-                id_categoria: categoriaSelecionada,
-                pagina: 1, 
-                limite: 10
-            };
-
-            // Chamar a função de busca e renderização
-            carregarOcorrenciasFiltradas(filtros);
-            
-        } else {
-            carregarOcorrenciasFiltradas({ pagina: 1, limite: 10 }); 
-        }
-    });
 }
 
 
-// Ajustar o DOMContentLoaded para incluir o novo listener
-document.addEventListener('DOMContentLoaded', () => {
-    criarDropBoxCategorias(); 
+    criarDropBoxCategorias();  // Para a criação da DROPBOX
+    aplicarFiltrosCompletos(); //Para aplicação dos filtros
     configurarListenerDeFiltro(); // Listener da Categoria
-});
+
