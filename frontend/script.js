@@ -510,10 +510,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (selectLocalizacao) {
     selectLocalizacao.addEventListener('change', (e) => {
       const novaLocalizacao = e.target.value
-      console.log('Nova localização selecionada para a comunidade:', novaLocalizacao)
-      // Aqui seria implementada a lógica de filtragem dos posts da comunidade
-      // Por enquanto, apenas registramos a mudança.
-      alert(`Comunidade filtrada para: ${novaLocalizacao}`)
     })
   }
 })

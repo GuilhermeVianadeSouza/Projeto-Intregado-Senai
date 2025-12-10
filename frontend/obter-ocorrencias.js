@@ -7,7 +7,6 @@ async function obterCategorias() {
 
 async function criarDropBoxCategorias() {
     const selectElement = document.getElementById('categoria-select');
-
     if (!selectElement) {
         return error;
     }
@@ -73,7 +72,7 @@ function criarPost(ocorrencia) {
 
     const spanNome = document.createElement("span")
     spanNome.classList.add("autor-nome")
-    spanNome.textContent = "Victor Hugo"
+    spanNome.textContent = ocorrencia.autor
 
     const spanData = document.createElement("span")
     spanData.classList.add("post-data")
@@ -125,6 +124,8 @@ function prepararDadosParaPost(ocorrencia) {
     // Acessa a localização, assumindo que é um array e pegando o primeiro item
     const {rua, numero, cidade, estado} = ocorrencia.localizacao?.[0] || {}; 
 
+    const nomeCidadao = ocorrencia.cidadao[0].nome || 'Anônimo'
+
     // Processamento da Data
     const data = new Date(ocorrencia.data_registro);
     const horas = String(data.getUTCHours()).padStart(2, "0");
@@ -134,6 +135,7 @@ function prepararDadosParaPost(ocorrencia) {
     const ano = data.getUTCFullYear();
 
     // Acessa a categoria, assumindo que é um array e pegando o primeiro item
+
     const nomeCategoria = ocorrencia.categoria?.[0]?.nome || 'Sem Categoria'; 
     const localFormatado = (rua && numero) ? `${rua} ${numero}, ${cidade}-${estado}` : 'Local não informado';
     
@@ -141,7 +143,8 @@ function prepararDadosParaPost(ocorrencia) {
         dataHora: `${horas}:${minutos} ${dia}/${mes}/${ano}`,
         titulo: nomeCategoria,
         descricao: ocorrencia.descricao,
-        local: localFormatado
+        local: localFormatado,
+        autor: nomeCidadao
     };
 }
 
@@ -175,7 +178,6 @@ async function carregarOcorrenciasFiltradas(filtros = { pagina: 1, limite: 10 })
                 criarPost(elementoPost) 
             });
         } else if (abaHome) {
-            // Se não encontrar ocorrências, adiciona o aviso SEM apagar a nav
             const aviso = document.createElement('p')
             aviso.classList.add('aviso-sem-ocorrencia')
             aviso.textContent = 'Nenhuma ocorrência encontrada com os filtros aplicados.'
@@ -185,7 +187,6 @@ async function carregarOcorrenciasFiltradas(filtros = { pagina: 1, limite: 10 })
     } catch (error) {
         const abaHome = document.getElementById('aba-home')
         if (abaHome) {
-            // Adiciona a mensagem de erro SEM apagar a nav
             const erro = document.createElement('p')
             erro.classList.add('erro-api')
             erro.textContent = 'Erro ao carregar os dados. Tente novamente.'
@@ -246,9 +247,7 @@ function configurarListenerDeFiltro() {
     inputStatus.addEventListener('change', aplicarFiltrosCompletos)
 
 }
-
-
-    criarDropBoxCategorias();  // Para a criação da DROPBOX
-    aplicarFiltrosCompletos(); //Para aplicação dos filtros
-    configurarListenerDeFiltro(); // Listener da Categoria
+criarDropBoxCategorias();  // Para a criação da DROPBOX
+aplicarFiltrosCompletos(); //Para aplicação dos filtros
+configurarListenerDeFiltro(); // Listener da Categoria
 
