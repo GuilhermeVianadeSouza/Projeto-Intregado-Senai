@@ -9,31 +9,35 @@ export async function criarOcorrencias(id) {
     const ocorrencias = await obterOcorrenciasCidadao(id)
     const user = JSON.parse(localStorage.getItem('user'))
     ocorrencias.forEach(ocorrencia => {
-        const { rua, numero, cidade, estado } = ocorrencia.localizacao[0]
+        const localizacao = ocorrencia.localizacao && ocorrencia.localizacao[0];
+        const { rua, numero, cidade, estado } = localizacao || {};
 
-        const numeroString = numero === 'null' ? '' : ` ${numero}`
-        const local = `${rua}${numeroString}, ${cidade}-${estado}`
+        const numeroString = numero === 'null' ? '' : ` ${numero}`;
+        const local = rua ? `${rua}${numeroString}, ${cidade}-${estado}` : "Local não informado";
 
-        const data = new Date(ocorrencia.data_registro)
+        const data = new Date(ocorrencia.data_registro);
+        const horas = String(data.getUTCHours()).padStart(2, "0");
+        const minutos = String(data.getUTCMinutes()).padStart(2, "0");
+        const dia = String(data.getUTCDate()).padStart(2, "0");
+        const mes = String(data.getUTCMonth() + 1).padStart(2, "0");
+        const ano = data.getUTCFullYear();
 
-        const horas = String(data.getUTCHours()).padStart(2, "0")
-        const minutos = String(data.getUTCMinutes()).padStart(2, "0")
-        const dia = String(data.getUTCDate()).padStart(2, "0")
-        const mes = String(data.getUTCMonth() + 1).padStart(2, "0")
-        const ano = data.getUTCFullYear()
+        const categoria = ocorrencia.categoria && ocorrencia.categoria[0];
+        const titulo = categoria ? categoria.nome : "Sem categoria";
 
-        const { multimidia } = ocorrencia
+        const multimidiaUrl = (ocorrencia.multimidia && ocorrencia.multimidia[0]?.link) || './img/image-placeholder.png';
 
         const elemento = {
             dataHora: `${horas}:${minutos} ${dia}/${mes}/${ano}`,
-            titulo: ocorrencia.categoria[0].nome,
+            titulo,
             descricao: ocorrencia.descricao,
-            local: local,
+            local,
             nome: user.nome,
-            multimidia: multimidia[0].link
+            multimidia: multimidiaUrl
         }
-        criarPost(elemento)
-    })
+
+        criarPost(elemento);
+    });
 }
 
 function criarPost(ocorrencia) {
