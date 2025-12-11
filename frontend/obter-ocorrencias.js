@@ -2,7 +2,7 @@ async function obterCategorias() {
     const url = 'http://localhost:8080/v1/categoria'
     const response = await fetch(url)
     const data = await response.json()
-    return data.items.categorias
+    return data.categorias
 }
 
 export async function criarDropBoxCategorias(container) {
@@ -98,8 +98,12 @@ function criarPost(ocorrencia) {
 
     const imgPost = document.createElement("img")
     imgPost.classList.add("post-img")
-    imgPost.src = "./img/image 3.png"
     imgPost.alt = "Imagem do post"
+    imgPost.src = ocorrencia.multimidia
+
+    imgPost.onerror = () => {
+        imgPost.src = "./img/image-placeholder.png"
+    }
 
     section.addEventListener('click', () => {
         document.getElementById('aba-verPost').classList.add('active');
@@ -119,9 +123,11 @@ function criarPost(ocorrencia) {
 // Função auxiliar para preparar o objeto antes de chamar criarPost
 function prepararDadosParaPost(ocorrencia) {
     // Acessa a localização, assumindo que é um array e pegando o primeiro item
-    const { rua, numero, cidade, estado } = ocorrencia.localizacao?.[0] || {};
+    const { rua, numero, cidade, estado } = ocorrencia.localizacao[0] || {};
 
     const nomeCidadao = ocorrencia.cidadao[0].nome || 'Anônimo'
+
+    const multimidia = ocorrencia.multimidia[0].link
 
     // Processamento da Data
     const data = new Date(ocorrencia.data_registro);
@@ -132,14 +138,17 @@ function prepararDadosParaPost(ocorrencia) {
     const ano = data.getUTCFullYear();
 
     const nomeCategoria = ocorrencia.categoria?.[0]?.nome || 'Sem Categoria';
-    const localFormatado = (rua && numero) ? `${rua} ${numero}, ${cidade}-${estado}` : 'Local não informado';
+
+    const numeroString = numero === 'null' ? '' : ` ${numero}`
+    const localFormatado = (rua && numero) ? `${rua}${numeroString}, ${cidade}-${estado}` : 'Local não informado';
 
     return {
         dataHora: `${horas}:${minutos} ${dia}/${mes}/${ano}`,
         titulo: nomeCategoria,
         descricao: ocorrencia.descricao,
         local: localFormatado,
-        autor: nomeCidadao
+        autor: nomeCidadao,
+        multimidia: multimidia
     };
 }
 

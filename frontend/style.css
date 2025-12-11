@@ -160,9 +160,9 @@ nav h1 {
 }
 
 .aviso-sem-ocorrencia {
-    text-align: center; 
-    width: 100%; 
-    margin-top: 50px; 
+    text-align: center;
+    width: 100%;
+    margin-top: 50px;
     font-size: 1.2em;
     color: #555;
 }
@@ -260,6 +260,9 @@ nav h1 {
     width: 100%;
     height: auto;
     display: block;
+    max-height: 170px;
+    max-width: 300px;
+    object-fit: cover;
 }
 
 /* ABA VISUALIZAR POST */
