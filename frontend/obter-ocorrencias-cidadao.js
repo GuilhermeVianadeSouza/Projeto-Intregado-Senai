@@ -41,7 +41,7 @@ function criarPost(ocorrencia) {
 
     const imgPerfil = document.createElement("img")
     imgPerfil.classList.add("post-perfil")
-    imgPerfil.src = './img/profile img.png'
+    imgPerfil.src = './img/user-placeholder.png'
     imgPerfil.alt = "Perfil"
 
     const divAutor = document.createElement("div")
