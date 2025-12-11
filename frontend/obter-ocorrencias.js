@@ -50,9 +50,9 @@ export async function obterOcorrenciaComFiltro(filtros) {
     }
 }
 
-function criarPost(ocorrencia) {
-    const abaHome = document.getElementById("aba-home")
+const abaHome = document.getElementById("aba-home")
 
+function criarPost(ocorrencia) {
     const section = document.createElement("section")
     section.classList.add("post")
 
@@ -145,8 +145,6 @@ function prepararDadosParaPost(ocorrencia) {
 
 async function carregarOcorrenciasFiltradas(filtros = { pagina: 1, limite: 10 }) {
     try {
-        const abaHome = document.getElementById('aba-home');
-
         if (abaHome) {
             const postsExistentes = abaHome.querySelectorAll('.post');
             postsExistentes.forEach(post => {
@@ -179,7 +177,6 @@ async function carregarOcorrenciasFiltradas(filtros = { pagina: 1, limite: 10 })
         }
 
     } catch (error) {
-        const abaHome = document.getElementById('aba-home')
         if (abaHome) {
             const erro = document.createElement('p')
             erro.classList.add('erro-api')
@@ -196,7 +193,6 @@ export function aplicarFiltrosCompletos() {
     const categoria = document.getElementById('categoria-select')?.value
     const status = document.getElementById('status-select')?.value
     const dataPeriodo = document.getElementById('data-select')?.value
-    const localizacao = document.getElementById('localizacao-select')?.value
 
     // Adicionar paginação padrão
     filtros.pagina = 1
@@ -218,7 +214,6 @@ export function aplicarFiltrosCompletos() {
 
     carregarOcorrenciasFiltradas(filtros)
 }
-
 
 export async function criarOcorrenciasComunidade() {
 

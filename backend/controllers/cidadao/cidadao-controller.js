@@ -73,18 +73,6 @@ async function obterIdDoCidadaoPorEmailESenha(email, senha) {
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
     try {
-        if (!String(email).includes('@') || email.length < 10 || email.length > 254) {
-            MESSAGES.ERROR_REQUIRED_FIELDS.message += '[Email inválido]'
-            return MESSAGES.ERROR_REQUIRED_FIELDS // 400 - Campos obrigatórios
-        }
-
-        const senhaForteRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,64}$/
-
-        if (!senhaForteRegex.test(senha)) {
-            MESSAGES.ERROR_REQUIRED_FIELDS.message += '[Senha inválido]'
-            return MESSAGES.ERROR_REQUIRED_FIELDS // 400 - Campos obrigatórios
-        }
-
         const cidadao = await cidadaoDAO.selecionarIdCidadaoPorEmailSenha(email, senha)
 
         if (!cidadao)
