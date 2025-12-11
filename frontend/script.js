@@ -1,7 +1,7 @@
 'use strict'
 
 import { criarOcorrencias } from "./obter-ocorrencias-cidadao.js"
-import { criarOcorrenciasComunidade, criarDropBoxCategorias } from "./obter-ocorrencias.js"
+import { criarOcorrenciasComunidade} from "./obter-ocorrencias.js"
 import { CriarNovaOcorrencia } from "./criar-ocorrencia.js";
 import { criarDropBoxCategorias } from "./obter-ocorrencias.js";
 import { aplicarFiltrosCompletos } from "./obter-ocorrencias.js";
@@ -459,8 +459,8 @@ if (formLogin) {
     if (email === 'teste@gmail.com' && senha === '12345') {
       localStorage.setItem('user', JSON.stringify({ email: email, name: 'Victor Hugo', isAnonymous: false }))
       showTab('aba-home')
-      // A variável 'login' não está definida, removendo a linha
-      // login.style.display = 'none'
+
+      login.style.display = 'none'
     } else {
       alert('Email ou senha incorretos')
     }
