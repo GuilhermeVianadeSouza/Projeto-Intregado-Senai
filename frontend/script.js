@@ -1,12 +1,13 @@
 'use strict'
 
 import { criarOcorrencias } from "./obter-ocorrencias-cidadao.js"
-import { criarOcorrenciasComunidade} from "./obter-ocorrencias.js"
+import { criarOcorrenciasComunidade } from "./obter-ocorrencias.js"
 import { CriarNovaOcorrencia } from "./criar-ocorrencia.js";
 import { criarDropBoxCategorias } from "./obter-ocorrencias.js";
 import { aplicarFiltrosCompletos } from "./obter-ocorrencias.js";
 import { configurarListenerDeFiltro } from "./obter-ocorrencias.js";
 import { obterIdCidadao } from "./logar-cidadao.js";
+import { colocarDadosPerfil } from "./obter-dados-perfil.js";
 
 criarOcorrenciasComunidade()
 await criarDropBoxCategorias(document.getElementById('categoria-select'))
@@ -19,17 +20,22 @@ document.getElementById('form-login').addEventListener('submit', async (e) => {
   const email = document.getElementById('email').value
   const senha = document.getElementById('senha').value
 
-  const cidadaoId = await obterIdCidadao(email, senha)
+  try {
+    const cidadaoId = await obterIdCidadao(email, senha)
 
-  if (cidadaoId.status_code == 400) {
-    alert('Email ou senha incorretos')
-  } else {
-    localStorage.setItem('user', JSON.stringify({ id: cidadaoId.cidadao[0].id, isAnonymous: false }))
-    const user = JSON.parse(localStorage.getItem('user'))
-    criarOcorrencias(Number(user.id))
-    showTab('aba-home')
-    // A variável 'login' não está definida, removendo a linha
-    // login.style.display = 'none'
+    if (cidadaoId.status_code == 400)
+      alert('Email ou senha incorretos')
+
+
+    if (cidadaoId.status_code == 200) {
+      localStorage.setItem('user', JSON.stringify({ id: cidadaoId.cidadao[0].id, isAnonymous: false }))
+      const user = JSON.parse(localStorage.getItem('user'))
+      criarOcorrencias(Number(user.id))
+      colocarDadosPerfil(Number(user.id))
+      showTab('aba-home')
+    }
+  } catch (error) {
+    console.log(error);
   }
 })
 
