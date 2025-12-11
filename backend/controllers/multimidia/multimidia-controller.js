@@ -20,7 +20,7 @@ async function obterMultimidiaPorIdOcorrencia(id) {
             return MESSAGES.ERROR_REQUIRED_FIELDS // 400 - Campos obrigatórios
         }
 
-        const multimidia = await multimidiaDAO.selecionarUmaMultimidiaPorIdOcorrencia(Number(id))
+        const multimidia = await multimidiaDAO.selecionarCincoMultimidiaPorIdOcorrencia(Number(id))
 
         if (!multimidia)
             return MESSAGES.ERROR_INTERNAL_SERVER_MODEL // 500 - Model

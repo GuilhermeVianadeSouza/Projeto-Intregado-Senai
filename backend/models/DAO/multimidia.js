@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Objetivo: Arquivo responsável pelas operações no MySQL da tabela multimidia.
- * Data: 27/11/2025
- * Autor: Nathan
+ * Data: 12/12/2025
+ * Autor: Victor Hugo
  * Versão: 1.0
  ******************************************************************************/
 
@@ -11,27 +11,25 @@ const { PrismaClient } = require('../../generated/prisma')
 // Criação de um objeto do Client
 const prisma = new PrismaClient()
 
-async function selecionarUmaMultimidiaPorIdOcorrencia(idOcorrencia) {
+async function selecionarCincoMultimidiaPorIdOcorrencia(idOcorrencia) {
     try {
         const sql = `
             SELECT
                 id, link FROM tb_multimidia
             WHERE
                 id_ocorrencia = ${idOcorrencia}
-            LIMIT 1
+            LIMIT 5
         `
-
         const multimidia = await prisma.$queryRawUnsafe(sql)
-
         if (Array.isArray(multimidia))
             return multimidia
         else
             return false
-
     } catch (error) {
         return false
     }
 }
+
 
 async function selecionarUltimoIdMultimidia() {
     try {
@@ -68,7 +66,7 @@ async function registrarUmaMultimidia(multimidia) {
 }
 
 module.exports = {
-    selecionarUmaMultimidiaPorIdOcorrencia,
     selecionarUltimoIdMultimidia,
-    registrarUmaMultimidia
+    registrarUmaMultimidia,
+    selecionarCincoMultimidiaPorIdOcorrencia
 }
