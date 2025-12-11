@@ -528,6 +528,80 @@ nav h1 {
     gap: 10px;
 }
 
+.classificacao-container {
+    margin-top: 20px;
+    padding: 15px;
+    border-top: 1px solid #eee;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.classificacao-container h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.classificacao-label {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 12px;
+}
+
+.classificacao-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btn-classificacao {
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.btn-sucesso {
+    background-color: #4caf50;
+    color: white;
+}
+
+.btn-sucesso:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
+
+.btn-nao-sucesso {
+    background-color: #f44336;
+    color: white;
+}
+
+.btn-nao-sucesso:hover {
+    background-color: #da190b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 152, 0, 0.3);
+}
+
+.btn-classificacao:active {
+    transform: translateY(0);
+}
+
+.classificacao-feedback {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    text-align: center;
+    font-weight: 500;
+    color: #04A579;
+    display: none;
+}
+
+
 .popUp-buttons .btn-sim,
 .popUp-buttons .btn-nao {
     padding: 10px 40px;
