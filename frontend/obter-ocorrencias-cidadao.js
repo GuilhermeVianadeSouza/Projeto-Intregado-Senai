@@ -5,8 +5,8 @@ async function obterOcorrenciasCidadao(id) {
     return data.ocorrencias
 }
 
-export async function criarOcorrencias() {
-    const ocorrencias = await obterOcorrenciasCidadao()
+export async function criarOcorrencias(id) {
+    const ocorrencias = await obterOcorrenciasCidadao(id)
     ocorrencias.forEach(ocorrencia => {
 
         const { rua, numero, cidade, estado } = ocorrencia.localizacao[0]

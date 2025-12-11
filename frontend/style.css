@@ -54,7 +54,7 @@
 
 #aba-home {
     min-height: 100vh;
-    padding-bottom: 80px; 
+    padding-bottom: 80px;
 }
 
 .login-container h1,
@@ -104,7 +104,6 @@ nav {
     font-size: 0.9rem;
     background-color: #f0f0f0;
     width: 90%;
-    cursor: pointer;
     transition: all 0.3s ease;
     margin-bottom: 15px;
 }
@@ -160,6 +159,14 @@ nav h1 {
     box-shadow: 0 0 5px rgba(4, 165, 121, 0.3);
 }
 
+.aviso-sem-ocorrencia {
+    text-align: center; 
+    width: 100%; 
+    margin-top: 50px; 
+    font-size: 1.2em;
+    color: #555;
+}
+
 /* ABAS */
 .aba {
     display: none;
@@ -172,7 +179,7 @@ nav h1 {
 
 
 #aba-minhasOcorrencias {
-    padding-bottom: 80px; 
+    padding-bottom: 80px;
 }
 
 /* POSTS */
@@ -257,7 +264,7 @@ nav h1 {
 
 /* ABA VISUALIZAR POST */
 .aba-verPost {
-    display: none; 
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -265,33 +272,33 @@ nav h1 {
     height: 100%;
     background: rgba(0, 0, 0, 0.7);
     padding: 20px;
-    z-index: 1000; 
+    z-index: 1000;
     justify-content: center;
     align-items: center;
     animation: fadeIn 0.3s ease-in;
 }
 
 .aba-verPost.active {
-    display: flex; 
+    display: flex;
 }
 
 .verPost-container {
     background-color: white;
     width: 85%;
-    max-width: 600px; 
-    max-height: 90vh; 
+    max-width: 600px;
+    max-height: 90vh;
     border-radius: 12px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     padding: 20px;
-    overflow-y: auto; 
+    overflow-y: auto;
 }
 
 /* ESTILIZAÇÃO DO COMENTÁRIO */
 .comentario {
     margin-top: 20px;
     padding: 15px;
-    border-top: 1px solid #eee; 
-    background-color: #e1e1e1; 
+    border-top: 1px solid #eee;
+    background-color: #e1e1e1;
     border-radius: 8px;
 }
 
@@ -653,7 +660,7 @@ footer {
     right: 0;
     padding: 15px 20px;
     z-index: 100;
-    
+
 }
 
 .footer-nav {
@@ -918,4 +925,12 @@ input[type="checkbox"] + label {
     .btn-cancelar {
         width: 84%;
     }
+}
+
+.char-counter {
+    text-align: right;
+    font-size: 0.8em;
+    color: #666;
+    margin-top: 5px;
+    margin-right: 5px;
 }
