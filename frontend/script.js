@@ -474,17 +474,7 @@ function preencherSeletorLocalizacao() {
         selectLocalizacao.value = "Carapicuíba-SP"
     }
 
-    cidadesDisponiveis.forEach(local => {
-      const option = document.createElement('option');
-      option.value = `${local.cidade}-${local.estado}`;
-      option.textContent = `${local.cidade}-${local.estado}`;
-      selectLocalizacao.appendChild(option);
-    });
-
-    // Define um valor padrão (ex: Carapicuíba-SP)
-    selectLocalizacao.value = "Carapicuíba-SP";
   }
-}
 
 // Chama a função ao carregar o DOM
 document.addEventListener('DOMContentLoaded', () => {
