@@ -16,10 +16,11 @@ const router = express.Router()
 
 /********************************** ENDPOINTS *********************************/
 
-// Obtém o id de um cidadão a partir do email dele
-router.get('/email/:email', cors(), async (request, response) => {
-    const email = request.params.email
-    const cidadao = await controllerCidadao.obterIdDoCidadaoPorEmail(email)
+// Obtém o id de um cidadão a partir do email e senha dele
+router.get('/email', cors(), async (request, response) => {
+    const email = request.query.email
+    const senha = request.query.senha
+    const cidadao = await controllerCidadao.obterIdDoCidadaoPorEmailESenha(email, senha)
 
     response.status(cidadao.status_code).json(cidadao)
 })
