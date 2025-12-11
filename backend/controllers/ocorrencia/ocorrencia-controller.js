@@ -182,6 +182,56 @@ async function obterOcorrenciasDeUmCidadao(cidadaoId) {
     }
 }
 
+async function obterOcorrenciaPorId(id) {
+    let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
+
+    try {
+        if (isNaN(id) || id == '' || id == null || id <= 0) {
+            MESSAGES.ERROR_REQUIRED_FIELDS.message += '[Id inválido]'
+            return MESSAGES.ERROR_REQUIRED_FIELDS // 400 - Campos obrigatórios
+        }
+
+        const ocorrencia = await ocorrenciaDAO.selecionarOcorrenciaPorId(Number(id))
+
+        if (!ocorrencia)
+            return MESSAGES.ERROR_INTERNAL_SERVER_MODEL // 500 - Model
+
+        if (ocorrencia.length <= 0)
+            return MESSAGES.ERROR_NOT_FOUND // 404 - Não encontrado
+
+        // Status atual
+        const resultadoStatus = await statusController.obterStatusAtualDeUmaOcorrencia(ocorrencia[0].id)
+        ocorrencia[0].status_atual = resultadoStatus.status
+
+        // Localização
+        const resultadoLocalizacao = await localizacaoController.obterLocalizacaoPorId(ocorrencia[0].id_localizacao)
+        delete ocorrencia[0].id_localizacao
+        ocorrencia[0].localizacao = resultadoLocalizacao.localizacao
+
+        // Categoria
+        const resultadoCategoria = await categoriaController.obterCategoriaPorId(ocorrencia[0].id_categoria)
+        delete ocorrencia[0].id_categoria
+        ocorrencia[0].categoria = resultadoCategoria.categorias
+
+        // Multimidias
+        const resultadoMultimidia = await multimidiaController.obterMultimidiaPorIdOcorrencia(ocorrencia[0].id)
+        ocorrencia[0].multimidia = resultadoMultimidia.multimidia
+
+        // Histórico de status
+        const resultadoHistorico = await historicoStatusController.obterHistoricoDeOcorrencia(ocorrencia[0].id)
+        ocorrencia[0].historico_status = resultadoHistorico.historico
+
+        MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
+        MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
+        MESSAGES.DEFAULT_HEADER.ocorrencias = ocorrencia[0]
+
+        return MESSAGES.DEFAULT_HEADER
+
+    } catch (error) {
+        return MESSAGES.ERROR_INTERNAL_SERVER_CONTROLLER // 500 - Controller
+    }
+}
+
 async function validarDadosOcorrencia(ocorrencia) {
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
@@ -209,5 +259,6 @@ async function validarDadosOcorrencia(ocorrencia) {
 module.exports = {
     registrarOcorrencia,
     obterOcorrencias,
-    obterOcorrenciasDeUmCidadao
+    obterOcorrenciasDeUmCidadao,
+    obterOcorrenciaPorId
 }

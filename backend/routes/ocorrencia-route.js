@@ -36,6 +36,15 @@ router.get('', cors(), async (request, response) => {
     response.status(ocorrencias.status_code).json(ocorrencias)
 })
 
+// Obtém ocorrência por id
+router.get('/:id', cors(), async (request, response) => {
+    const id = request.params.id
+
+    let ocorrencia = await controllerOcorrencia.obterOcorrenciaPorId(id)
+
+    response.status(ocorrencia.status_code).json(ocorrencia)
+})
+
 // Obtém corrências de um cidadão
 router.get('/cidadao/:id', cors(), async (request, response) => {
     const id = request.params.id
