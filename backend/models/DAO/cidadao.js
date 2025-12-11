@@ -61,10 +61,10 @@ async function selecionarCidadaoPorIdOcorrencia(idOcorrencia) {
     }
 }
 
-async function selecionarIdCidadaoPorEmailSenha(email, senha) {
+async function selecionarCidadaoPorEmailSenha(email, senha) {
     try {
         const sql = `
-            SELECT id
+            SELECT id, nome
             FROM tb_cidadao
             WHERE email = '${email}'
             AND senha = '${senha}'
@@ -85,5 +85,5 @@ async function selecionarIdCidadaoPorEmailSenha(email, senha) {
 module.exports = {
     selecionarCidadaoPorId,
     selecionarCidadaoPorIdOcorrencia,
-    selecionarIdCidadaoPorEmailSenha
+    selecionarCidadaoPorEmailSenha
 }

@@ -17,7 +17,7 @@ const router = express.Router()
 /********************************** ENDPOINTS *********************************/
 
 // Obtém o id de um cidadão a partir do email e senha dele
-router.get('/email', cors(), async (request, response) => {
+router.get('', cors(), async (request, response) => {
     const email = request.query.email
     const senha = request.query.senha
     const cidadao = await controllerCidadao.obterIdDoCidadaoPorEmailESenha(email, senha)
