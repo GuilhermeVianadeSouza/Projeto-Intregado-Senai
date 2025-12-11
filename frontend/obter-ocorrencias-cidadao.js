@@ -11,6 +11,9 @@ export async function criarOcorrencias(id) {
     ocorrencias.forEach(ocorrencia => {
         const { rua, numero, cidade, estado } = ocorrencia.localizacao[0]
 
+        const numeroString = numero === 'null' ? '' : ` ${numero}`
+        const local = `${rua}${numeroString}, ${cidade}-${estado}`
+
         const data = new Date(ocorrencia.data_registro)
 
         const horas = String(data.getUTCHours()).padStart(2, "0")
@@ -19,12 +22,15 @@ export async function criarOcorrencias(id) {
         const mes = String(data.getUTCMonth() + 1).padStart(2, "0")
         const ano = data.getUTCFullYear()
 
+        const { multimidia } = ocorrencia
+
         const elemento = {
             dataHora: `${horas}:${minutos} ${dia}/${mes}/${ano}`,
             titulo: ocorrencia.categoria[0].nome,
             descricao: ocorrencia.descricao,
-            local: `${rua} ${numero}, ${cidade}-${estado}`,
-            nome: user.nome
+            local: local,
+            nome: user.nome,
+            multimidia: multimidia[0].link
         }
         criarPost(elemento)
     })
@@ -42,8 +48,8 @@ function criarPost(ocorrencia) {
 
     const imgPerfil = document.createElement("img")
     imgPerfil.classList.add("post-perfil")
-    imgPerfil.src = './img/user-placeholder.png'
     imgPerfil.alt = "Perfil"
+    imgPerfil.src = './img/user-placeholder.png'
 
     const divAutor = document.createElement("div")
     divAutor.classList.add("post-autor")
@@ -79,8 +85,12 @@ function criarPost(ocorrencia) {
 
     const imagem = document.createElement("img")
     imagem.classList.add("post-img")
-    imagem.src = './img/image 3.png'
     imagem.alt = "Imagem do post"
+    imagem.src = ocorrencia.multimidia
+
+    imagem.onerror = () => {
+        imagem.src = "./img/image-placeholder.png"
+    }
 
     section.addEventListener('click', () => {
         document.getElementById('aba-verPost').classList.add('active');
