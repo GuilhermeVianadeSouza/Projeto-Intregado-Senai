@@ -61,9 +61,14 @@ async function selecionarCidadaoPorIdOcorrencia(idOcorrencia) {
     }
 }
 
-async function selecionarIdCidadaoPorEmail(email) {
+async function selecionarIdCidadaoPorEmailSenha(email, senha) {
     try {
-        const sql = `SELECT id FROM tb_cidadao WHERE email = '${email}'`
+        const sql = `
+            SELECT id
+            FROM tb_cidadao
+            WHERE email = '${email}'
+            AND senha = '${senha}'
+        `
 
         const cidadao = await prisma.$queryRawUnsafe(sql)
 
@@ -80,5 +85,5 @@ async function selecionarIdCidadaoPorEmail(email) {
 module.exports = {
     selecionarCidadaoPorId,
     selecionarCidadaoPorIdOcorrencia,
-    selecionarIdCidadaoPorEmail
+    selecionarIdCidadaoPorEmailSenha
 }
