@@ -23,7 +23,7 @@ const porta = process.PORT || 8080
 app.use((request, response, next) => {
     response.header('Access-Control-Allow-Origin', '*')
     response.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-    app.use(cors())
+    response.header('Access-Control-Allow-Headers', 'Content-Type')
     next()
 })
 
