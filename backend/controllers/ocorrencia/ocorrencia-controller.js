@@ -32,7 +32,7 @@ async function registrarOcorrencia(ocorrencia, contentType) {
         if (resultLocalizacao.status_code != 201)
             return resultLocalizacao
 
-        const localizacaoId = resultLocalizacao.items.localizacao.id
+        const localizacaoId = resultLocalizacao.localizacao.id
 
         ocorrencia.id_localizacao = localizacaoId
 
@@ -64,7 +64,7 @@ async function registrarOcorrencia(ocorrencia, contentType) {
         MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
         MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
         MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
-        MESSAGES.DEFAULT_HEADER.items.ocorrencia = ocorrencia
+        MESSAGES.DEFAULT_HEADER.ocorrencia = ocorrencia
 
         return MESSAGES.DEFAULT_HEADER
     } catch (error) {
@@ -115,11 +115,11 @@ async function obterOcorrencias(
             // Categoria
             const resultadoCategoria = await categoriaController.obterCategoriaPorId(ocorrencia.id_categoria)
             delete ocorrencia.id_categoria
-            ocorrencia.categoria = resultadoCategoria.items.categorias
+            ocorrencia.categoria = resultadoCategoria.categorias
 
             // Uma multimidia
             const resultadoMultimidia = await multimidiaController.obterMultimidiaPorIdOcorrencia(ocorrencia.id)
-            ocorrencia.multimidia = resultadoMultimidia
+            ocorrencia.multimidia = resultadoMultimidia.multimidia
         }
 
         MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
@@ -164,11 +164,11 @@ async function obterOcorrenciasDeUmCidadao(cidadaoId) {
             // Categoria
             const resultadoCategoria = await categoriaController.obterCategoriaPorId(ocorrencia.id_categoria)
             delete ocorrencia.id_categoria
-            ocorrencia.categoria = resultadoCategoria.items.categorias
+            ocorrencia.categoria = resultadoCategoria.categorias
 
             // Uma multimidia
             const resultadoMultimidia = await multimidiaController.obterMultimidiaPorIdOcorrencia(ocorrencia.id)
-            ocorrencia.multimidia = resultadoMultimidia
+            ocorrencia.multimidia = resultadoMultimidia.multimidia
         }
 
         MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status

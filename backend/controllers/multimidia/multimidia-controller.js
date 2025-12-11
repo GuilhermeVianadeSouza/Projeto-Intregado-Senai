@@ -64,7 +64,7 @@ async function inserirMultimidia(multimidia, contentType) {
         MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
         MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
         MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
-        MESSAGES.DEFAULT_HEADER.items.multimidia = multimidia
+        MESSAGES.DEFAULT_HEADER.multimidia = multimidia
 
         return MESSAGES.DEFAULT_HEADER
     } catch (error) {
