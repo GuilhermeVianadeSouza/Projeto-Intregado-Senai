@@ -159,6 +159,14 @@ nav h1 {
     box-shadow: 0 0 5px rgba(4, 165, 121, 0.3);
 }
 
+.aviso-sem-ocorrencia {
+    text-align: center; 
+    width: 100%; 
+    margin-top: 50px; 
+    font-size: 1.2em;
+    color: #555;
+}
+
 /* ABAS */
 .aba {
     display: none;
