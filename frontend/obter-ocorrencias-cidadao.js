@@ -7,8 +7,8 @@ async function obterOcorrenciasCidadao(id) {
 
 export async function criarOcorrencias(id) {
     const ocorrencias = await obterOcorrenciasCidadao(id)
+    const user = JSON.parse(localStorage.getItem('user'))
     ocorrencias.forEach(ocorrencia => {
-
         const { rua, numero, cidade, estado } = ocorrencia.localizacao[0]
 
         const data = new Date(ocorrencia.data_registro)
@@ -23,7 +23,8 @@ export async function criarOcorrencias(id) {
             dataHora: `${horas}:${minutos} ${dia}/${mes}/${ano}`,
             titulo: ocorrencia.categoria[0].nome,
             descricao: ocorrencia.descricao,
-            local: `${rua} ${numero}, ${cidade}-${estado}`
+            local: `${rua} ${numero}, ${cidade}-${estado}`,
+            nome: user.nome
         }
         criarPost(elemento)
     })
@@ -49,7 +50,7 @@ function criarPost(ocorrencia) {
 
     const spanNome = document.createElement("span")
     spanNome.classList.add("autor-nome")
-    spanNome.textContent = 'Victor Hugo'
+    spanNome.textContent = ocorrencia.nome
 
     const spanData = document.createElement("span")
     spanData.classList.add("post-data")
