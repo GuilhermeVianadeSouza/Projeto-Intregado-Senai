@@ -20,7 +20,7 @@ async function obterTodasCategorias() {
                 MESSAGES.DEFAULT_HEADER.development = 'Guilherme Viana'
                 MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
                 MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
-                MESSAGES.DEFAULT_HEADER.items.categorias = resultCategorias
+                MESSAGES.DEFAULT_HEADER.categorias = resultCategorias
 
                 return MESSAGES.DEFAULT_HEADER
             } else {
@@ -45,7 +45,7 @@ async function obterCategoriaPorId(id) {
                     MESSAGES.DEFAULT_HEADER.development = 'Guilherme Viana'
                     MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
                     MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
-                    MESSAGES.DEFAULT_HEADER.items.categorias = resultCategorias
+                    MESSAGES.DEFAULT_HEADER.categorias = resultCategorias
 
                     return MESSAGES.DEFAULT_HEADER
                 } else {

@@ -17,7 +17,6 @@ const DEFAULT_HEADER = {
     status: Boolean,
     status_code: Number,
     request_date: dataAtual.toLocaleString(), // .toString()
-    items: {}
 }
 
 /**************************** MENSAGENS DE SUCESSO ****************************/

@@ -37,7 +37,7 @@ async function registrarHistorico(historico, contentType) {
         MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
         MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
         MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
-        MESSAGES.DEFAULT_HEADER.items.historico = historico
+        MESSAGES.DEFAULT_HEADER.historico = historico
 
         return MESSAGES.DEFAULT_HEADER
     } catch (error) {
@@ -98,7 +98,36 @@ async function validarDadosHistorico(historico) {
     }
 }
 
+async function obterHistoricoDeOcorrencia(idOcorrencia) {
+    let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
+
+    try {
+        if (isNaN(idOcorrencia) || idOcorrencia == '' || idOcorrencia == null || idOcorrencia <= 0) {
+            MESSAGES.ERROR_REQUIRED_FIELDS.message += '[Id da ocorrência inválido]'
+            return MESSAGES.ERROR_REQUIRED_FIELDS // 400 - Campos obrigatórios
+        }
+
+        const historico = await historicoDAO.selecionarHistoricoOcorrencia(Number(idOcorrencia))
+
+        if (!historico)
+            return MESSAGES.ERROR_INTERNAL_SERVER_MODEL // 500 - Model
+
+        if (historico.length <= 0)
+            return MESSAGES.ERROR_NOT_FOUND // 404 - Não encontrado
+
+        MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
+        MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
+        MESSAGES.DEFAULT_HEADER.historico = historico
+
+        return MESSAGES.DEFAULT_HEADER
+
+    } catch (error) {
+        return MESSAGES.ERROR_INTERNAL_SERVER_CONTROLLER // 500 - Controller
+    }
+}
+
 module.exports = {
     registrarHistorico,
-    iniciarHistorico
+    iniciarHistorico,
+    obterHistoricoDeOcorrencia
 }

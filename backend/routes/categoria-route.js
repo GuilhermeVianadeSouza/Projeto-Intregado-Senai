@@ -14,6 +14,7 @@ const controllerCategoria = require('../controllers/categoria/categoria-controll
 // Cria o router que irá guardar as rotas
 const router = express.Router()
 
+/********************************** ENDPOINTS *********************************/
 
 router.get('/', cors(), async (request, response) => {
     let categoria = await controllerCategoria.obterTodasCategorias()
