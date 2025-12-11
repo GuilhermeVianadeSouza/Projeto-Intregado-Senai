@@ -122,14 +122,17 @@ function criarPost(ocorrencia) {
 
 // Função auxiliar para preparar o objeto antes de chamar criarPost
 function prepararDadosParaPost(ocorrencia) {
-    // Acessa a localização, assumindo que é um array e pegando o primeiro item
-    const { rua, numero, cidade, estado } = ocorrencia.localizacao[0] || {};
+    // Localização
+    const localizacao = ocorrencia.localizacao?.[0] || {};
+    const { rua, numero, cidade, estado } = localizacao;
 
-    const nomeCidadao = ocorrencia.cidadao[0].nome || 'Anônimo'
+    // Cidadão
+    const nomeCidadao = ocorrencia.cidadao?.[0]?.nome || 'Anônimo';
 
-    const multimidia = ocorrencia.multimidia[0].link
+    // Multimídia
+    const multimidia = ocorrencia.multimidia?.[0]?.link || './img/image-placeholder.png';
 
-    // Processamento da Data
+    // Processamento da data
     const data = new Date(ocorrencia.data_registro);
     const horas = String(data.getUTCHours()).padStart(2, "0");
     const minutos = String(data.getUTCMinutes()).padStart(2, "0");
@@ -139,18 +142,19 @@ function prepararDadosParaPost(ocorrencia) {
 
     const nomeCategoria = ocorrencia.categoria?.[0]?.nome || 'Sem Categoria';
 
-    const numeroString = numero === 'null' ? '' : ` ${numero}`
-    const localFormatado = (rua && numero) ? `${rua}${numeroString}, ${cidade}-${estado}` : 'Local não informado';
+    const numeroString = numero === 'null' ? '' : ` ${numero}`;
+    const localFormatado = rua ? `${rua}${numeroString}, ${cidade}-${estado}` : 'Local não informado';
 
     return {
         dataHora: `${horas}:${minutos} ${dia}/${mes}/${ano}`,
         titulo: nomeCategoria,
-        descricao: ocorrencia.descricao,
+        descricao: ocorrencia.descricao || '',
         local: localFormatado,
         autor: nomeCidadao,
-        multimidia: multimidia
+        multimidia
     };
 }
+
 
 async function carregarOcorrenciasFiltradas(filtros = { pagina: 1, limite: 10 }) {
     try {
@@ -186,6 +190,8 @@ async function carregarOcorrenciasFiltradas(filtros = { pagina: 1, limite: 10 })
         }
 
     } catch (error) {
+        console.log(error);
+
         if (abaHome) {
             const erro = document.createElement('p')
             erro.classList.add('erro-api')

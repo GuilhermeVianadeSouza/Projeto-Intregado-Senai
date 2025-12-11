@@ -1,11 +1,8 @@
 'use strict'
 
 import { criarOcorrencias } from "./obter-ocorrencias-cidadao.js"
-import { criarOcorrenciasComunidade } from "./obter-ocorrencias.js"
+import { criarOcorrenciasComunidade, criarDropBoxCategorias, aplicarFiltrosCompletos, configurarListenerDeFiltro } from "./obter-ocorrencias.js"
 import { CriarNovaOcorrencia } from "./criar-ocorrencia.js";
-import { criarDropBoxCategorias } from "./obter-ocorrencias.js";
-import { aplicarFiltrosCompletos } from "./obter-ocorrencias.js";
-import { configurarListenerDeFiltro } from "./obter-ocorrencias.js";
 import { obterIdCidadao } from "./logar-cidadao.js";
 import { colocarDadosPerfil } from "./obter-dados-perfil.js";
 import { limitarQuantidadeDeArquivos } from "./input-imagem.js";
