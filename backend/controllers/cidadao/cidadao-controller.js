@@ -73,7 +73,7 @@ async function obterIdDoCidadaoPorEmailESenha(email, senha) {
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
     try {
-        const cidadao = await cidadaoDAO.selecionarIdCidadaoPorEmailSenha(email, senha)
+        const cidadao = await cidadaoDAO.selecionarCidadaoPorEmailSenha(email, senha)
 
         if (!cidadao)
             return MESSAGES.ERROR_INTERNAL_SERVER_MODEL // 500 - Model
