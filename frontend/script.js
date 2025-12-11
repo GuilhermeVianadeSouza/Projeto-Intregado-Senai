@@ -8,16 +8,11 @@ import { aplicarFiltrosCompletos } from "./obter-ocorrencias.js";
 import { configurarListenerDeFiltro } from "./obter-ocorrencias.js";
 import { obterIdCidadao } from "./logar-cidadao.js";
 
-
 criarOcorrenciasComunidade()
 await criarDropBoxCategorias(document.getElementById('categoria-select'))
 await criarDropBoxCategorias(document.getElementById('categoria'))
 aplicarFiltrosCompletos()
 configurarListenerDeFiltro()
-
-const user = JSON.parse(localStorage.getItem('user'))
-
-criarOcorrencias(Number(user.id))
 
 document.getElementById('form-login').addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -30,6 +25,8 @@ document.getElementById('form-login').addEventListener('submit', async (e) => {
     alert('Email ou senha incorretos')
   } else {
     localStorage.setItem('user', JSON.stringify({ id: cidadaoId.cidadao[0].id, isAnonymous: false }))
+    const user = JSON.parse(localStorage.getItem('user'))
+    criarOcorrencias(Number(user.id))
     showTab('aba-home')
     // A variável 'login' não está definida, removendo a linha
     // login.style.display = 'none'

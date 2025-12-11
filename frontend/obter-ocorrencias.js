@@ -61,7 +61,7 @@ function criarPost(ocorrencia) {
 
     const imgPerfil = document.createElement("img")
     imgPerfil.classList.add("post-perfil")
-    imgPerfil.src = "./img/profile img.png"
+    imgPerfil.src = "./img/user-placeholder.png"
     imgPerfil.alt = "Perfil"
 
     const divAutor = document.createElement("div")
@@ -131,7 +131,7 @@ function prepararDadosParaPost(ocorrencia) {
     const mes = String(data.getUTCMonth() + 1).padStart(2, "0");
     const ano = data.getUTCFullYear();
 
-    const nomeCategoria = ocorrencia.categoria?.[0]?.nome || 'Sem Categoria'; 
+    const nomeCategoria = ocorrencia.categoria?.[0]?.nome || 'Sem Categoria';
     const localFormatado = (rua && numero) ? `${rua} ${numero}, ${cidade}-${estado}` : 'Local não informado';
 
     return {
@@ -221,12 +221,12 @@ export function aplicarFiltrosCompletos() {
 
 
 export async function criarOcorrenciasComunidade() {
-    
+
     await carregarOcorrenciasFiltradas({ pagina: 1, limite: 10 })
 }
 
 export function configurarListenerDeFiltro() {
-    
+
     const inputCategoria = document.getElementById("categoria-select")
     const inputData = document.getElementById("data-select")
     const inputStatus = document.getElementById("status-select")
