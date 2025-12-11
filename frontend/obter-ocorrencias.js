@@ -244,5 +244,5 @@ export function configurarListenerDeFiltro() {
     inputStatus.addEventListener('change', aplicarFiltrosCompletos)
 
 }
- // Listener da Categoria
+
 
