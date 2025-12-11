@@ -1,18 +1,40 @@
 'use strict'
 
 import { criarOcorrencias } from "./obter-ocorrencias-cidadao.js"
-import { criarOcorrenciasComunidade, criarDropBoxCategorias } from "./obter-ocorrencias.js"
+import { criarOcorrenciasComunidade } from "./obter-ocorrencias.js"
 import { CriarNovaOcorrencia } from "./criar-ocorrencia.js";
 import { criarDropBoxCategorias } from "./obter-ocorrencias.js";
 import { aplicarFiltrosCompletos } from "./obter-ocorrencias.js";
 import { configurarListenerDeFiltro } from "./obter-ocorrencias.js";
+import { obterIdCidadao } from "./logar-cidadao.js";
 
-criarOcorrencias(1)
+
 criarOcorrenciasComunidade()
 await criarDropBoxCategorias(document.getElementById('categoria-select'))
 await criarDropBoxCategorias(document.getElementById('categoria'))
 aplicarFiltrosCompletos()
 configurarListenerDeFiltro()
+
+const user = JSON.parse(localStorage.getItem('user'))
+
+criarOcorrencias(Number(user.id))
+
+document.getElementById('form-login').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('email').value
+  const senha = document.getElementById('senha').value
+
+  const cidadaoId = await obterIdCidadao(email, senha)
+
+  if (cidadaoId.status_code == 400) {
+    alert('Email ou senha incorretos')
+  } else {
+    localStorage.setItem('user', JSON.stringify({ id: cidadaoId.cidadao[0].id, isAnonymous: false }))
+    showTab('aba-home')
+    // A variável 'login' não está definida, removendo a linha
+    // login.style.display = 'none'
+  }
+})
 
 // Documento HTML inicial carregado
 document.addEventListener('DOMContentLoaded', () => {
@@ -448,23 +470,6 @@ if (btnAnonimo) {
     localStorage.setItem('user', JSON.stringify({ isAnonymous: true }));
     showTab('aba-home');
   });
-}
-const formLogin = document.getElementById('form-login')
-if (formLogin) {
-  formLogin.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = document.getElementById('email').value
-    const senha = document.getElementById('senha').value
-
-    if (email === 'teste@gmail.com' && senha === '12345') {
-      localStorage.setItem('user', JSON.stringify({ email: email, name: 'Victor Hugo', isAnonymous: false }))
-      showTab('aba-home')
-      // A variável 'login' não está definida, removendo a linha
-      // login.style.display = 'none'
-    } else {
-      alert('Email ou senha incorretos')
-    }
-  })
 }
 
 // --- Lógica de Geolocalização Automática (Simplificada) ---
