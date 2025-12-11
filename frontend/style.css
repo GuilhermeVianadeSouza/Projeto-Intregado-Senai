@@ -1008,3 +1008,13 @@ input[type="checkbox"] + label {
     margin-top: 5px;
     margin-right: 5px;
 }
+
+.classificacao-feedback.status-resolvido {
+    color: green;
+    display: block;
+}
+
+.classificacao-feedback.status-nao-resolvido {
+    color: red;
+    display: block;
+}
