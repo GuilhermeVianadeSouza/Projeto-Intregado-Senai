@@ -421,6 +421,29 @@ if (abaVerPost) {
   });
 }
 
+// LÓGICA DA CLASSIFICAÇÃO
+const btnSucesso = document.getElementById('btn-sucesso');
+const btnNaoSucesso = document.getElementById('btn-nao-sucesso');
+const classificacaoFeedback = document.getElementById('classificacao-feedback');
+const classificacaoButtons = document.querySelector('.classificacao-buttons');
+
+if (btnSucesso && btnNaoSucesso && classificacaoFeedback) {
+    btnSucesso.addEventListener('click', () => {
+        classificacaoFeedback.textContent = 'Resolvido';
+        classificacaoFeedback.classList.add('status-resolvido');
+        classificacaoFeedback.classList.remove('status-nao-resolvido');
+        classificacaoButtons.style.display = 'none';
+    });
+
+    btnNaoSucesso.addEventListener('click', () => {
+        classificacaoFeedback.textContent = 'Não Resolvido';
+        classificacaoFeedback.classList.add('status-nao-resolvido');
+        classificacaoFeedback.classList.remove('status-resolvido');
+        classificacaoButtons.style.display = 'none';
+    });
+}
+
+
 // NAVEGAÇÃO LOGIN/CADASTRO
 const linkSignup = document.getElementById('link-signup')
 const linkVoltarLogin = document.getElementById('link-voltar-login')
