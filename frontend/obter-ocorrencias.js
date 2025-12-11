@@ -5,7 +5,7 @@ async function obterCategorias() {
     return data.items.categorias
 }
 
-async function criarDropBoxCategorias() {
+export async function criarDropBoxCategorias() {
     const selectElement = document.getElementById('categoria-select');
     const dropboxCriarOcorrencia = document.getElementById('categoria');
 
@@ -77,7 +77,7 @@ function criarPost(ocorrencia) {
 
     const spanNome = document.createElement("span")
     spanNome.classList.add("autor-nome")
-    spanNome.textContent = "Victor Hugo"
+    spanNome.textContent = ocorrencia.autor
 
     const spanData = document.createElement("span")
     spanData.classList.add("post-data")
@@ -129,6 +129,8 @@ function prepararDadosParaPost(ocorrencia) {
     // Acessa a localização, assumindo que é um array e pegando o primeiro item
     const { rua, numero, cidade, estado } = ocorrencia.localizacao?.[0] || {};
 
+    const nomeCidadao = ocorrencia.cidadao[0].nome || 'Anônimo'
+
     // Processamento da Data
     const data = new Date(ocorrencia.data_registro);
     const horas = String(data.getUTCHours()).padStart(2, "0");
@@ -137,15 +139,15 @@ function prepararDadosParaPost(ocorrencia) {
     const mes = String(data.getUTCMonth() + 1).padStart(2, "0");
     const ano = data.getUTCFullYear();
 
-    // Acessa a categoria, assumindo que é um array e pegando o primeiro item
-    const nomeCategoria = ocorrencia.categoria?.[0]?.nome || 'Sem Categoria';
+    const nomeCategoria = ocorrencia.categoria?.[0]?.nome || 'Sem Categoria'; 
     const localFormatado = (rua && numero) ? `${rua} ${numero}, ${cidade}-${estado}` : 'Local não informado';
     
     return {
         dataHora: `${horas}:${minutos} ${dia}/${mes}/${ano}`,
         titulo: nomeCategoria,
         descricao: ocorrencia.descricao,
-        local: localFormatado
+        local: localFormatado,
+        autor: nomeCidadao
     };
 }
 
@@ -178,7 +180,6 @@ async function carregarOcorrenciasFiltradas(filtros = { pagina: 1, limite: 10 })
                 criarPost(elementoPost) 
             });
         } else if (abaHome) {
-            // Se não encontrar ocorrências, adiciona o aviso SEM apagar a nav
             const aviso = document.createElement('p')
             aviso.classList.add('aviso-sem-ocorrencia')
             aviso.textContent = 'Nenhuma ocorrência encontrada com os filtros aplicados.'
@@ -188,7 +189,6 @@ async function carregarOcorrenciasFiltradas(filtros = { pagina: 1, limite: 10 })
     } catch (error) {
         const abaHome = document.getElementById('aba-home')
         if (abaHome) {
-            // Adiciona a mensagem de erro SEM apagar a nav
             const erro = document.createElement('p')
             erro.classList.add('erro-api')
             erro.textContent = 'Erro ao carregar os dados. Tente novamente.'
@@ -197,7 +197,7 @@ async function carregarOcorrenciasFiltradas(filtros = { pagina: 1, limite: 10 })
     }
 }
 
-function aplicarFiltrosCompletos() {
+export function aplicarFiltrosCompletos() {
     const filtros = {}
 
     // Obtém os valores dos selects.
@@ -227,14 +227,14 @@ function aplicarFiltrosCompletos() {
     carregarOcorrenciasFiltradas(filtros)
 }
 
-// Sua função criarOcorrenciasComunidade agora pode ser simplificada para chamar carregarOcorrenciasFiltradas
+
 export async function criarOcorrenciasComunidade() {
-    // Esta função agora pode apenas garantir o carregamento inicial sem filtros
+    
     await carregarOcorrenciasFiltradas({ pagina: 1, limite: 10 })
 }
 
-function configurarListenerDeFiltro() {
-    // 1. Obter o elemento de input/select do filtro (ID CORRIGIDO)
+export function configurarListenerDeFiltro() {
+    
     const inputCategoria = document.getElementById("categoria-select")
     const inputData = document.getElementById("data-select")
     const inputStatus = document.getElementById("status-select")
@@ -242,10 +242,4 @@ function configurarListenerDeFiltro() {
     inputCategoria.addEventListener('change', aplicarFiltrosCompletos)
     inputData.addEventListener('change', aplicarFiltrosCompletos)
     inputStatus.addEventListener('change', aplicarFiltrosCompletos)
-
 }
-
-criarDropBoxCategorias();  // Para a criação da DROPBOX
-aplicarFiltrosCompletos(); //Para aplicação dos filtros
-configurarListenerDeFiltro(); // Listener da Categoria
-

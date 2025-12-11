@@ -3,9 +3,15 @@
 import { criarOcorrencias } from "./obter-ocorrencias-cidadao.js"
 import { criarOcorrenciasComunidade } from "./obter-ocorrencias.js"
 import { CriarNovaOcorrencia } from "./criar-ocorrencia.js";
+import { criarDropBoxCategorias } from "./obter-ocorrencias.js";
+import { aplicarFiltrosCompletos } from "./obter-ocorrencias.js";
+import { configurarListenerDeFiltro } from "./obter-ocorrencias.js";
 
 criarOcorrencias(1)
 criarOcorrenciasComunidade()
+criarDropBoxCategorias()
+aplicarFiltrosCompletos()
+configurarListenerDeFiltro()
 
 // Documento HTML inicial carregado
 document.addEventListener('DOMContentLoaded', () => {
@@ -512,10 +518,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (selectLocalizacao) {
     selectLocalizacao.addEventListener('change', (e) => {
       const novaLocalizacao = e.target.value
-      console.log('Nova localização selecionada para a comunidade:', novaLocalizacao)
-      // Aqui seria implementada a lógica de filtragem dos posts da comunidade
-      // Por enquanto, apenas registramos a mudança.
-      alert(`Comunidade filtrada para: ${novaLocalizacao}`)
     })
   }
 })
