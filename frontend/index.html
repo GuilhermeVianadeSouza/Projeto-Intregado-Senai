@@ -84,9 +84,7 @@
             <nav id="nav-principal">
                 <img src="./img/logo green.png" alt="" class="logo-nav">
                 <h1> Comunidade</h1>
-                <select name="localizacao" id="localizacao-select">
-                    <option value="" selected>Selecione a Localização</option>
-                </select>
+                <input name="localizacao" id="localizacao-select" placeholder="Pesquise uma Localização">
                 <div class="nav-filters">
                     <select name="categoria" id="categoria-select">
                         <option value="" selected>Categoria</option>
@@ -133,20 +131,6 @@
                         <img class="post-img" src="./img/image 3.png" alt="Imagem do post">
                     </div>
                 </div>
-
-                <div class="comentario">
-                    <p> Comentário do usuário de teste</p>
-                </div>
-
-                <!-- Comentário da Prefeitura -->
-                <div class="comentario comentario-prefeitura">
-                    <p class="autor-prefeitura">Prefeitura Municipal de Carapicuíba</p>
-                    <p>Recebemos a sua solicitação e a equipe de manutenção já foi acionada. O prazo para a resolução do
-                        problema é de 5 dias úteis. Agradecemos a sua colaboração!</p>
-
-                </div>
-
-
             </div>
         </div>
 
@@ -168,7 +152,8 @@
                     </select>
 
                     <label for="descricao">Descrição</label>
-                    <textarea id="descricao" placeholder="Descreva o problema em detalhes..." required maxlength="1000"></textarea>
+                    <textarea id="descricao" placeholder="Descreva o problema em detalhes..." required
+                        maxlength="1000"></textarea>
                     <div id="char-count" class="char-counter">0/1000</div>
 
                     <label for="localizacao">Localização</label>
