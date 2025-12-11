@@ -118,8 +118,9 @@ if (buttonPerfil) {
   buttonPerfil.addEventListener('click', () => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user && user.isAnonymous) {
-      alert('Você precisa fazer login para acessar seu perfil.');
-      showTab('aba-login');
+      if (confirm('Deseja fazer login para continuar?')) {
+        showTab('aba-login');
+      }
     } else {
       showTab('aba-perfil');
     }
@@ -159,13 +160,11 @@ if (formOcorrencia) {
     evento.preventDefault()
 
     const categoria = document.getElementById('categoria').value
-    console.log(categoria);
     const descricao = document.getElementById('descricao').value.trim()
     const localizacao = JSON.parse(document.getElementById('btn-localizacao-ocorrencia').dataset.localizacao)
+    let compartilharDados
 
     const anonimo = document.getElementById('anonimo');
-
-    let compartilharDados
 
     if (anonimo.checked) {
       compartilharDados = false
@@ -178,7 +177,7 @@ if (formOcorrencia) {
       avaliacao: 1,
       compartilhar_dados: compartilharDados,
       id_cidadao: 1,
-      id_categoria: 1,
+      id_categoria: Number(categoria),
       multimidia: [
         {
           link: "https://bucket-s3.exemplo.com/evidencias/foto_01.jpg"
@@ -187,10 +186,13 @@ if (formOcorrencia) {
       localizacao: localizacao
     }
 
-    await CriarNovaOcorrencia(ocorrencia)
-
-    // Se passou na validação
-    alert('Ocorrência publicada com sucesso!')
+    try {
+      await CriarNovaOcorrencia(ocorrencia)
+      alert('Ocorrência publicada com sucesso!')
+    } catch (error) {
+      alert('Ocorreu um erro ao publicar a ocorrência!')
+      console.log(error);
+    }
 
 
     formOcorrencia.reset()
@@ -519,3 +521,15 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   }
 })
+
+// maximo de caracter
+const descricaoTextarea = document.getElementById('descricao')
+const charCountDisplay = document.getElementById('char-count')
+const maxChars = 1000
+
+if (descricaoTextarea && charCountDisplay) {
+    descricaoTextarea.addEventListener('input', () => {
+        const currentChars = descricaoTextarea.value.length
+        charCountDisplay.textContent = `${currentChars}/${maxChars}`
+    });
+}
