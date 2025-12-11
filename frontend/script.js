@@ -1,7 +1,7 @@
 'use strict'
 
 import { criarOcorrencias } from "./obter-ocorrencias-cidadao.js"
-import { criarOcorrenciasComunidade } from "./obter-ocorrencias.js"
+import { criarOcorrenciasComunidade, criarDropBoxCategorias } from "./obter-ocorrencias.js"
 import { CriarNovaOcorrencia } from "./criar-ocorrencia.js";
 import { criarDropBoxCategorias } from "./obter-ocorrencias.js";
 import { aplicarFiltrosCompletos } from "./obter-ocorrencias.js";
@@ -9,7 +9,8 @@ import { configurarListenerDeFiltro } from "./obter-ocorrencias.js";
 
 criarOcorrencias(1)
 criarOcorrenciasComunidade()
-criarDropBoxCategorias()
+await criarDropBoxCategorias(document.getElementById('categoria-select'))
+await criarDropBoxCategorias(document.getElementById('categoria'))
 aplicarFiltrosCompletos()
 configurarListenerDeFiltro()
 
@@ -479,40 +480,35 @@ if (btnAuto) {
   });
 }
 
-// Array de cidades/estados para o seletor da comunidade
-const cidadesDisponiveis = [
-  { cidade: "Carapicuíba", estado: "SP" },
-  { cidade: "Osasco", estado: "SP" },
-  { cidade: "Barueri", estado: "SP" },
-  { cidade: "São Paulo", estado: "SP" },
-  { cidade: "Rio de Janeiro", estado: "RJ" },
-];
+// Filtro de pesquisa de localização
+const inputLocalizacao = document.getElementById('localizacao-select')
 
-// Função para preencher o seletor de localização
-function preencherSeletorLocalizacao() {
-  const selectLocalizacao = document.getElementById('localizacao-select')
-  if (selectLocalizacao) {
-    // Limpa as opções existentes (exceto a primeira "Selecione...")
-    while (selectLocalizacao.options.length > 1) {
-      selectLocalizacao.remove(1)
-    }
 
-    cidadesDisponiveis.forEach(local => {
-      const option = document.createElement('option')
-      option.value = `${local.cidade}-${local.estado}`
-      option.textContent = `${local.cidade}-${local.estado}`
-      selectLocalizacao.appendChild(option);
-    });
-
-    // Define um valor padrão (ex: Carapicuíba-SP)
-    selectLocalizacao.value = "Carapicuíba-SP"
-  }
+function removerAcentos(texto) {
+  return texto
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
 }
+
+inputLocalizacao.addEventListener('keyup', () => {
+  const filtro = removerAcentos(inputLocalizacao.value.toLowerCase())
+  const cards = document.querySelectorAll('.post')
+
+  cards.forEach(card => {
+    const pLoc = card.querySelector('.post-loc')
+
+    const texto = removerAcentos(pLoc.textContent.toLowerCase())
+
+    if (texto.includes(filtro)) {
+      card.style.display = 'block'
+    } else {
+      card.style.display = 'none'
+    }
+  })
+})
 
 // Chama a função ao carregar o DOM
 document.addEventListener('DOMContentLoaded', () => {
-  preencherSeletorLocalizacao()
-
   // Adiciona listener para a seleção de localização
   const selectLocalizacao = document.getElementById('localizacao-select')
   if (selectLocalizacao) {
@@ -528,8 +524,8 @@ const charCountDisplay = document.getElementById('char-count')
 const maxChars = 1000
 
 if (descricaoTextarea && charCountDisplay) {
-    descricaoTextarea.addEventListener('input', () => {
-        const currentChars = descricaoTextarea.value.length
-        charCountDisplay.textContent = `${currentChars}/${maxChars}`
-    });
+  descricaoTextarea.addEventListener('input', () => {
+    const currentChars = descricaoTextarea.value.length
+    charCountDisplay.textContent = `${currentChars}/${maxChars}`
+  });
 }

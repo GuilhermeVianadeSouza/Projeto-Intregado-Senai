@@ -5,14 +5,7 @@ async function obterCategorias() {
     return data.items.categorias
 }
 
-export async function criarDropBoxCategorias() {
-    const selectElement = document.getElementById('categoria-select');
-    const dropboxCriarOcorrencia = document.getElementById('categoria');
-
-    if (!selectElement) {
-        return error;
-    }
-
+export async function criarDropBoxCategorias(container) {
     try {
         const categorias = await obterCategorias();
 
@@ -21,33 +14,32 @@ export async function criarDropBoxCategorias() {
                 const option = document.createElement('option');
                 option.value = categoria.id;
                 option.textContent = categoria.nome;
-                selectElement.appendChild(option);
-                dropboxCriarOcorrencia.appendChild(option);
-
+                container.appendChild(option);
             });
         } else {
             const option = document.createElement('option');
             option.textContent = 'Nenhuma categoria disponível';
             option.disabled = true;
-            selectElement.appendChild(option);
-            dropboxCriarOcorrencia.append(option);
+            container.appendChild(option);
         }
 
     } catch (error) {
+        console.log(error);
+
         return error;
     }
 }
 
 // Função de buscar ocorrencia com filtros
-export async function obterOcorrenciaComFiltro(filtros){
+export async function obterOcorrenciaComFiltro(filtros) {
     const parametros = new URLSearchParams()
 
     parametros.append('pagina', filtros.pagina || 1)
     parametros.append('limite', filtros.limite || 10)
 
-    if(filtros.id_categoria) parametros.append('categoria', filtros.id_categoria)
-    if(filtros.status) parametros.append('status', filtros.status)
-    if(filtros.data_registro) parametros.append('dataRegistro', filtros.data_registro)
+    if (filtros.id_categoria) parametros.append('categoria', filtros.id_categoria)
+    if (filtros.status) parametros.append('status', filtros.status)
+    if (filtros.data_registro) parametros.append('dataRegistro', filtros.data_registro)
 
     const url = 'http://localhost:8080/v1/ocorrencia'
     try {
@@ -141,7 +133,7 @@ function prepararDadosParaPost(ocorrencia) {
 
     const nomeCategoria = ocorrencia.categoria?.[0]?.nome || 'Sem Categoria'; 
     const localFormatado = (rua && numero) ? `${rua} ${numero}, ${cidade}-${estado}` : 'Local não informado';
-    
+
     return {
         dataHora: `${horas}:${minutos} ${dia}/${mes}/${ano}`,
         titulo: nomeCategoria,
@@ -176,8 +168,8 @@ async function carregarOcorrenciasFiltradas(filtros = { pagina: 1, limite: 10 })
 
         if (dados && dados.ocorrencias && Array.isArray(dados.ocorrencias)) {
             dados.ocorrencias.forEach(ocorrencia => {
-                const elementoPost = prepararDadosParaPost(ocorrencia) 
-                criarPost(elementoPost) 
+                const elementoPost = prepararDadosParaPost(ocorrencia)
+                criarPost(elementoPost)
             });
         } else if (abaHome) {
             const aviso = document.createElement('p')
@@ -205,7 +197,7 @@ export function aplicarFiltrosCompletos() {
     const status = document.getElementById('status-select')?.value
     const dataPeriodo = document.getElementById('data-select')?.value
     const localizacao = document.getElementById('localizacao-select')?.value
-    
+
     // Adicionar paginação padrão
     filtros.pagina = 1
     filtros.limite = 10
@@ -218,7 +210,7 @@ export function aplicarFiltrosCompletos() {
     // 2. Status (Envia o ID do status)
     if (status) {
         filtros.status = status;
-    } 
+    }
     // 3. Data (Envia a string de período)
     if (dataPeriodo) {
         filtros.data_registro = dataPeriodo
