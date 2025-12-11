@@ -76,7 +76,7 @@ async function inserirMultimidia(multimidia, contentType) {
 async function validarDadosMultimidia(multimidia) {
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
-    if (multimidia.link == undefined || multimidia.link == null || !isNaN(multimidia.link) || multimidia.link == '' || multimidia.link.length > 256) {
+    if (multimidia.link == undefined || multimidia.link == null || !isNaN(multimidia.link) || multimidia.link == '') {
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [Link Incorreta]'
         return MESSAGES.ERROR_REQUIRED_FIELDS // 400 - processar requisição
 
