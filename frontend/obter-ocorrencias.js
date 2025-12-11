@@ -243,3 +243,5 @@ export function configurarListenerDeFiltro() {
     inputData.addEventListener('change', aplicarFiltrosCompletos)
     inputStatus.addEventListener('change', aplicarFiltrosCompletos)
 }
+
+
