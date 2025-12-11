@@ -3,9 +3,15 @@
 import { criarOcorrencias } from "./obter-ocorrencias-cidadao.js"
 import { criarOcorrenciasComunidade } from "./obter-ocorrencias.js"
 import { CriarNovaOcorrencia } from "./criar-ocorrencia.js";
+import { criarDropBoxCategorias } from "./obter-ocorrencias.js";
+import { aplicarFiltrosCompletos } from "./obter-ocorrencias.js";
+import { configurarListenerDeFiltro } from "./obter-ocorrencias.js";
 
 criarOcorrencias(1)
 criarOcorrenciasComunidade()
+criarDropBoxCategorias()
+aplicarFiltrosCompletos()
+configurarListenerDeFiltro()
 
 // Documento HTML inicial carregado
 document.addEventListener('DOMContentLoaded', () => {
