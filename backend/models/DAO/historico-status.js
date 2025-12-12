@@ -36,13 +36,16 @@ async function inserirHistorico(historico) {
                 id_status,
                 id_ocorrencia
             ) VALUES (
-                '${historico.data_hora}',
-                ${historico.id_status},
-                ${historico.id_ocorrencia}
+                ?, ?, ?
             )
         `
 
-        const result = await prisma.$executeRawUnsafe(sql)
+        const dataAtual = new Date()
+        dataAtual.setHours(dataAtual.getHours() - 3);
+
+        const result = await prisma.$executeRawUnsafe(
+            sql, dataAtual, historico.id_status, historico.id_ocorrencia
+        )
 
         if (result)
             return true
