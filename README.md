@@ -1,6 +1,6 @@
 # Reporter do meu Bairro.
 
-<img src="https://lh3.googleusercontent.com/gg-dl/ABS2GSmIVZ0vHbFdlGj1OmlDz0jzKe_1zl7a8umJZ9EaeeerXlpyBmfu_x1FHK9BPMTnxzF5E0J8QFO2wxV9V3X_CeoyOsG1eTIxeclJpzh1AWa90Pm3ZE3AKR5uSSBhTCW-fttLwjtJtdndYvdkYUJmsQHq21H9GUIJNl8f9eefQyU8QvFqvw=s1024-rj" alt="Exemplo imagem">
+<img src="./img-readme/image.jpg" alt="Reporter do meu bairro.">
 
 > Projeto integrado referente a ideia de um produto que atenda as necessidades da população e interligando o conhecimento de problemas públicos presentes da população local com as prefeituras para ações de monitoramento, mitigação e controle de danos dessas ocorrências.
 
@@ -27,11 +27,93 @@ Para usar reporter do meu bairro, siga estas etapas:
 
 ```
  Inicie a aplicação backend em uma janela diferente do vscode.
+ - Utilize a expressão: node app.js para a inicialização do BACK.
  Após isso, em uma janela nova do vscode utilize a extensão go live.
- Na tela de login insira o seguinte login para teste: 
+ Na tela de login insira o seguinte login para teste:
+ - "carlos.souza@email.com" e utilize a senha: "senha456".
+ - "maria.oliveira@email.com" e utilize a senha: "segredo1"
+
+  Aplicação estará em seu total uso!
 ```
 
+## Frontend
 
+A interface foi construída com foco em intuitividade e responsividade tendo um dinamismo em sua funcionalidade.
+
+**Tecnologias utilizadas:**
+- HTML5 & CSS3
+- JavaScript (ES6+)
+
+**Telas Principais:**
+
+| Tela de Login | Feed de ocorrências | Criação de ocorrencia | Visualizar minhas ocorrências |
+|:---:|:---:|:---:|:---:|
+| <img src="./frontend/assets/print_login.png" width="300"> | <img src="./frontend/assets/print_feed.png" width="300"> |
+
+**Funcionalidades:**
+- [x] Cadastro e login de usuário (Cidadão).
+- [x] Visualização de ocorrências.
+- [x] Filtragem a partir de localização, data, status e categoria de ocorrências.
+- [x] Visualização das ocorrências realizadas pelo próprio usuário
+- [x] Registro de uma nova ocorrência (Com todas as informações necessárias, incluindo o registro de fotos.)
+- [x] Registro de localização e utilização de API externa para preenchimento de alguns campos (Viacep.)
+- [x] Visualizar perfil.
+
+**Digrama (DER):**
+
+
+**Integração e APIs Externas:**
+A aplicação além de se comunicar com o Backend da aplicação, ele consome as APIs:
+- **[viacep](https://viacep.com.br/):** Utilizada no formulario de cadastro de localização e no cadastro de usuário
+ 
+## Backend
+
+A API segue os padrões estabelecidos REST e foi estruturada utilizando a arquitetura MVC para organização e escalabilidade.
+
+**Principais Dependências:**
+- **Express:** Framework web
+- **Cors:** Para configurações dos métodos
+- **BodyParser:** configurações do Json recebido;
+
+## Banco de dados
+
+O projeto utilizou-se do banco de dados relacional MySQL gerenciado pelo Prisma ORM.
+
+**Estrutura de Dados:**
+* **Cidadão:** Armazena dados referente aos Cidadões;
+* **Localização:** Armazena dados referente a uma localização que será utilizada para o registro de ocorrência.
+* **Categoria:** Armazena dados referente a uma categoria que será utilizada para o registro de ocorrência.
+* **Status:** Armazena dados referente a uma categoria que será utilizada para o registro do histórico de uma ocorrência.
+* **Ocorrência:** Armazena dados referente a uma ocorrência. Essa tabela recebe atributos de outras tabelas.
+* **Multimidia:** Armazena dados referente a fotos/videos de uma ocorrência
+* **Histórico Status:** Armazena o histórico de mudança de status de uma ocorrência.
+* **Comentario cidadão:** Armazenas dados referentes dos comentários de uma ocorrência.
+* **Notificação:** Armazenas dados referente a notificações que vem de uma ocorrência.
+
+**Diagrama (DER):**
+<img src="./img-readme/banco-de-dados.drawio.png">
+
+### Triggers e Automações
+
+O banco de dados possui *triggers* configuradas para garantir a integridade e automação de certos processos:
+
+| Nome / Tabela | Evento | O que faz? |
+| :--- | :--- | :--- |
+| `trg_atualizar_historico_status_ocorrencia` | `AFTER INSERT` | Automaticamente registra na tabela `tb_historico_status` os argumentos `data_hora`, `id_status = 1`, `id_ocorrencia` sempre que uma ocorrência é registrada atribuindo o status `Aberto`. |
+| `trg_notificar_cidadao_status_ocorrencia` | `AFTER INSERT` | Sempre que ocorra um novo registro na tabela histórico status envia uma notificação diretamente para o cidadão. |
+
+## 📚 Documentação
+
+A documentação completa do desenvolvimento pode ser encontrada na pasta `/documentacao` ou nos links abaixo:
+
+- **[Documento de Visão e Escopo (TAP)](https://github.com/GuilhermeVianadeSouza/Projeto-Intregado-Senai/wiki/TAP-%E2%80%90-PROJETO)**
+- **[Protótipo no Figma](https://www.figma.com/design/Y5mvLllSBg8susWakl6JTh/Reporter-do-meu-bairro?node-id=2-6&t=wbwqZWt38OhVOjsY-1)**: Design das interfaces.
+- **[Diagramas UML](https://excalidraw.com/#room=3600bd3270141bf93289,4SSJi7mr71z_uhhoEqyFqg)**: Casos de uso e fluxo.
+
+**Regras de Negócio Principais:**
+1. Apenas usuários logados podem criar ocorrências.
+2. O usuario não pode deletar nenhuma ocorrência.
+3. Um usuário não pode editar a denúncia de outro usuário.
 
 ## 🤝 Colaboradores
 
@@ -59,3 +141,7 @@ Os programadores que fizeram parte desse projeto:
       <a href="https://github.com/Victorhsilva1" title="Acessar perfil de Victor">
         <img src="https://avatars.githubusercontent.com/u/180042479?v=4" width="100px;" alt="Foto do Steve Jobs"/><br>
         <sub>
+          <b> Victor Hugo Rocha da Silva </b>
+        </sub>
+      </a>
+    </td>
