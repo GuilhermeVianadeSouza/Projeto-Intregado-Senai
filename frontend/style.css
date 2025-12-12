@@ -18,6 +18,19 @@
     padding: 40px 30px;
 }
 
+.aba-wrapper.aba.active {
+    display: flex;
+}
+
+#cadastro-wrapper {
+    display: none !important;
+}
+
+#login-wrapper #footer {
+    display: none !important;
+}
+
+
 .cadastro-container {
        background-color: rgb(255, 255, 255);
     max-width: 450px;
@@ -730,6 +743,7 @@ nav h1 {
 
 /* FOOTER */
 footer {
+    display: none;
     background-color: #353434;
     position: fixed;
     bottom: 0;

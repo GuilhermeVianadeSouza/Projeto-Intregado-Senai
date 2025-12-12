@@ -54,26 +54,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Função para alternar entre abas
 function showTab(tabId) {
-  // Pega todas as abas
-  const todasAsAbas = document.querySelectorAll('.aba')
-  const footer = document.getElementById('footer')
+// Pega todas as abas
+const todasAsAbas = document.querySelectorAll('.aba')
+const footer = document.getElementById('footer')
 
   // Pega os wrappers de login e cadastro
   const loginWrapper = document.getElementById('login-wrapper')
   const cadastroWrapper = document.getElementById('cadastro-wrapper')
 
-  // Remove a classe 'active' (esconde)
-  todasAsAbas.forEach(aba => {
-    aba.classList.remove('active')
-  });
+// Remove a classe 'active' (esconde)
+todasAsAbas.forEach(aba => {
+  aba.classList.remove('active')
+});
 
-  // Pega a aba selecionada pelo ID tabId
-  const abaAtiva = document.getElementById(tabId)
+// Pega a aba selecionada pelo ID tabId
+const abaAtiva = document.getElementById(tabId)
 
-  // Adiciona a classe 'active' apenas na aba selecionada (mostra ela)
-  if (abaAtiva) {
-    abaAtiva.classList.add('active')
-  }
+// Adiciona a classe 'active' apenas na aba selecionada (mostra ela)
+if (abaAtiva) {
+  abaAtiva.classList.add('active')
+}
 
   // Lógica para os containers de login e cadastro
   if (loginWrapper) {
@@ -84,12 +84,12 @@ function showTab(tabId) {
     cadastroWrapper.style.display = (tabId === 'aba-cadastro') ? 'flex' : 'none'
   }
 
-  // Lógica para o footer
-  if (tabId === 'aba-login' || tabId === 'aba-cadastro' || tabId === 'aba-escolherLocal') {
-    footer.style.display = 'none' // Oculto para login, cadastro e escolherLocal
-  } else {
-    footer.style.display = 'grid' // Visível para as outras abas
-  }
+// Lógica para o footer
+if (tabId === 'aba-login' || tabId === 'aba-cadastro' || tabId === 'aba-escolherLocal') {
+  footer.style.display = 'none' // Oculto para login, cadastro e escolherLocal
+} else {
+  footer.style.display = 'grid' // Visível para as outras abas
+}
 }
 
 // Função para fechar popups
@@ -487,6 +487,16 @@ if (formCadastro) {
 }
 
 // LOGIN
+
+// Botão Entrar como anonimo
+const btnAnonimo = document.getElementById('anonimo');
+if (btnAnonimo) {
+  btnAnonimo.addEventListener('click', (e) => {
+    e.preventDefault();
+    localStorage.setItem('user', JSON.stringify({ isAnonymous: true }));
+    showTab('aba-home');
+  });
+}
 
 // Botão Entrar como anonimo
 const btnAnonimo = document.getElementById('anonimo');
