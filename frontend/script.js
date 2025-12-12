@@ -103,13 +103,7 @@ if (buttonHome) {
 const buttonPerfil = document.getElementById('btn-perfil')
 if (buttonPerfil) {
   buttonPerfil.addEventListener('click', () => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user && user.isAnonymous) {
-      alert('Você precisa fazer login para acessar seu perfil.');
-      showTab('aba-login');
-    } else {
-      showTab('aba-perfil');
-    }
+    showTab('aba-perfil')
   });
 }
 
@@ -297,7 +291,7 @@ const cepValido = (cep) => cep.length == 8 && /^[0-9]+$/.test(cep);
 async function pesquisarCep(cep) {
     const url = `https://viacep.com.br/ws/${cep}/json/`;
     try {
-        const response = await fetch(url);
+        const response = await fetch(url );
         const data = await response.json();
         return data;
     } catch (error) {
@@ -355,14 +349,12 @@ posts.forEach(post => {
 });
 
 // Adiciona listener de clique para fechar a aba-verPost ao clicar no fundo
-if (abaVerPost) {
-    abaVerPost.addEventListener('click', (e) => {
-        // Verifica se o clique foi no próprio abaVerPost (fundo escuro) e não em um de seus filhos
-        if (e.target === abaVerPost) {
-            abaVerPost.classList.remove('active');
-        }
-    });
-}
+abaVerPost.addEventListener('click', (e) => {
+    // Verifica se o clique foi no próprio abaVerPost (fundo escuro) e não em um de seus filhos
+    if (e.target === abaVerPost) {
+        abaVerPost.classList.remove('active')
+    }
+});
 
 // NAVEGAÇÃO LOGIN/CADASTRO
 const linkSignup = document.getElementById('link-signup')
@@ -408,17 +400,6 @@ if (formCadastro) {
 
 
 // LOGIN
-
-// Botão Entrar como anonimo
-const btnAnonimo = document.getElementById('anonimo');
-if (btnAnonimo) {
-    btnAnonimo.addEventListener('click', (e) => {
-        e.preventDefault();
-        localStorage.setItem('user', JSON.stringify({ isAnonymous: true }));
-        showTab('aba-home');
-    });
-}
-
 const formLogin = document.getElementById('form-login')
 if (formLogin) {
     formLogin.addEventListener('submit', (e) => {
@@ -427,7 +408,7 @@ if (formLogin) {
         const senha = document.getElementById('senha').value
 
         if (email === 'teste@gmail.com' && senha === '12345') {
-            localStorage.setItem('user', JSON.stringify({ email: email, name: 'Victor Hugo', isAnonymous: false }));
+            localStorage.setItem('user', JSON.stringify({ email: email, name: 'Victor Hugo' }));
             showTab('aba-home')
             // A variável 'login' não está definida, removendo a linha
             // login.style.display = 'none' 
@@ -496,31 +477,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-
-
-// LÓGICA DE CLASSIFICAÇÃO DE OCORRÊNCIA
-const btnSucesso = document.getElementById('btn-sucesso');
-const btnNaoSucesso = document.getElementById('btn-nao-sucesso');
-const feedbackElement = document.getElementById('classificacao-feedback');
-
-if (btnSucesso) {
-    btnSucesso.addEventListener('click', () => {
-        feedbackElement.textContent = 'Obrigado! Sua classificação foi registrada. A ocorrência foi marcada como resolvida.';
-        feedbackElement.classList.add('show');
-        btnSucesso.disabled = true;
-        btnNaoSucesso.disabled = true;
-        btnSucesso.style.opacity = '0.6';
-        btnNaoSucesso.style.opacity = '0.6';
-    });
-}
-
-if (btnNaoSucesso) {
-    btnNaoSucesso.addEventListener('click', () => {
-        feedbackElement.textContent = 'Obrigado! Sua classificação foi registrada. A ocorrência continua pendente de resolução.';
-        feedbackElement.classList.add('show');
-        btnSucesso.disabled = true;
-        btnNaoSucesso.disabled = true;
-        btnSucesso.style.opacity = '0.6';
-        btnNaoSucesso.style.opacity = '0.6';
-    });
-}
