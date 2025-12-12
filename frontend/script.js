@@ -42,12 +42,13 @@ document.getElementById('form-login').addEventListener('submit', async (e) => {
   }
 })
 
+// Documento HTML inicial carregado
 document.addEventListener('DOMContentLoaded', () => {
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem('user'))
   if (user) {
-      showTab('aba-home');
+    showTab('aba-home')
   } else {
-      showTab('aba-login');
+    showTab('aba-login')
   }
 });
 
@@ -57,9 +58,9 @@ function showTab(tabId) {
 const todasAsAbas = document.querySelectorAll('.aba')
 const footer = document.getElementById('footer')
 
-// Pega os wrappers de login e cadastro
-const loginWrapper = document.getElementById('login-wrapper');
-const cadastroWrapper = document.getElementById('cadastro-wrapper');
+  // Pega os wrappers de login e cadastro
+  const loginWrapper = document.getElementById('login-wrapper')
+  const cadastroWrapper = document.getElementById('cadastro-wrapper')
 
 // Remove a classe 'active' (esconde)
 todasAsAbas.forEach(aba => {
@@ -74,14 +75,14 @@ if (abaAtiva) {
   abaAtiva.classList.add('active')
 }
 
-// Lógica para os containers de login e cadastro
-if (loginWrapper) {
-  loginWrapper.style.display = (tabId === 'aba-login') ? 'flex' : 'none';
-}
+  // Lógica para os containers de login e cadastro
+  if (loginWrapper) {
+    loginWrapper.style.display = (tabId === 'aba-login') ? 'flex' : 'none'
+  }
 
-if (cadastroWrapper) {
-  cadastroWrapper.style.display = (tabId === 'aba-cadastro') ? 'flex' : 'none';
-}
+  if (cadastroWrapper) {
+    cadastroWrapper.style.display = (tabId === 'aba-cadastro') ? 'flex' : 'none'
+  }
 
 // Lógica para o footer
 if (tabId === 'aba-login' || tabId === 'aba-cadastro' || tabId === 'aba-escolherLocal') {
@@ -90,7 +91,6 @@ if (tabId === 'aba-login' || tabId === 'aba-cadastro' || tabId === 'aba-escolher
   footer.style.display = 'grid' // Visível para as outras abas
 }
 }
-
 
 // Função para fechar popups
 function fecharPopUp(popUpId) {
@@ -463,47 +463,39 @@ if (linkVoltarLogin) {
 }
 
 // FORMULÁRIO DE CADASTRO
-const formCadastro = document.getElementById('form-cadastro');
+const formCadastro = document.getElementById('form-cadastro')
 
 if (formCadastro) {
-    formCadastro.addEventListener('submit', (e) => {
-        e.preventDefault();
+  formCadastro.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-        const nome = document.getElementById('cadastro-nome').value.trim()
-        const email = document.getElementById('cadastro-email').value.trim()
-        const senha = document.getElementById('cadastro-senha').value.trim()
-        const telefone = document.getElementById('cadastro-telefone').value.trim()
-        const localizacao = document.getElementById('cadastro-localizacao').value.trim()
+    const nome = document.getElementById('cadastro-nome').value.trim()
+    const email = document.getElementById('cadastro-email').value.trim()
+    const senha = document.getElementById('cadastro-senha').value.trim()
+    const telefone = document.getElementById('cadastro-telefone').value.trim()
+    const localizacao = document.getElementById('cadastro-localizacao').value.trim()
 
-        if (nome && email && senha && telefone && localizacao) {
-            // Simulação de cadastro bem-sucedido
-            alert('Cadastro realizado com sucesso! Faça login para continuar.')
-            formCadastro.reset();
-            showTab('aba-login');
-        } else {
-            alert('Por favor, preencha todos os campos obrigatórios.')
-        }
-    });
+    if (nome && email && senha && telefone && localizacao) {
+      // Simulação de cadastro bem-sucedido
+      alert('Cadastro realizado com sucesso! Faça login para continuar.')
+      formCadastro.reset();
+      showTab('aba-login');
+    } else {
+      alert('Por favor, preencha todos os campos obrigatórios.')
+    }
+  });
 }
 
-
 // LOGIN
-const formLogin = document.getElementById('form-login')
-if (formLogin) {
-    formLogin.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const email = document.getElementById('email').value
-        const senha = document.getElementById('senha').value
 
-        if (email === 'teste@gmail.com' && senha === '12345') {
-            localStorage.setItem('user', JSON.stringify({ email: email, name: 'Victor Hugo' }));
-            showTab('aba-home')
-            // A variável 'login' não está definida, removendo a linha
-            // login.style.display = 'none' 
-        } else {
-            alert('Email ou senha incorretos')
-        }
-    })
+// Botão Entrar como anonimo
+const btnAnonimo = document.getElementById('anonimo');
+if (btnAnonimo) {
+  btnAnonimo.addEventListener('click', (e) => {
+    e.preventDefault();
+    localStorage.setItem('user', JSON.stringify({ isAnonymous: true }));
+    showTab('aba-home');
+  });
 }
 
 // Botão Entrar como anonimo
