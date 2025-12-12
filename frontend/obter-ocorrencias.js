@@ -33,9 +33,9 @@ export async function criarDropBoxCategorias(container) {
 // Função de buscar ocorrencia com filtros
 export async function obterOcorrenciaComFiltro(filtros) {
     const parametros = new URLSearchParams()
-
+g
     parametros.append('pagina', filtros.pagina || 1)
-    parametros.append('limite', filtros.limite || 10)
+    parametros.append('limite', filtros.limite || 40) // Alterado para carregar mais posts
 
     if (filtros.id_categoria) parametros.append('categoria', filtros.id_categoria)
     if (filtros.status) parametros.append('status', filtros.status)
@@ -51,6 +51,7 @@ export async function obterOcorrenciaComFiltro(filtros) {
 }
 
 const abaHome = document.getElementById("aba-home")
+const postsContainer = document.getElementById("posts-container")
 
 function criarPost(ocorrencia) {
     const section = document.createElement("section")
@@ -117,7 +118,7 @@ function criarPost(ocorrencia) {
     section.appendChild(pLoc)
     section.appendChild(divMedia)
 
-    abaHome.appendChild(section)
+    postsContainer.appendChild(section) // Alterado para adicionar ao postsContainer
 }
 
 // Função auxiliar para preparar o objeto antes de chamar criarPost
@@ -156,14 +157,13 @@ function prepararDadosParaPost(ocorrencia) {
 }
 
 
-async function carregarOcorrenciasFiltradas(filtros = { pagina: 1, limite: 10 }) {
+async function carregarOcorrenciasFiltradas(filtros = { pagina: 1, limite: 100 }) {
     try {
-        if (abaHome) {
-            const postsExistentes = abaHome.querySelectorAll('.post');
-            postsExistentes.forEach(post => {
-                post.remove();
-            });
+        if (postsContainer) {
+            postsContainer.innerHTML = ''; // Limpa o container de posts
+        }
 
+        if (abaHome) {
             const avisoExistente = abaHome.querySelector('.aviso-sem-ocorrencia');
             if (avisoExistente) {
                 avisoExistente.remove();
@@ -177,16 +177,33 @@ async function carregarOcorrenciasFiltradas(filtros = { pagina: 1, limite: 10 })
 
         const dados = await obterOcorrenciaComFiltro(filtros);
 
-        if (dados && dados.ocorrencias && Array.isArray(dados.ocorrencias)) {
+        if (dados && dados.ocorrencias && Array.isArray(dados.ocorrencias) && dados.ocorrencias.length > 0) {
             dados.ocorrencias.forEach(ocorrencia => {
                 const elementoPost = prepararDadosParaPost(ocorrencia)
                 criarPost(elementoPost)
             });
+
+            const posts = postsContainer.querySelectorAll('.post');
+            posts.forEach((post, index) => {
+                if (index >= 10) {
+                    post.classList.add('post-oculto');
+                }
+            });
+
+            const btnVerTodos = document.getElementById('btn-ver-todos');
+            if (posts.length > 10) {
+                btnVerTodos.style.display = 'block';
+            } else {
+                btnVerTodos.style.display = 'none';
+            }
+
+
         } else if (abaHome) {
             const aviso = document.createElement('p')
             aviso.classList.add('aviso-sem-ocorrencia')
             aviso.textContent = 'Nenhuma ocorrência encontrada com os filtros aplicados.'
             abaHome.appendChild(aviso)
+            document.getElementById('btn-ver-todos').style.display = 'none';
         }
 
     } catch (error) {
@@ -209,20 +226,15 @@ export function aplicarFiltrosCompletos() {
     const status = document.getElementById('status-select')?.value
     const dataPeriodo = document.getElementById('data-select')?.value
 
-    // Adicionar paginação padrão
     filtros.pagina = 1
-    filtros.limite = 10
 
-    // 1. Categoria (Envia o ID da categoria)
     if (categoria) {
         filtros.id_categoria = categoria
     }
 
-    // 2. Status (Envia o ID do status)
     if (status) {
         filtros.status = status;
     }
-    // 3. Data (Envia a string de período)
     if (dataPeriodo) {
         filtros.data_registro = dataPeriodo
     }
@@ -231,8 +243,20 @@ export function aplicarFiltrosCompletos() {
 }
 
 export async function criarOcorrenciasComunidade() {
+    await carregarOcorrenciasFiltradas()
+}
 
-    await carregarOcorrenciasFiltradas({ pagina: 1, limite: 10 })
+function configurarBotaoVerTodos() {
+    const btnVerTodos = document.getElementById('btn-ver-todos');
+    if (btnVerTodos) {
+        btnVerTodos.addEventListener('click', () => {
+            const postsOcultos = postsContainer.querySelectorAll('.post-oculto');
+            postsOcultos.forEach(post => {
+                post.classList.remove('post-oculto');
+            });
+            btnVerTodos.style.display = 'none';
+        });
+    }
 }
 
 export function configurarListenerDeFiltro() {
@@ -244,6 +268,5 @@ export function configurarListenerDeFiltro() {
     inputCategoria.addEventListener('change', aplicarFiltrosCompletos)
     inputData.addEventListener('change', aplicarFiltrosCompletos)
     inputStatus.addEventListener('change', aplicarFiltrosCompletos)
+    configurarBotaoVerTodos();
 }
-
-
