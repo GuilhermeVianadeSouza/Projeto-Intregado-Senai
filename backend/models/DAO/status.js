@@ -34,6 +34,23 @@ async function selecionarStatusAtualPorIdOcorrencia(idOcorrencia) {
     }
 }
 
+async function selecionarStatusPorId(id) {
+    try {
+        const sql = `SELECT * FROM tb_status WHERE id = ${id}`
+
+        const status = await prisma.$queryRawUnsafe(sql)
+
+        if (Array.isArray(status))
+            return status
+        else
+            return false
+
+    } catch (error) {
+        return false
+    }
+}
+
 module.exports = {
-    selecionarStatusAtualPorIdOcorrencia
+    selecionarStatusAtualPorIdOcorrencia,
+    selecionarStatusPorId
 }
