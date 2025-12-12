@@ -18,6 +18,16 @@
     padding: 40px 30px;
 }
 
+
+#cadastro-wrapper {
+    display: none !important;
+}
+
+#login-wrapper #footer {
+    display: none !important;
+}
+
+
 .cadastro-container {
        background-color: rgb(255, 255, 255);
     max-width: 450px;
@@ -1003,6 +1013,8 @@ input[type="checkbox"] + label {
         width: 84%;
     }
 }
+
+
 
 .char-counter {
     text-align: right;
