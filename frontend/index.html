@@ -24,7 +24,10 @@
             <nav class="nav-desktop">
                 <a href="#" class="nav-link" id="btn-home-desktop">Comunidade</a>
                 <a href="#" class="nav-link" id="btn-criar-desktop">Criar Ocorrência</a>
-                <a href="#" class="nav-link" id="btn-perfil-desktop">Perfil</a>
+                <div class="nav-item-container">
+                    <a href="#" class="nav-link" id="btn-perfil-desktop">Perfil</a>
+                    <span class="notification-badge" id="notification-badge-desktop" style="display: none;"></span>
+                </div>
             </nav>
         </div>
     </header>
@@ -269,9 +272,13 @@
         <!-- ABA PERFIL  -->
         <div id="aba-perfil" class="aba">
             <div>
-                <nav id="nav-principal">
+                <nav id="nav-principal" class="nav-perfil">
                     <img src="./img/logo green.png" alt="" class="logo-nav">
                     <h1> Perfil </h1>
+                    <div class="notification-icon" id="notification-icon">
+                        <img src="./img/notificacoes.png" alt="Notificações" id="notification-bell-img">
+                        <span class="notification-badge" id="notification-count" style="display: none;">0</span>
+                    </div>
                 </nav>
 
                 <div class="perfil-container">
@@ -311,9 +318,12 @@
             <a href="#" class="footer-icon" id="btn-home">
                 <img src="./img/home.png" alt="Home">
             </a>
-            <a href="#" class="footer-icon" id="btn-perfil">
-                <img src="./img/profile icon.png" alt="Perfil">
-            </a>
+            <div class="footer-icon-container">
+                <a href="#" class="footer-icon" id="btn-perfil">
+                    <img src="./img/profile icon.png" alt="Perfil">
+                </a>
+                <span class="notification-badge" id="notification-badge-mobile" style="display: none;">0</span>
+            </div>
         </div>
     </footer>
 
