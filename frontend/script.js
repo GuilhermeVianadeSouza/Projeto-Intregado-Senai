@@ -1,55 +1,19 @@
 'use strict'
 
 import { criarOcorrencias } from "./obter-ocorrencias-cidadao.js"
-import { criarOcorrenciasComunidade, criarDropBoxCategorias, aplicarFiltrosCompletos, configurarListenerDeFiltro } from "./obter-ocorrencias.js"
-import { CriarNovaOcorrencia } from "./criar-ocorrencia.js";
-import { obterIdCidadao } from "./logar-cidadao.js";
-import { colocarDadosPerfil } from "./obter-dados-perfil.js";
-import { limitarQuantidadeDeArquivos } from "./input-imagem.js";
-import { uploadImage } from "./upload-azure-files/upload.js";
+import { criarOcorrenciasComunidade } from "./obter-ocorrencias.js"
 
-limitarQuantidadeDeArquivos()
-
+criarOcorrencias()
 criarOcorrenciasComunidade()
-await criarDropBoxCategorias(document.getElementById('categoria-select'))
-await criarDropBoxCategorias(document.getElementById('categoria'))
-aplicarFiltrosCompletos()
-configurarListenerDeFiltro()
-
-document.getElementById('form-login').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const email = document.getElementById('email').value
-  const senha = document.getElementById('senha').value
-
-  try {
-    const cidadaoId = await obterIdCidadao(email, senha)
-
-    if (cidadaoId.status_code == 200) {
-      localStorage.setItem('user', JSON.stringify({
-        id: cidadaoId.cidadao[0].id,
-        nome: cidadaoId.cidadao[0].nome,
-        isAnonymous: false
-      }))
-      const user = JSON.parse(localStorage.getItem('user'))
-      criarOcorrencias(Number(user.id))
-      colocarDadosPerfil(Number(user.id))
-      showTab('aba-home')
-    } else {
-      alert('Email ou senha incorretos')
-    }
-  } catch (error) {
-    console.log(error);
-  }
-})
 
 // Documento HTML inicial carregado
 document.addEventListener('DOMContentLoaded', () => {
-  const user = JSON.parse(localStorage.getItem('user'))
-  if (user) {
-    showTab('aba-home')
-  } else {
-    showTab('aba-login')
-  }
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+        showTab('aba-home');
+    } else {
+        showTab('aba-login');
+    }
 });
 
 // Função para alternar entre abas
@@ -59,8 +23,8 @@ function showTab(tabId) {
   const footer = document.getElementById('footer')
 
   // Pega os wrappers de login e cadastro
-  const loginWrapper = document.getElementById('login-wrapper')
-  const cadastroWrapper = document.getElementById('cadastro-wrapper')
+  const loginWrapper = document.getElementById('login-wrapper');
+  const cadastroWrapper = document.getElementById('cadastro-wrapper');
 
   // Remove a classe 'active' (esconde)
   todasAsAbas.forEach(aba => {
@@ -77,11 +41,11 @@ function showTab(tabId) {
 
   // Lógica para os containers de login e cadastro
   if (loginWrapper) {
-    loginWrapper.style.display = (tabId === 'aba-login') ? 'flex' : 'none'
+    loginWrapper.style.display = (tabId === 'aba-login') ? 'flex' : 'none';
   }
 
   if (cadastroWrapper) {
-    cadastroWrapper.style.display = (tabId === 'aba-cadastro') ? 'flex' : 'none'
+    cadastroWrapper.style.display = (tabId === 'aba-cadastro') ? 'flex' : 'none';
   }
 
   // Lógica para o footer
@@ -91,6 +55,7 @@ function showTab(tabId) {
     footer.style.display = 'grid' // Visível para as outras abas
   }
 }
+
 
 // Função para fechar popups
 function fecharPopUp(popUpId) {
@@ -110,17 +75,11 @@ function abrirPopUp(popUpId) {
   }
 }
 
-function limparDadosLocalizacao() {
-  document.getElementById('form-localizacao').reset()
-  document.getElementById('btn-localizacao-ocorrencia').textContent = 'Escolher localização'
-  delete document.getElementById('btn-localizacao-ocorrencia').dataset.localizacao
-}
 
 // Botão de criar ocorrência
 const buttonCriar = document.getElementById('btn-criar')
 if (buttonCriar) {
   buttonCriar.addEventListener('click', () => {
-    limparDadosLocalizacao()
     showTab('aba-criar')
   });
 }
@@ -128,7 +87,6 @@ if (buttonCriar) {
 const buttonCancelar = document.getElementById('btn-cancelar-local')
 if (buttonCancelar) {
   buttonCancelar.addEventListener('click', () => {
-    limparDadosLocalizacao()
     showTab('aba-criar')
   });
 }
@@ -147,20 +105,19 @@ if (buttonPerfil) {
   buttonPerfil.addEventListener('click', () => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user && user.isAnonymous) {
-      if (confirm('Deseja fazer login para continuar?')) {
-        showTab('aba-login');
-      }
+      alert('Você precisa fazer login para acessar seu perfil.');
+      showTab('aba-login');
     } else {
       showTab('aba-perfil');
     }
   });
 }
 
+
 // BOTÕES DE PERFIL
 const buttonNovaOcorrencia = document.getElementById('buttonNovaOcorrencia')
 if (buttonNovaOcorrencia) {
   buttonNovaOcorrencia.addEventListener('click', () => {
-    limparDadosLocalizacao()
     showTab('aba-criar')
   })
 }
@@ -174,10 +131,10 @@ if (buttonVerOcorrencias) {
 
 const btnLogout = document.getElementById('btn-logout');
 if (btnLogout) {
-  btnLogout.addEventListener('click', () => {
-    localStorage.removeItem('user');
-    showTab('aba-login');
-  });
+    btnLogout.addEventListener('click', () => {
+        localStorage.removeItem('user');
+        showTab('aba-login');
+    });
 }
 
 // FORMULÁRIO DE CRIAR OCORRÊNCIA
@@ -185,41 +142,31 @@ const formOcorrencia = document.getElementById('form-ocorrencia')
 
 if (formOcorrencia) {
   // Validação do formulário
-  formOcorrencia.addEventListener('submit', async (evento) => {
+  formOcorrencia.addEventListener('submit', (evento) => {
     evento.preventDefault()
 
-    const imagensUrls = await uploadImage()
-    const multimidiaArray = imagensUrls.map(url => ({ link: url }))
-
+    // Validar campos obrigatórios
+    const titulo = document.getElementById('titulo').value.trim()
     const categoria = document.getElementById('categoria').value
     const descricao = document.getElementById('descricao').value.trim()
-    const localizacao = JSON.parse(document.getElementById('btn-localizacao-ocorrencia').dataset.localizacao)
-    let compartilharDados
 
-    const anonimo = document.getElementById('anonimo');
-
-    if (anonimo.checked) {
-      compartilharDados = false
-    } else {
-      compartilharDados = true
+    if (!titulo) {
+      alert('Por favor, preencha o título do problema')
+      return
     }
 
-    const ocorrencia = {
-      descricao: descricao,
-      avaliacao: 1,
-      compartilhar_dados: compartilharDados,
-      id_cidadao: 1,
-      id_categoria: Number(categoria),
-      multimidia: multimidiaArray,
-      localizacao: localizacao
+    if (!categoria) {
+      alert('Por favor, selecione uma categoria')
+      return
     }
 
-    try {
-      await CriarNovaOcorrencia(ocorrencia)
-    } catch (error) {
-      alert('Ocorreu um erro ao publicar a ocorrência!')
-      console.log(error);
+    if (!descricao) {
+      alert('Por favor, preencha a descrição do problema')
+      return
     }
+
+    // Se passou na validação
+    alert('Ocorrência publicada com sucesso!')
 
     formOcorrencia.reset()
 
@@ -230,6 +177,7 @@ if (formOcorrencia) {
 // POP-UP DE CANCELAMENTO
 
 const btnCancelarForm = document.querySelector('.btn-cancelar')
+const popUpCancelar = document.getElementById('popUp-cancelar')
 const btnSim = document.getElementById('btn-sim')
 const btnNao = document.getElementById('btn-nao')
 
@@ -265,6 +213,7 @@ if (btnNao) {
   })
 }
 
+
 // POP-UP DE LOCALIZAÇÃO
 const btnEscolherLocalizacao = document.getElementById('btn-localizacao-ocorrencia')
 const btnVoltarLocalizacao = document.getElementById('Voltar')
@@ -277,6 +226,7 @@ if (btnEscolherLocalizacao) {
     abrirPopUp('popUp-localizacao')
   })
 }
+
 
 // Botão "Escolher Manualmente"
 if (btnManual) {
@@ -293,111 +243,104 @@ if (btnVoltarLocalizacao) {
   })
 }
 
+
+
 // Botão Continuar na aba-escolherLocal
 const btnContinuarLocal = document.querySelector('#aba-escolherLocal .btn-submit')
 
 if (btnContinuarLocal) {
-  btnContinuarLocal.addEventListener('click', (e) => {
-    e.preventDefault()
+    btnContinuarLocal.addEventListener('click', (e) => {
+        e.preventDefault()
 
-    // 1. Coletar os dados de localização
-    const cep = document.getElementById('CEP').value.trim()
-    const endereco = document.getElementById('endereco').value.trim()
-    const numero = document.getElementById('numero').value.trim()
-    const bairro = document.getElementById('bairro').value.trim()
-    const cidade = document.getElementById('cidade').value.trim()
-    const estado = document.getElementById('estado').value.trim()
-    const complemento = document.getElementById('complemento').value.trim()
+        // 1. Coletar os dados de localização
+        const cep = document.getElementById('CEP').value.trim()
+        const endereco = document.getElementById('endereco').value.trim()
+        const numero = document.getElementById('numero').value.trim()
+        const bairro = document.getElementById('bairro').value.trim()
+        const cidade = document.getElementById('cidade').value.trim()
+        const estado = document.getElementById('estado').value.trim()
 
-    // 2. Validar se os campos obrigatórios estão preenchidos
-    if (!cep || !endereco || !bairro || !cidade || !estado) {
-      alert('Por favor, preencha todos os campos de localização.')
-      return
-    }
+        // 2. Validar se os campos obrigatórios estão preenchidos
+        if (!cep || !endereco || !numero || !bairro || !cidade || !estado) {
+            alert('Por favor, preencha todos os campos de localização.')
+            return
+        }
 
-    // 3. Salvar os dados (Simulação: Armazenar em dataset)
-    const numeroString = numero.length > 0 ? `${numero}, ` : ''
-    const localizacaoString = `${endereco}, ${numeroString}${bairro}, ${cidade}-${estado}, CEP: ${cep}`
+        // 3. Salvar os dados (Simulação: Armazenar em uma variável global ou localStorage)
+        // Como não há um backend, vamos simular o salvamento e preencher o campo na aba-criar
+        const localizacaoCompleta = `${endereco}, ${numero}, ${bairro}, ${cidade}-${estado}, CEP: ${cep}`
 
-    const localizacaoJSON = {
-      cep: cep,
-      estado: estado,
-      cidade: cidade,
-      bairro: bairro,
-      rua: endereco,
-      numero: numero == '' ? null : numero,
-      complemento: complemento == '' ? null : complemento
-    }
+        // Preencher o campo de localização na aba-criar
+        const inputLocalizacaoOcorrencia = document.getElementById('btn-localizacao-ocorrencia')
+        if (inputLocalizacaoOcorrencia) {
+            inputLocalizacaoOcorrencia.textContent = localizacaoCompleta
+            inputLocalizacaoOcorrencia.dataset.localizacao = localizacaoCompleta // Armazena o valor completo
+        }
 
-    // Preencher o campo de localização na aba-criar
-    const inputLocalizacaoOcorrencia = document.getElementById('btn-localizacao-ocorrencia')
-    if (inputLocalizacaoOcorrencia) {
-      inputLocalizacaoOcorrencia.textContent = localizacaoString
-      inputLocalizacaoOcorrencia.dataset.localizacao = JSON.stringify(localizacaoJSON)
-    }
-
-    // 4. Navegar para a aba de nova ocorrência (aba-criar)
-    showTab('aba-criar')
-  })
+        // 4. Navegar para a aba de nova ocorrência (aba-criar)
+        showTab('aba-criar')
+    })
 }
 
 // Lógica ViaCEP (Refatorada)
 const limparFormulario = () => {
-  const fields = ['endereco', 'bairro', 'cidade', 'estado']
-  fields.forEach(id => {
-    const element = document.getElementById(id)
-    element.value = ''
-    element.removeAttribute('readonly') // Remove o bloqueio para permitir nova busca
-  });
+    const fields = ['endereco', 'bairro', 'cidade', 'estado'];
+    fields.forEach(id => {
+        const element = document.getElementById(id);
+        element.value = '';
+        element.removeAttribute('readonly'); // Remove o bloqueio para permitir nova busca
+    });
 }
 
 const cepValido = (cep) => cep.length == 8 && /^[0-9]+$/.test(cep);
 
 async function pesquisarCep(cep) {
-  const url = `https://viacep.com.br/ws/${cep}/json/`
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Erro ao buscar CEP:', error)
-    // Retorna um objeto com erro em caso de falha na requisição
-    return { erro: true, message: 'Erro de conexão.' }
-  }
+    const url = `https://viacep.com.br/ws/${cep}/json/`;
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Erro ao buscar CEP:', error);
+        // Retorna um objeto com erro em caso de falha na requisição
+        return { erro: true, message: 'Erro de conexão.' };
+    }
 }
 
 async function preencherCampos({ target }) {
-  limparFormulario();
+    limparFormulario();
 
-  const cep = target.value.replace(/\D/g, '')
+    const cep = target.value.replace(/\D/g, '')
 
-  if (cepValido(cep)) {
-    const infoCep = await pesquisarCep(cep)
+    if (cepValido(cep)) {
+        const infoCep = await pesquisarCep(cep)
 
-    if (infoCep.erro) {
-      alert('CEP não encontrado ou inválido.')
-    } else {
-      document.getElementById('endereco').value = infoCep.logradouro
-      document.getElementById('bairro').value = infoCep.bairro
-      document.getElementById('cidade').value = infoCep.localidade
-      document.getElementById('estado').value = infoCep.uf
+        if (infoCep.erro) {
+            alert('CEP não encontrado ou inválido.')
+        } else {
+            document.getElementById('endereco').value = infoCep.logradouro
+            document.getElementById('bairro').value = infoCep.bairro
+            document.getElementById('cidade').value = infoCep.localidade
+            document.getElementById('estado').value = infoCep.uf
 
-      // Bloqueia a edição dos campos preenchidos
-      const fields = ['endereco', 'bairro', 'cidade', 'estado']
-      fields.forEach(id => {
-        document.getElementById(id).setAttribute('readonly', 'readonly')
-      });
+            // Bloqueia a edição dos campos preenchidos
+            const fields = ['endereco', 'bairro', 'cidade', 'estado']
+            fields.forEach(id => {
+                document.getElementById(id).setAttribute('readonly', 'readonly')
+            });
+        }
+    } else if (target.value.length > 0) {
+        alert('CEP inválido! O CEP deve conter 8 dígitos numéricos.')
     }
-  } else if (target.value.length > 0) {
-    alert('CEP inválido! O CEP deve conter 8 dígitos numéricos.')
-  }
 }
 
 // Adiciona listener de focusout no campo CEP
 const inputCep = document.getElementById('CEP')
 if (inputCep) {
-  inputCep.addEventListener('focusout', preencherCampos)
+    inputCep.addEventListener('focusout', preencherCampos)
 }
+
+
 
 // LÓGICA DA ABA-VERPOST
 const abaVerPost = document.getElementById('aba-verPost')
@@ -405,97 +348,93 @@ const posts = document.querySelectorAll('.post')
 
 // Adiciona listener de clique a todos os posts
 posts.forEach(post => {
-  post.addEventListener('click', () => {
-    // Apenas mostra a aba-verPost
-    abaVerPost.classList.add('active')
-  });
+    post.addEventListener('click', () => {
+        // Apenas mostra a aba-verPost
+        abaVerPost.classList.add('active');
+    });
 });
 
 // Adiciona listener de clique para fechar a aba-verPost ao clicar no fundo
 if (abaVerPost) {
-  abaVerPost.addEventListener('click', (e) => {
-    // Verifica se o clique foi no próprio abaVerPost (fundo escuro) e não em um de seus filhos
-    if (e.target === abaVerPost) {
-      abaVerPost.classList.remove('active')
-    }
-  });
+    abaVerPost.addEventListener('click', (e) => {
+        // Verifica se o clique foi no próprio abaVerPost (fundo escuro) e não em um de seus filhos
+        if (e.target === abaVerPost) {
+            abaVerPost.classList.remove('active');
+        }
+    });
 }
-
-// LÓGICA DA CLASSIFICAÇÃO
-const btnSucesso = document.getElementById('btn-sucesso');
-const btnNaoSucesso = document.getElementById('btn-nao-sucesso');
-const classificacaoFeedback = document.getElementById('classificacao-feedback');
-const classificacaoButtons = document.querySelector('.classificacao-buttons');
-
-if (btnSucesso && btnNaoSucesso && classificacaoFeedback) {
-  btnSucesso.addEventListener('click', () => {
-    classificacaoFeedback.textContent = 'Resolvido';
-    classificacaoFeedback.classList.add('status-resolvido');
-    classificacaoFeedback.classList.remove('status-nao-resolvido');
-    classificacaoButtons.style.display = 'none';
-  });
-
-  btnNaoSucesso.addEventListener('click', () => {
-    classificacaoFeedback.textContent = 'Não Resolvido';
-    classificacaoFeedback.classList.add('status-nao-resolvido');
-    classificacaoFeedback.classList.remove('status-resolvido');
-    classificacaoButtons.style.display = 'none';
-  });
-}
-
 
 // NAVEGAÇÃO LOGIN/CADASTRO
 const linkSignup = document.getElementById('link-signup')
 const linkVoltarLogin = document.getElementById('link-voltar-login')
 
 if (linkSignup) {
-  linkSignup.addEventListener('click', (e) => {
-    e.preventDefault()
-    showTab('aba-cadastro')
-  });
+    linkSignup.addEventListener('click', (e) => {
+        e.preventDefault()
+        showTab('aba-cadastro')
+    });
 }
 
 if (linkVoltarLogin) {
-  linkVoltarLogin.addEventListener('click', (e) => {
-    e.preventDefault()
-    showTab('aba-login')
-  });
+    linkVoltarLogin.addEventListener('click', (e) => {
+        e.preventDefault();
+        showTab('aba-login');
+    });
 }
 
 // FORMULÁRIO DE CADASTRO
-const formCadastro = document.getElementById('form-cadastro')
+const formCadastro = document.getElementById('form-cadastro');
 
 if (formCadastro) {
-  formCadastro.addEventListener('submit', (e) => {
-    e.preventDefault();
+    formCadastro.addEventListener('submit', (e) => {
+        e.preventDefault();
 
-    const nome = document.getElementById('cadastro-nome').value.trim()
-    const email = document.getElementById('cadastro-email').value.trim()
-    const senha = document.getElementById('cadastro-senha').value.trim()
-    const telefone = document.getElementById('cadastro-telefone').value.trim()
-    const localizacao = document.getElementById('cadastro-localizacao').value.trim()
+        const nome = document.getElementById('cadastro-nome').value.trim()
+        const email = document.getElementById('cadastro-email').value.trim()
+        const senha = document.getElementById('cadastro-senha').value.trim()
+        const telefone = document.getElementById('cadastro-telefone').value.trim()
+        const localizacao = document.getElementById('cadastro-localizacao').value.trim()
 
-    if (nome && email && senha && telefone && localizacao) {
-      // Simulação de cadastro bem-sucedido
-      alert('Cadastro realizado com sucesso! Faça login para continuar.')
-      formCadastro.reset();
-      showTab('aba-login');
-    } else {
-      alert('Por favor, preencha todos os campos obrigatórios.')
-    }
-  });
+        if (nome && email && senha && telefone && localizacao) {
+            // Simulação de cadastro bem-sucedido
+            alert('Cadastro realizado com sucesso! Faça login para continuar.')
+            formCadastro.reset();
+            showTab('aba-login');
+        } else {
+            alert('Por favor, preencha todos os campos obrigatórios.')
+        }
+    });
 }
+
 
 // LOGIN
 
 // Botão Entrar como anonimo
 const btnAnonimo = document.getElementById('anonimo');
 if (btnAnonimo) {
-  btnAnonimo.addEventListener('click', (e) => {
-    e.preventDefault();
-    localStorage.setItem('user', JSON.stringify({ isAnonymous: true }));
-    showTab('aba-home');
-  });
+    btnAnonimo.addEventListener('click', (e) => {
+        e.preventDefault();
+        localStorage.setItem('user', JSON.stringify({ isAnonymous: true }));
+        showTab('aba-home');
+    });
+}
+
+const formLogin = document.getElementById('form-login')
+if (formLogin) {
+    formLogin.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = document.getElementById('email').value
+        const senha = document.getElementById('senha').value
+
+        if (email === 'teste@gmail.com' && senha === '12345') {
+            localStorage.setItem('user', JSON.stringify({ email: email, name: 'Victor Hugo', isAnonymous: false }));
+            showTab('aba-home')
+            // A variável 'login' não está definida, removendo a linha
+            // login.style.display = 'none' 
+        } else {
+            alert('Email ou senha incorretos')
+        }
+    })
 }
 
 // --- Lógica de Geolocalização Automática (Simplificada) ---
@@ -507,56 +446,81 @@ if (btnAuto) {
     fecharPopUp('popUp-localizacao');
     // Apenas mostra a aba de escolha manual, pois a geocodificação reversa está falhando
     showTab('aba-escolherLocal');
-    alert("Não foi possível obter sua localização automaticamente. Por favor, preencha manualmente.")
+    alert("Não foi possível obter sua localização automaticamente. Por favor, preencha manualmente.");
   });
 }
 
-// Filtro de pesquisa de localização
-const inputLocalizacao = document.getElementById('localizacao-select')
+// Array de cidades/estados para o seletor da comunidade
+const cidadesDisponiveis = [
+    { cidade: "Carapicuíba", estado: "SP" },
+    { cidade: "Osasco", estado: "SP" },
+    { cidade: "Barueri", estado: "SP" },
+    { cidade: "São Paulo", estado: "SP" },
+    { cidade: "Rio de Janeiro", estado: "RJ" },
+];
 
+// Função para preencher o seletor de localização
+function preencherSeletorLocalizacao() {
+    const selectLocalizacao = document.getElementById('localizacao-select');
+    if (selectLocalizacao) {
+        // Limpa as opções existentes (exceto a primeira "Selecione...")
+        while (selectLocalizacao.options.length > 1) {
+            selectLocalizacao.remove(1);
+        }
 
-function removerAcentos(texto) {
-  return texto
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-}
+        cidadesDisponiveis.forEach(local => {
+            const option = document.createElement('option');
+            option.value = `${local.cidade}-${local.estado}`;
+            option.textContent = `${local.cidade}-${local.estado}`;
+            selectLocalizacao.appendChild(option);
+        });
 
-inputLocalizacao.addEventListener('keyup', () => {
-  const filtro = removerAcentos(inputLocalizacao.value.toLowerCase())
-  const cards = document.querySelectorAll('.post')
-
-  cards.forEach(card => {
-    const pLoc = card.querySelector('.post-loc')
-
-    const texto = removerAcentos(pLoc.textContent.toLowerCase())
-
-    if (texto.includes(filtro)) {
-      card.style.display = 'block'
-    } else {
-      card.style.display = 'none'
+        // Define um valor padrão (ex: Carapicuíba-SP)
+        selectLocalizacao.value = "Carapicuíba-SP";
     }
-  })
-})
+}
 
 // Chama a função ao carregar o DOM
 document.addEventListener('DOMContentLoaded', () => {
-  // Adiciona listener para a seleção de localização
-  const selectLocalizacao = document.getElementById('localizacao-select')
-  if (selectLocalizacao) {
-    selectLocalizacao.addEventListener('change', (e) => {
-      const novaLocalizacao = e.target.value
-    })
-  }
-})
+    preencherSeletorLocalizacao();
 
-// maximo de caracter
-const descricaoTextarea = document.getElementById('descricao')
-const charCountDisplay = document.getElementById('char-count')
-const maxChars = 1000
+    // Adiciona listener para a seleção de localização
+    const selectLocalizacao = document.getElementById('localizacao-select');
+    if (selectLocalizacao) {
+        selectLocalizacao.addEventListener('change', (e) => {
+            const novaLocalizacao = e.target.value;
+            console.log('Nova localização selecionada para a comunidade:', novaLocalizacao);
+            // Aqui seria implementada a lógica de filtragem dos posts da comunidade
+            // Por enquanto, apenas registramos a mudança.
+            alert(`Comunidade filtrada para: ${novaLocalizacao}`);
+        });
+    }
+});
 
-if (descricaoTextarea && charCountDisplay) {
-  descricaoTextarea.addEventListener('input', () => {
-    const currentChars = descricaoTextarea.value.length
-    charCountDisplay.textContent = `${currentChars}/${maxChars}`
-  });
+
+// LÓGICA DE CLASSIFICAÇÃO DE OCORRÊNCIA
+const btnSucesso = document.getElementById('btn-sucesso');
+const btnNaoSucesso = document.getElementById('btn-nao-sucesso');
+const feedbackElement = document.getElementById('classificacao-feedback');
+
+if (btnSucesso) {
+    btnSucesso.addEventListener('click', () => {
+        feedbackElement.textContent = 'Obrigado! Sua classificação foi registrada. A ocorrência foi marcada como resolvida.';
+        feedbackElement.classList.add('show');
+        btnSucesso.disabled = true;
+        btnNaoSucesso.disabled = true;
+        btnSucesso.style.opacity = '0.6';
+        btnNaoSucesso.style.opacity = '0.6';
+    });
+}
+
+if (btnNaoSucesso) {
+    btnNaoSucesso.addEventListener('click', () => {
+        feedbackElement.textContent = 'Obrigado! Sua classificação foi registrada. A ocorrência continua pendente de resolução.';
+        feedbackElement.classList.add('show');
+        btnSucesso.disabled = true;
+        btnNaoSucesso.disabled = true;
+        btnSucesso.style.opacity = '0.6';
+        btnNaoSucesso.style.opacity = '0.6';
+    });
 }
