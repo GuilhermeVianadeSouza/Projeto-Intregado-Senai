@@ -1,6 +1,6 @@
 # Reporter do meu Bairro.
 
-<img src="./img-readme/image.jpg" alt="Reporter do meu bairro.">
+<img src="./img-readme/image.png" alt="Reporter do meu bairro.">
 
 > Projeto integrado referente a ideia de um produto que atenda as necessidades da população e interligando o conhecimento de problemas públicos presentes da população local com as prefeituras para ações de monitoramento, mitigação e controle de danos dessas ocorrências.
 
