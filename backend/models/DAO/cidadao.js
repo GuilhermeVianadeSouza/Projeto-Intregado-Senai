@@ -61,10 +61,10 @@ async function selecionarCidadaoPorIdOcorrencia(idOcorrencia) {
     }
 }
 
-async function selecionarIdCidadaoPorEmailSenha(email, senha) {
+async function selecionarCidadaoPorEmailSenha(email, senha) {
     try {
         const sql = `
-            SELECT id
+            SELECT id, nome
             FROM tb_cidadao
             WHERE email = '${email}'
             AND senha = '${senha}'
@@ -82,8 +82,66 @@ async function selecionarIdCidadaoPorEmailSenha(email, senha) {
     }
 }
 
+async function inserirCidadao(cidadao) {
+    try {
+        const sql = `
+            INSERT INTO tb_cidadao(
+                nome,
+                email,
+                telefone,
+                cpf,
+                cep,
+                estado,
+                cidade,
+                bairro,
+                rua,
+                complemento,
+                senha
+            ) VALUES (
+                '${cidadao.nome}',
+                '${cidadao.email}',
+                '${cidadao.telefone}',
+                '${cidadao.cpf}',
+                '${cidadao.cep}',
+                '${cidadao.estado}',
+                '${cidadao.cidade}',
+                '${cidadao.bairro}',
+                '${cidadao.rua}',
+                '${cidadao.complemento}',
+                '${cidadao.senha}'
+            )
+        `
+        const result = await prisma.$executeRawUnsafe(sql)
+
+        if (result)
+            return true
+        else
+            return false
+
+    } catch (error) {
+        return false
+    }
+}
+
+async function selecionarUltimoIdDoCidadao() {
+    try {
+        const sql = `SELECT id FROM tb_cidadao ORDER BY id DESC limit 1`
+
+        const cidadao = await prisma.$queryRawUnsafe(sql)
+        if (Array.isArray(cidadao))
+            return Number(cidadao[0].id)
+        else
+            return false
+
+    } catch (error) {
+        return false
+    }
+}
+
 module.exports = {
     selecionarCidadaoPorId,
     selecionarCidadaoPorIdOcorrencia,
-    selecionarIdCidadaoPorEmailSenha
+    selecionarCidadaoPorEmailSenha,
+    inserirCidadao,
+    selecionarUltimoIdDoCidadao
 }

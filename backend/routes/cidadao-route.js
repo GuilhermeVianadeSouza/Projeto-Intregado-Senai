@@ -8,6 +8,9 @@
 // Import das bibliotecas da API
 const express = require('express')
 const cors = require('cors')
+const bodyParser = require('body-parser')
+
+const bodyParserJSON = bodyParser.json()
 
 const controllerCidadao = require('../controllers/cidadao/cidadao-controller.js')
 
@@ -17,7 +20,7 @@ const router = express.Router()
 /********************************** ENDPOINTS *********************************/
 
 // Obtém o id de um cidadão a partir do email e senha dele
-router.get('/email', cors(), async (request, response) => {
+router.get('', cors(), async (request, response) => {
     const email = request.query.email
     const senha = request.query.senha
     const cidadao = await controllerCidadao.obterIdDoCidadaoPorEmailESenha(email, senha)
@@ -38,6 +41,14 @@ router.get('/ocorrencia/:id', cors(), async (request, response) => {
     let idOcorrencia = request.params.id
     let cidadao = await controllerCidadao.obterCidadaoPorIdOcorrencia(idOcorrencia)
 
+    response.status(cidadao.status_code).json(cidadao)
+})
+
+router.post('', cors(), bodyParserJSON, async (request, response) => {
+    const dadosBody = request.body
+    const contentType = request.headers['content-type']
+
+    const cidadao = await controllerCidadao.criarCidadao(dadosBody, contentType)
     response.status(cidadao.status_code).json(cidadao)
 })
 

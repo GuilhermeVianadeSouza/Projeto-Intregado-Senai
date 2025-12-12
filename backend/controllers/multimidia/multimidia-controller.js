@@ -64,7 +64,7 @@ async function inserirMultimidia(multimidia, contentType) {
         MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_CREATED_ITEM.status
         MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_CREATED_ITEM.status_code
         MESSAGES.DEFAULT_HEADER.message = MESSAGES.SUCCESS_CREATED_ITEM.message
-        MESSAGES.DEFAULT_HEADER.items.multimidia = multimidia
+        MESSAGES.DEFAULT_HEADER.multimidia = multimidia
 
         return MESSAGES.DEFAULT_HEADER
     } catch (error) {
@@ -76,7 +76,7 @@ async function inserirMultimidia(multimidia, contentType) {
 async function validarDadosMultimidia(multimidia) {
     let MESSAGES = JSON.parse(JSON.stringify(DEFAULT_MESSAGES))
 
-    if (multimidia.link == undefined || multimidia.link == null || !isNaN(multimidia.link) || multimidia.link == '' || multimidia.link.length > 256) {
+    if (multimidia.link == undefined || multimidia.link == null || !isNaN(multimidia.link) || multimidia.link == '') {
         MESSAGES.ERROR_REQUIRED_FIELDS.message += ' [Link Incorreta]'
         return MESSAGES.ERROR_REQUIRED_FIELDS // 400 - processar requisição
 

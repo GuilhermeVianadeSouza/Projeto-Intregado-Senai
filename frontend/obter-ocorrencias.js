@@ -2,7 +2,7 @@ async function obterCategorias() {
     const url = 'http://localhost:8080/v1/categoria'
     const response = await fetch(url)
     const data = await response.json()
-    return data.items.categorias
+    return data.categorias
 }
 
 export async function criarDropBoxCategorias(container) {
@@ -50,9 +50,9 @@ export async function obterOcorrenciaComFiltro(filtros) {
     }
 }
 
-function criarPost(ocorrencia) {
-    const abaHome = document.getElementById("aba-home")
+const abaHome = document.getElementById("aba-home")
 
+function criarPost(ocorrencia) {
     const section = document.createElement("section")
     section.classList.add("post")
 
@@ -98,8 +98,12 @@ function criarPost(ocorrencia) {
 
     const imgPost = document.createElement("img")
     imgPost.classList.add("post-img")
-    imgPost.src = "./img/image 3.png"
     imgPost.alt = "Imagem do post"
+    imgPost.src = ocorrencia.multimidia
+
+    imgPost.onerror = () => {
+        imgPost.src = "./img/image-placeholder.png"
+    }
 
     section.addEventListener('click', () => {
         document.getElementById('aba-verPost').classList.add('active');
@@ -118,12 +122,17 @@ function criarPost(ocorrencia) {
 
 // Função auxiliar para preparar o objeto antes de chamar criarPost
 function prepararDadosParaPost(ocorrencia) {
-    // Acessa a localização, assumindo que é um array e pegando o primeiro item
-    const { rua, numero, cidade, estado } = ocorrencia.localizacao?.[0] || {};
+    // Localização
+    const localizacao = ocorrencia.localizacao?.[0] || {};
+    const { rua, numero, cidade, estado } = localizacao;
 
-    const nomeCidadao = ocorrencia.cidadao[0].nome || 'Anônimo'
+    // Cidadão
+    const nomeCidadao = ocorrencia.cidadao?.[0]?.nome || 'Anônimo';
 
-    // Processamento da Data
+    // Multimídia
+    const multimidia = ocorrencia.multimidia?.[0]?.link || './img/image-placeholder.png';
+
+    // Processamento da data
     const data = new Date(ocorrencia.data_registro);
     const horas = String(data.getUTCHours()).padStart(2, "0");
     const minutos = String(data.getUTCMinutes()).padStart(2, "0");
@@ -132,21 +141,23 @@ function prepararDadosParaPost(ocorrencia) {
     const ano = data.getUTCFullYear();
 
     const nomeCategoria = ocorrencia.categoria?.[0]?.nome || 'Sem Categoria';
-    const localFormatado = (rua && numero) ? `${rua} ${numero}, ${cidade}-${estado}` : 'Local não informado';
+
+    const numeroString = numero === 'null' ? '' : ` ${numero}`;
+    const localFormatado = rua ? `${rua}${numeroString}, ${cidade}-${estado}` : 'Local não informado';
 
     return {
         dataHora: `${horas}:${minutos} ${dia}/${mes}/${ano}`,
         titulo: nomeCategoria,
-        descricao: ocorrencia.descricao,
+        descricao: ocorrencia.descricao || '',
         local: localFormatado,
-        autor: nomeCidadao
+        autor: nomeCidadao,
+        multimidia
     };
 }
 
+
 async function carregarOcorrenciasFiltradas(filtros = { pagina: 1, limite: 10 }) {
     try {
-        const abaHome = document.getElementById('aba-home');
-
         if (abaHome) {
             const postsExistentes = abaHome.querySelectorAll('.post');
             postsExistentes.forEach(post => {
@@ -179,7 +190,8 @@ async function carregarOcorrenciasFiltradas(filtros = { pagina: 1, limite: 10 })
         }
 
     } catch (error) {
-        const abaHome = document.getElementById('aba-home')
+        console.log(error);
+
         if (abaHome) {
             const erro = document.createElement('p')
             erro.classList.add('erro-api')
@@ -196,7 +208,6 @@ export function aplicarFiltrosCompletos() {
     const categoria = document.getElementById('categoria-select')?.value
     const status = document.getElementById('status-select')?.value
     const dataPeriodo = document.getElementById('data-select')?.value
-    const localizacao = document.getElementById('localizacao-select')?.value
 
     // Adicionar paginação padrão
     filtros.pagina = 1
@@ -218,7 +229,6 @@ export function aplicarFiltrosCompletos() {
 
     carregarOcorrenciasFiltradas(filtros)
 }
-
 
 export async function criarOcorrenciasComunidade() {
 

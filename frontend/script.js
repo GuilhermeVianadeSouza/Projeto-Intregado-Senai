@@ -1,13 +1,14 @@
 'use strict'
 
 import { criarOcorrencias } from "./obter-ocorrencias-cidadao.js"
-import { criarOcorrenciasComunidade } from "./obter-ocorrencias.js"
+import { criarOcorrenciasComunidade, criarDropBoxCategorias, aplicarFiltrosCompletos, configurarListenerDeFiltro } from "./obter-ocorrencias.js"
 import { CriarNovaOcorrencia } from "./criar-ocorrencia.js";
-import { criarDropBoxCategorias } from "./obter-ocorrencias.js";
-import { aplicarFiltrosCompletos } from "./obter-ocorrencias.js";
-import { configurarListenerDeFiltro } from "./obter-ocorrencias.js";
 import { obterIdCidadao } from "./logar-cidadao.js";
 import { colocarDadosPerfil } from "./obter-dados-perfil.js";
+import { limitarQuantidadeDeArquivos } from "./input-imagem.js";
+import { uploadImage } from "./upload-azure-files/upload.js";
+
+limitarQuantidadeDeArquivos()
 
 criarOcorrenciasComunidade()
 await criarDropBoxCategorias(document.getElementById('categoria-select'))
@@ -23,16 +24,18 @@ document.getElementById('form-login').addEventListener('submit', async (e) => {
   try {
     const cidadaoId = await obterIdCidadao(email, senha)
 
-    if (cidadaoId.status_code == 400)
-      alert('Email ou senha incorretos')
-
-
     if (cidadaoId.status_code == 200) {
-      localStorage.setItem('user', JSON.stringify({ id: cidadaoId.cidadao[0].id, isAnonymous: false }))
+      localStorage.setItem('user', JSON.stringify({
+        id: cidadaoId.cidadao[0].id,
+        nome: cidadaoId.cidadao[0].nome,
+        isAnonymous: false
+      }))
       const user = JSON.parse(localStorage.getItem('user'))
       criarOcorrencias(Number(user.id))
       colocarDadosPerfil(Number(user.id))
       showTab('aba-home')
+    } else {
+      alert('Email ou senha incorretos')
     }
   } catch (error) {
     console.log(error);
@@ -185,6 +188,9 @@ if (formOcorrencia) {
   formOcorrencia.addEventListener('submit', async (evento) => {
     evento.preventDefault()
 
+    const imagensUrls = await uploadImage()
+    const multimidiaArray = imagensUrls.map(url => ({ link: url }))
+
     const categoria = document.getElementById('categoria').value
     const descricao = document.getElementById('descricao').value.trim()
     const localizacao = JSON.parse(document.getElementById('btn-localizacao-ocorrencia').dataset.localizacao)
@@ -204,22 +210,16 @@ if (formOcorrencia) {
       compartilhar_dados: compartilharDados,
       id_cidadao: 1,
       id_categoria: Number(categoria),
-      multimidia: [
-        {
-          link: "https://bucket-s3.exemplo.com/evidencias/foto_01.jpg"
-        }
-      ],
+      multimidia: multimidiaArray,
       localizacao: localizacao
     }
 
     try {
       await CriarNovaOcorrencia(ocorrencia)
-      alert('Ocorrência publicada com sucesso!')
     } catch (error) {
       alert('Ocorreu um erro ao publicar a ocorrência!')
       console.log(error);
     }
-
 
     formOcorrencia.reset()
 
@@ -420,6 +420,29 @@ if (abaVerPost) {
     }
   });
 }
+
+// LÓGICA DA CLASSIFICAÇÃO
+const btnSucesso = document.getElementById('btn-sucesso');
+const btnNaoSucesso = document.getElementById('btn-nao-sucesso');
+const classificacaoFeedback = document.getElementById('classificacao-feedback');
+const classificacaoButtons = document.querySelector('.classificacao-buttons');
+
+if (btnSucesso && btnNaoSucesso && classificacaoFeedback) {
+  btnSucesso.addEventListener('click', () => {
+    classificacaoFeedback.textContent = 'Resolvido';
+    classificacaoFeedback.classList.add('status-resolvido');
+    classificacaoFeedback.classList.remove('status-nao-resolvido');
+    classificacaoButtons.style.display = 'none';
+  });
+
+  btnNaoSucesso.addEventListener('click', () => {
+    classificacaoFeedback.textContent = 'Não Resolvido';
+    classificacaoFeedback.classList.add('status-nao-resolvido');
+    classificacaoFeedback.classList.remove('status-resolvido');
+    classificacaoButtons.style.display = 'none';
+  });
+}
+
 
 // NAVEGAÇÃO LOGIN/CADASTRO
 const linkSignup = document.getElementById('link-signup')

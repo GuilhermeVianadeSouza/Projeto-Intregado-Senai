@@ -30,7 +30,6 @@ async function selecionarCincoMultimidiaPorIdOcorrencia(idOcorrencia) {
     }
 }
 
-
 async function selecionarUltimoIdMultimidia() {
     try {
         const sql = `SELECT id FROM tb_multimidia order by id desc limit 1`

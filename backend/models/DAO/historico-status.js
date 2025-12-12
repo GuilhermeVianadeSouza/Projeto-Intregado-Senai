@@ -36,13 +36,16 @@ async function inserirHistorico(historico) {
                 id_status,
                 id_ocorrencia
             ) VALUES (
-                '${historico.data_hora}',
-                ${historico.id_status},
-                ${historico.id_ocorrencia}
+                ?, ?, ?
             )
         `
 
-        const result = await prisma.$executeRawUnsafe(sql)
+        const dataAtual = new Date()
+        dataAtual.setHours(dataAtual.getHours() - 3);
+
+        const result = await prisma.$executeRawUnsafe(
+            sql, dataAtual, historico.id_status, historico.id_ocorrencia
+        )
 
         if (result)
             return true
@@ -84,8 +87,30 @@ async function inserirNovoHistorico(ocorrenciaId) {
     }
 }
 
+async function selecionarHistoricoOcorrencia(idOcorrencia) {
+    try {
+        const sql = `
+            SELECT *
+            FROM tb_historico_status
+            WHERE id_ocorrencia = ${idOcorrencia}
+            ORDER BY data_hora ASC
+        `
+
+        const historico = await prisma.$queryRawUnsafe(sql)
+
+        if (Array.isArray(historico))
+            return historico
+        else
+            return false
+
+    } catch (error) {
+        return false
+    }
+}
+
 module.exports = {
     selecionarUltimoIdDoHistorico,
     inserirHistorico,
-    inserirNovoHistorico
+    inserirNovoHistorico,
+    selecionarHistoricoOcorrencia
 }

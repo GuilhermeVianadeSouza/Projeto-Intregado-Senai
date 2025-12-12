@@ -7,26 +7,37 @@ async function obterOcorrenciasCidadao(id) {
 
 export async function criarOcorrencias(id) {
     const ocorrencias = await obterOcorrenciasCidadao(id)
+    const user = JSON.parse(localStorage.getItem('user'))
     ocorrencias.forEach(ocorrencia => {
+        const localizacao = ocorrencia.localizacao && ocorrencia.localizacao[0];
+        const { rua, numero, cidade, estado } = localizacao || {};
 
-        const { rua, numero, cidade, estado } = ocorrencia.localizacao[0]
+        const numeroString = numero === 'null' ? '' : ` ${numero}`;
+        const local = rua ? `${rua}${numeroString}, ${cidade}-${estado}` : "Local não informado";
 
-        const data = new Date(ocorrencia.data_registro)
+        const data = new Date(ocorrencia.data_registro);
+        const horas = String(data.getUTCHours()).padStart(2, "0");
+        const minutos = String(data.getUTCMinutes()).padStart(2, "0");
+        const dia = String(data.getUTCDate()).padStart(2, "0");
+        const mes = String(data.getUTCMonth() + 1).padStart(2, "0");
+        const ano = data.getUTCFullYear();
 
-        const horas = String(data.getUTCHours()).padStart(2, "0")
-        const minutos = String(data.getUTCMinutes()).padStart(2, "0")
-        const dia = String(data.getUTCDate()).padStart(2, "0")
-        const mes = String(data.getUTCMonth() + 1).padStart(2, "0")
-        const ano = data.getUTCFullYear()
+        const categoria = ocorrencia.categoria && ocorrencia.categoria[0];
+        const titulo = categoria ? categoria.nome : "Sem categoria";
+
+        const multimidiaUrl = (ocorrencia.multimidia && ocorrencia.multimidia[0]?.link) || './img/image-placeholder.png';
 
         const elemento = {
             dataHora: `${horas}:${minutos} ${dia}/${mes}/${ano}`,
-            titulo: ocorrencia.categoria[0].nome,
+            titulo,
             descricao: ocorrencia.descricao,
-            local: `${rua} ${numero}, ${cidade}-${estado}`
+            local,
+            nome: user.nome,
+            multimidia: multimidiaUrl
         }
-        criarPost(elemento)
-    })
+
+        criarPost(elemento);
+    });
 }
 
 function criarPost(ocorrencia) {
@@ -41,15 +52,15 @@ function criarPost(ocorrencia) {
 
     const imgPerfil = document.createElement("img")
     imgPerfil.classList.add("post-perfil")
-    imgPerfil.src = './img/user-placeholder.png'
     imgPerfil.alt = "Perfil"
+    imgPerfil.src = './img/user-placeholder.png'
 
     const divAutor = document.createElement("div")
     divAutor.classList.add("post-autor")
 
     const spanNome = document.createElement("span")
     spanNome.classList.add("autor-nome")
-    spanNome.textContent = 'Victor Hugo'
+    spanNome.textContent = ocorrencia.nome
 
     const spanData = document.createElement("span")
     spanData.classList.add("post-data")
@@ -78,8 +89,12 @@ function criarPost(ocorrencia) {
 
     const imagem = document.createElement("img")
     imagem.classList.add("post-img")
-    imagem.src = './img/image 3.png'
     imagem.alt = "Imagem do post"
+    imagem.src = ocorrencia.multimidia
+
+    imagem.onerror = () => {
+        imagem.src = "./img/image-placeholder.png"
+    }
 
     section.addEventListener('click', () => {
         document.getElementById('aba-verPost').classList.add('active');

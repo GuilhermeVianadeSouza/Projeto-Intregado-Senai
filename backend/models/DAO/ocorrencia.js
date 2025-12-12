@@ -119,7 +119,7 @@ async function registrarOcorrencia(ocorrencia) {
 
 async function selecionarOcorrenciasCidadao(cidadaoId) {
     try {
-        const sql = `SELECT * FROM tb_ocorrencia WHERE id_cidadao = ${cidadaoId}`
+        const sql = `SELECT * FROM tb_ocorrencia WHERE id_cidadao = ${cidadaoId} ORDER BY data_registro DESC`
 
         const ocorrencias = await prisma.$queryRawUnsafe(sql)
 
@@ -133,9 +133,26 @@ async function selecionarOcorrenciasCidadao(cidadaoId) {
     }
 }
 
+async function selecionarOcorrenciaPorId(id) {
+    try {
+        const sql = `SELECT * FROM tb_ocorrencia WHERE id = ${id}`
+
+        const ocorrencia = await prisma.$queryRawUnsafe(sql)
+
+        if (Array.isArray(ocorrencia))
+            return ocorrencia
+        else
+            return false
+
+    } catch (error) {
+        return false
+    }
+}
+
 module.exports = {
     selecionarUltimoIdDaOcorrencia,
     registrarOcorrencia,
     selecionarOcorrencias,
-    selecionarOcorrenciasCidadao
+    selecionarOcorrenciasCidadao,
+    selecionarOcorrenciaPorId
 }
