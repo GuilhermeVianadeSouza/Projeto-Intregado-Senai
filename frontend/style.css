@@ -297,7 +297,15 @@ nav h1 {
     display: none;
 }
 
-.nav-item-container
+.notification-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#notification-bell-img {
+    width: 8%;
+}
 
 .btn-ver-todos {
     display: none;
