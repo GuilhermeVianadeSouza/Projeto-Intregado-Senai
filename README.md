@@ -109,6 +109,7 @@ A documentação completa do desenvolvimento pode ser encontrada na pasta `/docu
 - **[Documento de Visão e Escopo (TAP)](https://github.com/GuilhermeVianadeSouza/Projeto-Intregado-Senai/wiki/TAP-%E2%80%90-PROJETO)**
 - **[Protótipo no Figma](https://www.figma.com/design/Y5mvLllSBg8susWakl6JTh/Reporter-do-meu-bairro?node-id=2-6&t=wbwqZWt38OhVOjsY-1)**: Design das interfaces.
 - **[Diagramas UML](https://excalidraw.com/#room=3600bd3270141bf93289,4SSJi7mr71z_uhhoEqyFqg)**: Casos de uso e fluxo.
+- **[Levantamento de requisitos](./documentacao):** Levantamentos dos requisitos
 
 **Regras de Negócio Principais:**
 1. Apenas usuários logados podem criar ocorrências.
