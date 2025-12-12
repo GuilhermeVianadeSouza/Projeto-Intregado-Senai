@@ -200,6 +200,10 @@ nav h1 {
 
 /* POSTS */
 .post {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     background: white;
     margin: 15px;
     padding: 15px;
@@ -217,6 +221,7 @@ nav h1 {
     display: flex;
     gap: 12px;
     margin-bottom: 12px;
+    width: 100%;
 }
 
 .post-perfil {
@@ -232,17 +237,20 @@ nav h1 {
     flex-direction: column;
     justify-content: center;
     flex: 1;
+    width: 100%;
 }
 
 .autor-nome {
     font-weight: 600;
     font-size: 0.95rem;
     color: #333;
+    width: 100%;
 }
 
 .post-data {
     font-size: 0.8rem;
     color: #999;
+    width: 100%;
 }
 
 .post-titulo {
@@ -250,6 +258,7 @@ nav h1 {
     font-weight: 600;
     margin: 10px 0;
     color: #333;
+    width: 100%;
 }
 
 .post-desc {
@@ -257,15 +266,19 @@ nav h1 {
     color: #555;
     margin-bottom: 8px;
     line-height: 1.4;
+    width: 100%;
 }
 
 .post-loc {
     font-size: 0.85rem;
     margin-bottom: 12px;
     font-weight: 500;
+    width: 100%;
 }
 
 .post-media {
+    display: flex;
+    justify-content: center;
     width: 100%;
     border-radius: 6px;
     overflow: hidden;
@@ -276,8 +289,7 @@ nav h1 {
     width: 100%;
     height: auto;
     display: block;
-    max-height: 170px;
-    max-width: 300px;
+    max-width: 600px;
     object-fit: cover;
 }
 

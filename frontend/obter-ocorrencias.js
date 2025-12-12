@@ -33,7 +33,7 @@ export async function criarDropBoxCategorias(container) {
 // Função de buscar ocorrencia com filtros
 export async function obterOcorrenciaComFiltro(filtros) {
     const parametros = new URLSearchParams()
-g
+
     parametros.append('pagina', filtros.pagina || 1)
     parametros.append('limite', filtros.limite || 40) // Alterado para carregar mais posts
 
