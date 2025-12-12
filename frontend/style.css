@@ -26,9 +26,12 @@
     display: none !important;
 }
 
-#login-wrapper #footer {
+
+body:has(#aba-login.active) #header-desktop,
+body:has(#aba-cadastro.active) #header-desktop {
     display: none !important;
 }
+
 
 
 .cadastro-container {
@@ -871,8 +874,83 @@ input[type="checkbox"] + label {
 }
 
 
+
+#header-desktop {
+    display: none; 
+    justify-content: space-between;
+    align-items: center;
+    background-color: #04A579;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 0px 30px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.logo-header {
+    width: 120px;
+}
+
+.nav-desktop {
+    display: flex;
+    gap: 25px;
+    flex-direction: row;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 10px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    background-color: #f0f0f0;
+    color: #04A579;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+#header-desktop h1 {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+@media (max-width: 1050px) {
+    #header-desktop {
+        display: none;
+    }
+
+   
+}
+
 /* Desktop */
 @media (min-width: 1051px) {
+    #header-desktop {
+        display: flex;
+    }
+
+    footer {
+        display: none; /* Oculta o footer em telas de desktop */
+    }
+
     nav {
         flex-direction: column;
         justify-content: space-between;
