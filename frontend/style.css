@@ -281,6 +281,23 @@ nav h1 {
     object-fit: cover;
 }
 
+.post-oculto {
+    display: none;
+}
+
+.btn-ver-todos {
+    display: none;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #04A579;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
 /* ABA VISUALIZAR POST */
 .aba-verPost {
     display: none;
