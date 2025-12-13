@@ -1,0 +1,599 @@
+openapi: 3.0.3
+info:
+  title: Repórter do meu bairro - Projeto integrado SENAI
+  description: |-
+    API destinada ao controle de registro de ocorrências por cidadãos de diversas cidades do Brasil.
+  termsOfService: http://swagger.io/terms/
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://localhost:8080
+paths:
+  /v1/categoria:
+    get:
+      tags:
+        - categoria
+      summary: Busca todas as categorias
+      description: Retorna uma lista de categorias
+      responses:
+        "200":
+          description: Requisição bem sucedida
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Categoria"
+        "404":
+          description: Não foram encontrados dados de retorno
+        "500":
+          description: Não foi possível processar a requisição devido a erros internos no servidor (CONTROLLER ou MODELAGEM DE DADOS)
+  /v1/cidadao/{id}:
+    get:
+      tags:
+        - cidadao
+      summary: Busca um cidadao por id
+      description: Retorna um cidadao pelo id
+      parameters:
+        - in: path
+          name: id
+          description: id do cidadão
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Requisição bem sucedida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cidadao"
+        "404":
+          description: Não foram encontrados dados de retorno
+        "500":
+          description: Não foi possível processar a requisição devido a erros internos no servidor (CONTROLLER ou MODELAGEM DE DADOS)
+  /v1/cidadao:
+    get:
+      tags:
+        - cidadao
+      summary: Busca um cidadão cadastrado
+      description: Retorna um cidadao pelo email e a senha dele
+      parameters:
+        - in: query
+          name: email
+          description: email do cidadão
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: senha
+          description: senha do cidadão
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Requisição bem sucedida
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  nome:
+                    type: string
+                    example: Ana Silva
+        "404":
+          description: Não foram encontrados dados de retorno
+        "500":
+          description: Não foi possível processar a requisição devido a erros internos no servidor (CONTROLLER ou MODELAGEM DE DADOS)
+    post:
+      tags:
+        - cidadao
+      summary: Cria um cidadão
+      description: Cria um novo cidadão
+      requestBody:
+        description: Cria um novo cidadão
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - nome
+                - email
+                - telefone
+                - cpf
+                - cep
+                - estado
+                - cidade
+                - bairro
+                - rua
+                - senha
+              properties:
+                nome:
+                  type: string
+                  nullable: false
+                  maxLength: 120
+                  example: nathan
+                email:
+                  type: string
+                  nullable: false
+                  maxLength: 254
+                  example: nathan@email.com
+                telefone:
+                  type: string
+                  nullable: false
+                  maxLength: 11
+                  example: 11987654321
+                cpf:
+                  type: string
+                  nullable: false
+                  maxLength: 11
+                  example: 12345678901
+                cep:
+                  type: string
+                  nullable: false
+                  maxLength: 8
+                  example: 06600070
+                estado:
+                  type: string
+                  nullable: false
+                  maxLength: 2
+                  example: SP
+                cidade:
+                  type: string
+                  nullable: false
+                  maxLength: 120
+                  example: Jandira
+                bairro:
+                  type: string
+                  nullable: false
+                  maxLength: 150
+                  example: Centro
+                rua:
+                  type: string
+                  nullable: false
+                  maxLength: 200
+                  example: Rua do centro
+                complemento:
+                  type: string
+                  maxLength: 20
+                  example:
+                senha:
+                  type: string
+                  maxLength: 64
+                  example: senha123
+        required: true
+      responses:
+        "201":
+          description: Item criado com sucesso
+        "400":
+          description: Não foi possível processar a requisição pois existem campos obrigatórios que devem ser encaminhados e antedidos conforme documentação
+        "415":
+          description: Não foi possível processar a requisição, pois o tipo de dados enviado no corpo deve ser JSON
+        "500":
+          description: Não foi possível processar a requisição devido a erros internos no servidor (CONTROLLER ou MODELAGEM DE DADOS)
+  /v1/cidadao/ocorrencia/{id}:
+    get:
+      tags:
+        - cidadao
+      summary: Busca um cidadao por id da ocorrencia
+      description: Retorna um cidadao pelo id da ocorrencia
+      parameters:
+        - in: path
+          name: id
+          description: id da ocorrencia
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Requisição bem sucedida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cidadao"
+        "400":
+          description: Não foi possível processar a requisição pois existem campos obrigatórios que devem ser encaminhados e antedidos conforme documentação
+        "404":
+          description: Não foram encontrados dados de retorno
+        "500":
+          description: Não foi possível processar a requisição devido a erros internos no servidor (CONTROLLER ou MODELAGEM DE DADOS)
+
+  /v1/historico-status:
+    post:
+      tags:
+        - historico-status
+      summary: Cria um novo registro de status
+      description: Cria um novo registro de status para uma ocorrencia
+      requestBody:
+        description: Cria um novo registro de status
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/HistoricoStatus"
+        required: true
+      responses:
+        "201":
+          description: Item criado com sucesso
+        "400":
+          description: Não foi possível processar a requisição pois existem campos obrigatórios que devem ser encaminhados e antedidos conforme documentação
+        "415":
+          description: Não foi possível processar a requisição, pois o tipo de dados enviado no corpo deve ser JSON
+        "500":
+          description: Não foi possível processar a requisição devido a erros internos no servidor (CONTROLLER ou MODELAGEM DE DADOS)
+  /v1/localizacao/{id}:
+    get:
+      tags:
+        - localizacao
+      summary: Busca uma localização por id
+      description: Retorna uma localização pelo id
+      parameters:
+        - in: path
+          name: id
+          description: id da localização
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Requisição bem sucedida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Localizacao"
+        "404":
+          description: Não foram encontrados dados de retorno
+        "500":
+          description: Não foi possível processar a requisição devido a erros internos no servidor (CONTROLLER ou MODELAGEM DE DADOS)
+  /v1/ocorrencia:
+    post:
+      tags:
+        - ocorrencia
+      summary: Cria uma nova ocorrência
+      description: Cria uma nova ocorrência
+      requestBody:
+        description: Cria uma ocorrência
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+                - descricao
+                - avaliacao
+                - compartilhar_dados
+                - id_cidadao
+                - id_categoria
+                - multimidia
+                - localizacao
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                descricao:
+                  type: string
+                  nullable: false
+                  maxLength: 1000
+                  example: Já faz 3 meses que está com vazamento de água na rua
+                avaliacao:
+                  type: integer
+                  example: 1
+                compartilhar_dados:
+                  type: boolean
+                  example: false
+                id_cidadao:
+                  type: integer
+                  nullable: false
+                  example: 1
+                id_categoria:
+                  type: integer
+                  nullable: false
+                  example: 1
+                multimidia:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      link:
+                        type: string
+                        example: https://upload.wikimedia.org/wikipedia/commons/6/66/Jandira.jpg
+                localizacao:
+                  $ref: "#/components/schemas/Localizacao"
+        required: true
+      responses:
+        "201":
+          description: Item criado com sucesso
+        "400":
+          description: Não foi possível processar a requisição pois existem campos obrigatórios que devem ser encaminhados e antedidos conforme documentação
+        "415":
+          description: Não foi possível processar a requisição, pois o tipo de dados enviado no corpo deve ser JSON
+        "500":
+          description: Não foi possível processar a requisição devido a erros internos no servidor (CONTROLLER ou MODELAGEM DE DADOS)
+    get:
+      tags:
+        - ocorrencia
+      summary: Busca ocorrencias
+      description: Retorna uma lista de ocorrencias com filtragem
+      parameters:
+        - in: query
+          name: limite
+          description: quantidade de ocorrencias que serão retornadas
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: pagina
+          description: a página do sitema de páginação de ocorrencias
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: categoria
+          description: id da categoria
+          required: false
+          schema:
+            type: integer
+        - in: query
+          name: status
+          description: id do status
+          required: false
+          schema:
+            type: integer
+        - in: query
+          name: dataRegistro
+          description: periodo em que ocorrências foram registradas
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: ordernar
+          description: permite receber as ocorrências em ordem da mais recente para mais antiga ou da mais antiga para a mais recente
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Requisição bem sucedida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cidadao"
+        "404":
+          description: Não foram encontrados dados de retorno
+        "500":
+          description: Não foi possível processar a requisição devido a erros internos no servidor (CONTROLLER ou MODELAGEM DE DADOS)
+  /v1/ocorrencia/{id}:
+    get:
+      tags:
+        - ocorrencia
+      summary: Busca uma ocorrência por id
+      description: Retorna uma ocorrência pelo id
+      parameters:
+        - in: path
+          name: id
+          description: id da ocorrência
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Requisição bem sucedida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ocorrencia"
+        "404":
+          description: Não foram encontrados dados de retorno
+        "500":
+          description: Não foi possível processar a requisição devido a erros internos no servidor (CONTROLLER ou MODELAGEM DE DADOS)
+  /v1/ocorrencia/cidadao/{id}:
+    get:
+      tags:
+        - ocorrencia
+      summary: Busca uma ocorrência por id do cidadão
+      description: Retorna uma ocorrência pelo id do cidadão
+      parameters:
+        - in: path
+          name: id
+          description: id do cidadão
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Requisição bem sucedida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ocorrencia"
+        "404":
+          description: Não foram encontrados dados de retorno
+        "500":
+          description: Não foi possível processar a requisição devido a erros internos no servidor (CONTROLLER ou MODELAGEM DE DADOS)
+components:
+  schemas:
+    Categoria:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 2
+        nome:
+          type: string
+          example: Buraco na Via
+    Cidadao:
+      type: object
+      required:
+        - nome
+        - email
+        - telefone
+        - cpf
+        - cep
+        - estado
+        - cidade
+        - bairro
+        - rua
+      properties:
+        id:
+          type: integer
+          nullable: false
+          example: 1
+        nome:
+          type: string
+          nullable: false
+          maxLength: 120
+          example: Ana Silva
+        email:
+          type: string
+          nullable: false
+          maxLength: 254
+          example: ana.silva@email.com
+        telefone:
+          type: string
+          nullable: false
+          maxLength: 11
+          example: 11999990001
+        cpf:
+          type: string
+          nullable: false
+          maxLength: 11
+          example: 12345678901
+        cep:
+          type: string
+          nullable: false
+          maxLength: 8
+          example: 01001000
+        estado:
+          type: string
+          nullable: false
+          maxLength: 2
+          example: SP
+        cidade:
+          type: string
+          nullable: false
+          maxLength: 120
+          example: São Paulo
+        bairro:
+          type: string
+          nullable: false
+          maxLength: 150
+          example: Sé
+        rua:
+          type: string
+          nullable: false
+          maxLength: 200
+          example: Praça da Sé
+        complemento:
+          type: string
+          maxLength: 20
+          example: Apto 101
+    HistoricoStatus:
+      type: object
+      required:
+        - id_status
+        - id_ocorrencia
+      properties:
+        id_status:
+          type: integer
+          nullable: false
+          example: 4
+        id_ocorrencia:
+          type: integer
+          nullable: false
+          example: 6
+    Localizacao:
+      type: object
+      required:
+        - id
+        - estado
+        - cidade
+        - bairro
+        - rua
+      properties:
+        id:
+          type: integer
+          example: 1
+        cep:
+          type: string
+          maxLength: 8
+          example: 01001000
+        estado:
+          type: string
+          nullable: false
+          maxLength: 2
+          example: SP
+        cidade:
+          type: string
+          nullable: false
+          maxLength: 120
+          example: São Paulo
+        bairro:
+          type: string
+          nullable: false
+          maxLength: 150
+          example: Sé
+        rua:
+          type: string
+          nullable: false
+          maxLength: 200
+          example: Praça da Sé
+        numero:
+          type: string
+          maxLength: 20
+          example:
+        complemento:
+          type: string
+          maxLength: 20
+          example:
+    Ocorrencia:
+      type: object
+      required:
+        - id
+        - descricao
+        - avaliacao
+        - compartilhar_dados
+        - id_cidadao
+        - id_categoria
+        - multimidia
+        - localizacao
+      properties:
+        id:
+          type: integer
+          example: 1
+        descricao:
+          type: string
+          nullable: false
+          maxLength: 1000
+          example: Já faz 3 meses que está com vazamento de água na rua
+        avaliacao:
+          type: integer
+          example: 1
+        compartilhar_dados:
+          type: boolean
+          example: false
+        id_cidadao:
+          type: integer
+          nullable: false
+          example: 1
+        id_categoria:
+          type: integer
+          nullable: false
+          example: 1
+        multimidia:
+          type: array
+          items:
+            type: object
+            properties:
+              link:
+                type: string
+                example: https://upload.wikimedia.org/wikipedia/commons/6/66/Jandira.jpg
+        localizacao:
+          $ref: "#/components/schemas/Localizacao"
