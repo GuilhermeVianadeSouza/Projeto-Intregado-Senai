@@ -266,7 +266,6 @@ paths:
             schema:
               type: object
               required:
-                - id
                 - descricao
                 - avaliacao
                 - compartilhar_dados
@@ -275,9 +274,6 @@ paths:
                 - multimidia
                 - localizacao
               properties:
-                id:
-                  type: integer
-                  example: 1
                 descricao:
                   type: string
                   nullable: false
@@ -306,7 +302,45 @@ paths:
                         type: string
                         example: https://upload.wikimedia.org/wikipedia/commons/6/66/Jandira.jpg
                 localizacao:
-                  $ref: "#/components/schemas/Localizacao"
+                  type: object
+                  required:
+                    - estado
+                    - cidade
+                    - bairro
+                    - rua
+                  properties:
+                    cep:
+                      type: string
+                      maxLength: 8
+                      example: 01001000
+                    estado:
+                      type: string
+                      nullable: false
+                      maxLength: 2
+                      example: SP
+                    cidade:
+                      type: string
+                      nullable: false
+                      maxLength: 120
+                      example: São Paulo
+                    bairro:
+                      type: string
+                      nullable: false
+                      maxLength: 150
+                      example: Sé
+                    rua:
+                      type: string
+                      nullable: false
+                      maxLength: 200
+                      example: Praça da Sé
+                    numero:
+                      type: string
+                      maxLength: 20
+                      example:
+                    complemento:
+                      type: string
+                      maxLength: 20
+                      example:
         required: true
       responses:
         "201":
