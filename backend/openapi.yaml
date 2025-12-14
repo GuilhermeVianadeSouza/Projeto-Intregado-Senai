@@ -452,16 +452,70 @@ paths:
           description: Não foram encontrados dados de retorno
         "500":
           description: Não foi possível processar a requisição devido a erros internos no servidor (CONTROLLER ou MODELAGEM DE DADOS)
+  /v1/notificacao/cidadao/{id}:
+    get:
+      tags:
+        - notificacao
+      summary: Busca todas notificações de um cidadão por id
+      description: Retorna todas notificações de um cidadão pelo id
+      parameters:
+        - in: path
+          name: id
+          description: id do cidadão
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Requisição bem sucedida
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Notificacao"
+        "404":
+          description: Não foram encontrados dados de retorno
+        "500":
+          description: Não foi possível processar a requisição devido a erros internos no servidor (CONTROLLER ou MODELAGEM DE DADOS)
+
 components:
   schemas:
+    Notificacao:
+      type: object
+      properties:
+        id:
+          type: integer
+          nullable: false
+          example: 2
+        mensagem:
+          type: string
+          nullable: false
+          maxLength: 70
+          example: Sua ocorrência mudou de status!
+        data_envio:
+          type: string
+          nullable: false
+          example: aaaa-mm-dd hh:mm:ss
+        visualizado:
+          type: boolean
+          nullable: false
+          example: false
+        id_cidadao:
+          type: integer
+          nullable: false
+          example: 1
     Categoria:
       type: object
       properties:
         id:
           type: integer
+          nullable: false
           example: 2
         nome:
           type: string
+          nullable: false
+          maxLength: 30
           example: Buraco na Via
     Cidadao:
       type: object
