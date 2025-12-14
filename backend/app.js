@@ -37,6 +37,7 @@ const cidadaoRoutes = require('./routes/cidadao-route.js')
 const localizacaoRoutes = require('./routes/localizacao-route.js')
 const categoriaRoutes = require('./routes/categoria-route.js')
 const historicoStatusRoutes = require('./routes/historico-status-route.js')
+const notificacaoRoutes = require('./routes/notificacao-route.js')
 
 // Utilização das rotas
 app.use('/v1/ocorrencia', ocorrenciaRoutes)
@@ -44,6 +45,7 @@ app.use('/v1/cidadao', cidadaoRoutes)
 app.use('/v1/localizacao', localizacaoRoutes)
 app.use('/v1/categoria', categoriaRoutes)
 app.use('/v1/historico-status', historicoStatusRoutes)
+app.use('/v1/notificacao', notificacaoRoutes)
 
 app.listen(porta, () => {
     console.log(`API aguardando requisições na porta ${porta}!`)
