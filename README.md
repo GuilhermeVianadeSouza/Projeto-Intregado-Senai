@@ -27,8 +27,7 @@ Para usar reporter do meu bairro, siga estas etapas:
 
  Inicie a aplicação backend em uma janela diferente do vscode.
  - Utilize a expressão:``` bash
- node app.js
-  ```
+ node app.js```
  Após isso, em uma janela nova do vscode utilize a extensão go live.
  Na tela de login insira o seguinte login para teste:
  - "carlos.souza@email.com" e utilize a senha: "senha456".
