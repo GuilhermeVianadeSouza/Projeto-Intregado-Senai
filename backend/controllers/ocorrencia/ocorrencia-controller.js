@@ -221,6 +221,10 @@ async function obterOcorrenciaPorId(id) {
         const resultadoHistorico = await historicoStatusController.obterHistoricoDeOcorrencia(ocorrencia[0].id)
         ocorrencia[0].historico_status = resultadoHistorico.historico
 
+        const resultadoCidadao = await cidadaoController.obterCidadaoPorId(ocorrencia[0].id_cidadao)
+        delete ocorrencia[0].id_cidadao
+        ocorrencia[0].cidadao = resultadoCidadao.cidadao
+
         MESSAGES.DEFAULT_HEADER.status = MESSAGES.SUCCESS_REQUEST.status
         MESSAGES.DEFAULT_HEADER.status_code = MESSAGES.SUCCESS_REQUEST.status_code
         MESSAGES.DEFAULT_HEADER.ocorrencias = ocorrencia[0]
