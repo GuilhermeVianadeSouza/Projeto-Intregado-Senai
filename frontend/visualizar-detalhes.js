@@ -7,6 +7,32 @@ async function obterDadosOcorrencia(id) {
     return data
 }
 
+function exibirHistoricoStatus(historico) {
+    const container = document.getElementById("historico-status-container");
+
+    // Limpa o conteúdo anterior
+    container.replaceChildren();
+
+    historico.forEach(item => {
+        const statusElement = document.createElement("div");
+        statusElement.classList.add("status-item");
+
+        const statusText = document.createElement("p");
+        statusText.innerHTML = `<strong>Status:</strong> ${item.status[0].nome}`;
+
+        const dataHora = new Date(item.data_hora);
+        const dataFormatada = `${dataHora.toLocaleDateString()} ${dataHora.toLocaleTimeString()}`;
+        const dataText = document.createElement("p");
+        dataText.innerHTML = `<strong>Data e Hora:</strong> ${dataFormatada}`;
+
+        statusElement.appendChild(statusText);
+        statusElement.appendChild(dataText);
+
+        container.appendChild(statusElement);
+    });
+}
+
+// Atualiza a função visualizarDetalhesOcorrencia para incluir o histórico de status
 export async function visualizarDetalhesOcorrencia(id) {
     const data = await obterDadosOcorrencia(id)
     console.log(data);
@@ -31,8 +57,11 @@ export async function visualizarDetalhesOcorrencia(id) {
         descricao: data.ocorrencias.descricao,
         localizacao: localFormatado,
         midias: data.ocorrencias.multimidia
-    }
-    atualizarCamposDetalhes(ocorrencia)
+    };
+    atualizarCamposDetalhes(ocorrencia);
+
+    // Exibe o histórico de status
+    exibirHistoricoStatus(data.ocorrencias.historico_status);
 }
 
 function atualizarCamposDetalhes(ocorrencia) {
@@ -60,15 +89,22 @@ function atualizarCamposDetalhes(ocorrencia) {
 
         mediaContainer.appendChild(img);
     });
-    iniciarSlider(mediaContainer)
+
+    let ocultarBtn = ocorrencia.midias.length <= 1;
+    iniciarSlider(mediaContainer, ocultarBtn)
 
 }
 
 let indiceAtual = 0;
 
-function iniciarSlider(container) {
+function iniciarSlider(container, ocultarBtn) {
     const btnPrev = document.getElementById("media-prev");
     const btnNext = document.getElementById("media-next");
+    if (ocultarBtn) {
+        btnNext.style.display = "none";
+        btnPrev.style.display = "none";
+        return;
+    }
 
     const total = container.children.length;
 

@@ -1,3 +1,5 @@
+import { visualizarDetalhesOcorrencia } from "./visualizar-detalhes.js";
+
 async function obterOcorrenciasCidadao(id) {
     const url = `http://localhost:8080/v1/ocorrencia/cidadao/${id}`
     const response = await fetch(url)
@@ -28,6 +30,7 @@ export async function criarOcorrencias(id) {
         const multimidiaUrl = (ocorrencia.multimidia && ocorrencia.multimidia[0]?.link) || './img/image-placeholder.png';
 
         const elemento = {
+            id: ocorrencia.id,
             dataHora: `${horas}:${minutos} ${dia}/${mes}/${ano}`,
             titulo,
             descricao: ocorrencia.descricao,
@@ -96,7 +99,8 @@ function criarPost(ocorrencia) {
         imagem.src = "./img/image-placeholder.png"
     }
 
-    section.addEventListener('click', () => {
+    section.addEventListener('click', async () => {
+        await visualizarDetalhesOcorrencia(ocorrencia.id)
         document.getElementById('aba-verPost').classList.add('active');
     });
 
