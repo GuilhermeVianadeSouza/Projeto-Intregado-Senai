@@ -915,7 +915,7 @@ input[type="checkbox"] + label {
 
 
 #header-desktop {
-    display: none; 
+    display: none;
     justify-content: space-between;
     align-items: center;
     background-color: #04A579;
@@ -977,7 +977,7 @@ input[type="checkbox"] + label {
         display: none;
     }
 
-   
+
 }
 
 /* Desktop */
@@ -1151,4 +1151,46 @@ input[type="checkbox"] + label {
 .classificacao-feedback.status-nao-resolvido {
     color: red;
     display: block;
+}
+
+.post-media-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.post-media {
+    display: flex;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+.post-img {
+    min-width: 100%;
+    max-width: 100%;
+    object-fit: cover;
+    user-select: none;
+    pointer-events: none;
+}
+
+/* Botões */
+.media-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+.media-btn.prev {
+    left: 0;
+}
+
+.media-btn.next {
+    right: 0;
 }

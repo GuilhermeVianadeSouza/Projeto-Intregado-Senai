@@ -9,7 +9,6 @@ import { limitarQuantidadeDeArquivos } from "./input-imagem.js";
 import { uploadImage } from "./upload-azure-files/upload.js";
 
 limitarQuantidadeDeArquivos()
-
 criarOcorrenciasComunidade()
 await criarDropBoxCategorias(document.getElementById('categoria-select'))
 await criarDropBoxCategorias(document.getElementById('categoria'))
@@ -34,6 +33,8 @@ document.getElementById('form-login').addEventListener('submit', async (e) => {
       criarOcorrencias(Number(user.id))
       colocarDadosPerfil(Number(user.id))
       showTab('aba-home')
+      document.getElementById('email').value = ''
+      document.getElementById('senha').value = ''
     } else {
       alert('Email ou senha incorretos')
     }
@@ -54,35 +55,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Função para alternar entre abas
 function showTab(tabId) {
-    const todasAsAbas = document.querySelectorAll('.aba');
-    const footer = document.getElementById('footer');
-    const headerDesktop = document.getElementById('header-desktop');
+  const todasAsAbas = document.querySelectorAll('.aba');
+  const footer = document.getElementById('footer');
+  const headerDesktop = document.getElementById('header-desktop');
 
-    // Pega os wrappers de login e cadastro
-    const loginWrapper = document.getElementById('login-wrapper');
-    const cadastroWrapper = document.getElementById('cadastro-wrapper');
+  // Pega os wrappers de login e cadastro
+  const loginWrapper = document.getElementById('login-wrapper');
+  const cadastroWrapper = document.getElementById('cadastro-wrapper');
 
-    // Remove a classe 'active' (esconde)
-    todasAsAbas.forEach(aba => {
-        aba.classList.remove('active');
-    });
+  // Remove a classe 'active' (esconde)
+  todasAsAbas.forEach(aba => {
+    aba.classList.remove('active');
+  });
 
-    // Pega a aba selecionada pelo ID tabId
-    const abaAtiva = document.getElementById(tabId);
+  // Pega a aba selecionada pelo ID tabId
+  const abaAtiva = document.getElementById(tabId);
 
-    // Adiciona a classe 'active' apenas na aba selecionada (mostra ela)
-    if (abaAtiva) {
-        abaAtiva.classList.add('active');
+  // Adiciona a classe 'active' apenas na aba selecionada (mostra ela)
+  if (abaAtiva) {
+    abaAtiva.classList.add('active');
+  }
+
+  // Lógica para o footer
+  if (window.matchMedia("(max-width: 1050px)").matches) {
+    if (tabId === 'aba-login' || tabId === 'aba-cadastro' || tabId === 'aba-escolherLocal') {
+      footer.style.display = 'none'; // Oculto para login, cadastro e escolherLocal
+    } else {
+      footer.style.display = 'grid'; // Visível para as outras abas
     }
-
-    // Lógica para o footer
-    if (window.matchMedia("(max-width: 1050px)").matches) {
-        if (tabId === 'aba-login' || tabId === 'aba-cadastro' || tabId === 'aba-escolherLocal') {
-            footer.style.display = 'none'; // Oculto para login, cadastro e escolherLocal
-        } else {
-            footer.style.display = 'grid'; // Visível para as outras abas
-        }
-    }
+  }
 }
 
 // Função para fechar popups
@@ -533,7 +534,7 @@ inputLocalizacao.addEventListener('keyup', () => {
 
 // Chama a função ao carregar o DOM
 document.addEventListener('DOMContentLoaded', () => {
-  
+
   // Adiciona listener para a seleção de localização
   const selectLocalizacao = document.getElementById('localizacao-select')
   if (selectLocalizacao) {
@@ -541,49 +542,49 @@ document.addEventListener('DOMContentLoaded', () => {
       const novaLocalizacao = e.target.value
     })
   }
-  })
-  
-  // maximo de caracter
-  const descricaoTextarea = document.getElementById('descricao')
-  const charCountDisplay = document.getElementById('char-count')
-  const maxChars = 1000
-  
-  if (descricaoTextarea && charCountDisplay) {
+})
+
+// maximo de caracter
+const descricaoTextarea = document.getElementById('descricao')
+const charCountDisplay = document.getElementById('char-count')
+const maxChars = 1000
+
+if (descricaoTextarea && charCountDisplay) {
   descricaoTextarea.addEventListener('input', () => {
     const currentChars = descricaoTextarea.value.length
     charCountDisplay.textContent = `${currentChars}/${maxChars}`
   });
-  }
-  
-  // Botão de criar ocorrência (Desktop)
-  const buttonCriarDesktop = document.getElementById('btn-criar-desktop');
-  if (buttonCriarDesktop) {
-    buttonCriarDesktop.addEventListener('click', () => {
-      limparDadosLocalizacao();
-      showTab('aba-criar');
-    });
-  }
-  
-  // Botão de home (comunidade) (Desktop)
-  const buttonHomeDesktop = document.getElementById('btn-home-desktop');
-  if (buttonHomeDesktop) {
-    buttonHomeDesktop.addEventListener('click', () => {
-      showTab('aba-home');
-    });
-  }
-  
-  // Botão de perfil (Desktop)
-  const buttonPerfilDesktop = document.getElementById('btn-perfil-desktop');
-  if (buttonPerfilDesktop) {
-    buttonPerfilDesktop.addEventListener('click', () => {
-      const user = JSON.parse(localStorage.getItem('user'));
-      if (user && user.isAnonymous) {
-        if (confirm('Deseja fazer login para continuar?')) {
-          showTab('aba-login');
-        }
-      } else {
-        showTab('aba-perfil');
+}
+
+// Botão de criar ocorrência (Desktop)
+const buttonCriarDesktop = document.getElementById('btn-criar-desktop');
+if (buttonCriarDesktop) {
+  buttonCriarDesktop.addEventListener('click', () => {
+    limparDadosLocalizacao();
+    showTab('aba-criar');
+  });
+}
+
+// Botão de home (comunidade) (Desktop)
+const buttonHomeDesktop = document.getElementById('btn-home-desktop');
+if (buttonHomeDesktop) {
+  buttonHomeDesktop.addEventListener('click', () => {
+    showTab('aba-home');
+  });
+}
+
+// Botão de perfil (Desktop)
+const buttonPerfilDesktop = document.getElementById('btn-perfil-desktop');
+if (buttonPerfilDesktop) {
+  buttonPerfilDesktop.addEventListener('click', () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user && user.isAnonymous) {
+      if (confirm('Deseja fazer login para continuar?')) {
+        showTab('aba-login');
       }
-    });
-  }
-  
+    } else {
+      showTab('aba-perfil');
+    }
+  });
+}
+
