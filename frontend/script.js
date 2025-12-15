@@ -7,6 +7,7 @@ import { obterIdCidadao } from "./logar-cidadao.js";
 import { colocarDadosPerfil } from "./obter-dados-perfil.js";
 import { limitarQuantidadeDeArquivos } from "./input-imagem.js";
 import { uploadImage } from "./upload-azure-files/upload.js";
+import { inicializarNotificacoes } from "./notificacao.js";
 
 limitarQuantidadeDeArquivos()
 criarOcorrenciasComunidade()
@@ -32,6 +33,7 @@ document.getElementById('form-login').addEventListener('submit', async (e) => {
       const user = JSON.parse(localStorage.getItem('user'))
       criarOcorrencias(Number(user.id))
       colocarDadosPerfil(Number(user.id))
+      await inicializarNotificacoes(Number(user.id));
       showTab('aba-home')
       document.getElementById('email').value = ''
       document.getElementById('senha').value = ''

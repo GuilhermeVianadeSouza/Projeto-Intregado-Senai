@@ -256,9 +256,16 @@
                 <nav id="nav-principal" class="nav-perfil">
                     <img src="./img/logo green.png" alt="" class="logo-nav">
                     <h1> Perfil </h1>
-                    <div class="notification-icon" id="notification-icon">
-                        <img src="./img/notificacoes.png" alt="Notificações" id="notification-bell-img">
-                        <span class="notification-badge" id="notification-count" style="display: none;">0</span>
+
+                    <div class="notification-wrapper" style="position: relative; display: inline-block;">
+        
+                    <div class="notification-icon" id="notification-icon" style="cursor: pointer; position: relative;">
+                    <img src="./img/notificacoes.png" alt="Notificações" id="notification-bell-img">
+                <span class="notification-badge" id="notification-count" style="display: none;">0</span>
+                    </div>
+
+                    <div id="notification-dropdown" class="notification-dropdown"></div>
+        
                     </div>
                 </nav>
 

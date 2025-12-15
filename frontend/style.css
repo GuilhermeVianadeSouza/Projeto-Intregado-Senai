@@ -1219,3 +1219,78 @@ input[type="checkbox"] + label {
     font-size: 0.9rem;
     color: #333;
 }
+
+
+/* --- Estilos das Notificações --- */
+
+/* A caixa flutuante */
+.notification-dropdown {
+    position: absolute;
+    top: 50px; /* Ajuste se o menu for mais alto */
+    right: -10px; /* Alinha com a direita do sino */
+    width: 320px;
+    max-height: 400px;
+    overflow-y: auto; /* Permite rolar se tiver muitas */
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    z-index: 9999; /* Garante que fique em cima de tudo */
+    display: none; /* Oculto por padrão */
+}
+
+/* Item individual da lista */
+.notificacao-item {
+    padding: 12px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.notificacao-item:hover {
+    background-color: #f9f9f9;
+}
+
+/* Texto da mensagem */
+.notificacao-texto {
+    font-size: 13px;
+    color: #333;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Data pequena */
+.notificacao-data {
+    font-size: 11px;
+    color: #888;
+    align-self: flex-end;
+}
+
+/* Container do ícone (A área clicável) */
+.notification-icon {
+    /* Define um tamanho fixo e pequeno para o botão */
+    width: 30px; 
+    height: 30px;
+    
+    /* Centraliza o ícone dentro desse quadrado */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Remove margens e preenchimentos extras */
+    padding: 0;
+    margin: 0;
+    
+    cursor: pointer;
+    position: relative; /* Necessário para a bolinha ficar no lugar certo */
+}
+
+/* Garante que a imagem do sino respeite o tamanho do quadrado acima */
+#notification-bell-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Faz a imagem caber sem distorcer */
+}
