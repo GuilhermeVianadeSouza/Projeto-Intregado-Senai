@@ -25,16 +25,17 @@ npm i
 
 Para usar reporter do meu bairro, siga estas etapas:
 
-```
  Inicie a aplicação backend em uma janela diferente do vscode.
- - Utilize a expressão: node app.js para a inicialização do BACK.
+ - Utilize a expressão:``` bash
+ node app.js
+  ```
  Após isso, em uma janela nova do vscode utilize a extensão go live.
  Na tela de login insira o seguinte login para teste:
  - "carlos.souza@email.com" e utilize a senha: "senha456".
  - "maria.oliveira@email.com" e utilize a senha: "segredo1"
 
   Aplicação estará em seu total uso!
-```
+
 
 ## Frontend
 
@@ -48,7 +49,7 @@ A interface foi construída com foco em intuitividade e responsividade tendo um 
 
 | Tela de Login | Feed de ocorrências | Criação de ocorrencia | Visualizar minhas ocorrências |
 |:---:|:---:|:---:|:---:|
-| <img src="./frontend/assets/print_login.png" width="300"> | <img src="./frontend/assets/print_feed.png" width="300"> |
+| <img src="./img-readme/login.png" width="300"> | <img src="./img-readme/home.png" width="300"> | | <img src="./img-readme/registrar.png" width="300"> | | <img src="./img-readme/minhas-ocorrencias.png" width="300"> |
 
 **Funcionalidades:**
 - [x] Cadastro e login de usuário (Cidadão).
@@ -74,10 +75,11 @@ A API segue os padrões estabelecidos REST e foi estruturada utilizando a arquit
 - **Express:** Framework web
 - **Cors:** Para configurações dos métodos
 - **BodyParser:** configurações do Json recebido;
+- **Prisma ORM:** conexão com o banco de dados
 
 ## Banco de dados
 
-O projeto utilizou-se do banco de dados relacional MySQL gerenciado pelo Prisma ORM.
+O projeto utilizou-se do banco de dados relacional MySQL.
 
 **Estrutura de Dados:**
 * **Cidadão:** Armazena dados referente aos Cidadões;
@@ -113,8 +115,8 @@ A documentação completa do desenvolvimento pode ser encontrada na pasta `/docu
 
 **Regras de Negócio Principais:**
 1. Apenas usuários logados podem criar ocorrências.
-2. O usuario não pode deletar nenhuma ocorrência.
-3. Um usuário não pode editar a denúncia de outro usuário.
+2. Para o registro de uma ocorrência, necessitará obrigatóriamente de uma localização e uma multimidia.
+3. Para o registro de um novo usuário, é necessário enviar todos os dados obrigatórios.
 
 ## 🤝 Colaboradores
 
