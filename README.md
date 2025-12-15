@@ -30,8 +30,8 @@ Para usar reporter do meu bairro, siga estas etapas:
  node app.js```
  Após isso, em uma janela nova do vscode utilize a extensão go live.
  Na tela de login insira o seguinte login para teste:
- - "carlos.souza@email.com" e utilize a senha: "senha456".
- - "maria.oliveira@email.com" e utilize a senha: "segredo1"
+ - ```"carlos.souza@email.com"``` e utilize a senha: "senha456".
+ - ```"maria.oliveira@email.com"``` e utilize a senha: "segredo1"
 
   Aplicação estará em seu total uso!
 
