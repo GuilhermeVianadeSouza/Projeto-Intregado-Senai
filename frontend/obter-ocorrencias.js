@@ -1,3 +1,5 @@
+import { visualizarDetalhesOcorrencia } from "./visualizar-detalhes.js";
+
 async function obterCategorias() {
     const url = 'http://localhost:8080/v1/categoria'
     const response = await fetch(url)
@@ -56,6 +58,7 @@ const postsContainer = document.getElementById("posts-container")
 function criarPost(ocorrencia) {
     const section = document.createElement("section")
     section.classList.add("post")
+    section.dataset.id = ocorrencia.id
 
     const header = document.createElement("header")
     header.classList.add("post-header")
@@ -106,7 +109,8 @@ function criarPost(ocorrencia) {
         imgPost.src = "./img/image-placeholder.png"
     }
 
-    section.addEventListener('click', () => {
+    section.addEventListener('click', async () => {
+        await visualizarDetalhesOcorrencia(ocorrencia.id)
         document.getElementById('aba-verPost').classList.add('active');
     });
 
@@ -147,6 +151,7 @@ function prepararDadosParaPost(ocorrencia) {
     const localFormatado = rua ? `${rua}${numeroString}, ${cidade}-${estado}` : 'Local não informado';
 
     return {
+        id: ocorrencia.id,
         dataHora: `${horas}:${minutos} ${dia}/${mes}/${ano}`,
         titulo: nomeCategoria,
         descricao: ocorrencia.descricao || '',
