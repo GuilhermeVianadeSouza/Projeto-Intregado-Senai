@@ -7,11 +7,32 @@ async function obterDadosOcorrencia(id) {
     return data
 }
 
+async function atualizarStatus(historicoStatus) {
+    try {
+        const url = 'http://localhost:8080/v1/historico-status'
+
+        const options = {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(historicoStatus)
+        }
+
+        const response = await fetch(url, options)
+
+        const data = await response.json()
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 function exibirHistoricoStatus(historico) {
     const container = document.getElementById("historico-status-container");
 
     // Limpa o conteúdo anterior
     container.replaceChildren();
+
+    let idsStatus = []
 
     historico.forEach(item => {
         const statusElement = document.createElement("div");
@@ -19,6 +40,7 @@ function exibirHistoricoStatus(historico) {
 
         const statusText = document.createElement("p");
         statusText.innerHTML = `<strong>Status:</strong> ${item.status[0].nome}`;
+        idsStatus.push(item.status[0].id);
 
         const dataHora = new Date(item.data_hora);
         const dataFormatada = `${dataHora.toLocaleDateString()} ${dataHora.toLocaleTimeString()}`;
@@ -30,12 +52,56 @@ function exibirHistoricoStatus(historico) {
 
         container.appendChild(statusElement);
     });
+
+    return idsStatus;
 }
 
-// Atualiza a função visualizarDetalhesOcorrencia para incluir o histórico de status
-export async function visualizarDetalhesOcorrencia(id) {
+function criarClassificacaoContainer(id) {
+    const container = document.getElementById("classificacao-container");
+
+    // Limpa o conteúdo anterior
+    container.replaceChildren();
+
+    // Cria o título da classificação
+    const titulo = document.createElement("h3");
+    titulo.textContent = "A ocorrência foi resolvida?";
+    container.appendChild(titulo);
+
+    // Cria os botões de classificação
+    const botoesContainer = document.createElement("div");
+    botoesContainer.classList.add("classificacao-buttons");
+
+    const btnResolvido = document.createElement("button");
+    btnResolvido.textContent = "Sim";
+    btnResolvido.classList.add("btn-classificacao", "btn-sucesso");
+    btnResolvido.onclick = () => {
+        const historicoStatus = {
+            id_status: 4,
+            id_ocorrencia: id
+        }
+        atualizarStatus(historicoStatus);
+        alert("Obrigado pelo feedback! A ocorrência foi marcada como resolvida.");
+    };
+
+    const btnNaoResolvido = document.createElement("button");
+    btnNaoResolvido.textContent = "Não";
+    btnNaoResolvido.classList.add("btn-classificacao", "btn-nao-sucesso");
+    btnNaoResolvido.onclick = () => {
+        const historicoStatus = {
+            id_status: 3,
+            id_ocorrencia: id
+        }
+        atualizarStatus(historicoStatus);
+        alert("Obrigado pelo feedback! A ocorrência foi marcada como em andamento.");
+    };
+
+    botoesContainer.appendChild(btnResolvido);
+    botoesContainer.appendChild(btnNaoResolvido);
+    container.appendChild(botoesContainer);
+}
+
+export async function visualizarDetalhesOcorrencia(id, idCidadao) {
     const data = await obterDadosOcorrencia(id)
-    console.log(data);
 
     // Processamento da data
     const dataOcorrencia = new Date(data.ocorrencias.data_registro);
@@ -61,7 +127,20 @@ export async function visualizarDetalhesOcorrencia(id) {
     atualizarCamposDetalhes(ocorrencia);
 
     // Exibe o histórico de status
-    exibirHistoricoStatus(data.ocorrencias.historico_status);
+    const idsStatus = exibirHistoricoStatus(data.ocorrencias.historico_status);
+
+    if (idsStatus.includes(4))
+        return;
+
+    console.log(JSON.parse(localStorage.getItem("user")).id);
+    console.log(idCidadao);
+
+
+    if (JSON.parse(localStorage.getItem("user")).id != idCidadao)
+        return;
+
+    // Exibe os botões de classificação
+    criarClassificacaoContainer(id);
 }
 
 function atualizarCamposDetalhes(ocorrencia) {

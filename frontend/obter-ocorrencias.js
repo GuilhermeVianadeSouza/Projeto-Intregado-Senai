@@ -110,7 +110,7 @@ function criarPost(ocorrencia) {
     }
 
     section.addEventListener('click', async () => {
-        await visualizarDetalhesOcorrencia(ocorrencia.id)
+        await visualizarDetalhesOcorrencia(ocorrencia.id, ocorrencia.idCidadao);
         document.getElementById('aba-verPost').classList.add('active');
     });
 
@@ -133,6 +133,7 @@ function prepararDadosParaPost(ocorrencia) {
 
     // Cidadão
     const nomeCidadao = ocorrencia.cidadao?.[0]?.nome || 'Anônimo';
+    const idCidadao = ocorrencia.cidadao?.[0]?.id;
 
     // Multimídia
     const multimidia = ocorrencia.multimidia?.[0]?.link || './img/image-placeholder.png';
@@ -151,6 +152,7 @@ function prepararDadosParaPost(ocorrencia) {
     const localFormatado = rua ? `${rua}${numeroString}, ${cidade}-${estado}` : 'Local não informado';
 
     return {
+        idCidadao,
         id: ocorrencia.id,
         dataHora: `${horas}:${minutos} ${dia}/${mes}/${ano}`,
         titulo: nomeCategoria,

@@ -100,7 +100,7 @@ function criarPost(ocorrencia) {
     }
 
     section.addEventListener('click', async () => {
-        await visualizarDetalhesOcorrencia(ocorrencia.id)
+        await visualizarDetalhesOcorrencia(ocorrencia.id, JSON.parse(localStorage.getItem('user')).id);
         document.getElementById('aba-verPost').classList.add('active');
     });
 
