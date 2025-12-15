@@ -47,8 +47,11 @@ A interface foi construída com foco em intuitividade e responsividade tendo um 
 **Telas Principais:**
 
 | Tela de Login | Feed de ocorrências | Criação de ocorrencia | Visualizar minhas ocorrências |
-|:---:|:---:|:---:|:---:|
-| <img src="./img-readme/login.png" width="300"> | <img src="./img-readme/home.png" width="300"> | | <img src="./img-readme/registrar.png" width="300"> | | <img src="./img-readme/minhas-ocorrencias.png" width="300"> |
+|:---:|:---:|
+| <img src="./img-readme/login.png" width="300"> | <img src="./img-readme/home.png" width="300"> | 
+| Criação de ocorrencia | Visualizar minhas ocorrências |
+|:---:|:---:|
+| <img src="./img-readme/registrar.png" width="300"> | | <img src="./img-readme/minhas-ocorrencias.png" width="300"> |
 
 **Funcionalidades:**
 - [x] Cadastro e login de usuário (Cidadão).
